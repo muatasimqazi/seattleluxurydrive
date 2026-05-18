@@ -68,17 +68,23 @@ h1 {
   line-height: 1.6;
 }
 
-.contact-link {
-  display: inline-flex;
+.contact-details {
+  display: grid;
+  gap: 8px;
   margin-top: 34px;
   color: var(--text);
   font-size: 0.95rem;
+  font-style: normal;
   font-weight: 600;
-  text-decoration: none;
-  border-bottom: 1px solid var(--accent);
+  line-height: 1.5;
 }
 
-.contact-link:hover {
+.contact-details a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.contact-details a:hover {
   color: var(--accent);
 }
 
