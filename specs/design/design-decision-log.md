@@ -20,11 +20,11 @@ Seattle Luxury Drive
 
 Current Phase:
 
-Design
+Design — Phase 1 Complete
 
 Status:
 
-Preparing for Figma Generation
+Phase 1 (Design System) Approved 2026-06-16. Proceeding to Phase 2 — Homepage Desktop.
 
 ---
 
@@ -391,6 +391,51 @@ The following items remain unresolved:
 
 ---
 
+# Design System Decisions
+
+## Text Contrast Convention
+
+Approved 2026-06-16
+
+All text on dark backgrounds (#090909 or #151515) must use off-white (#F5F2EA) — never grey (#666, #888, #AAA).
+
+Approved opacity levels by context:
+
+- Heading / primary text: 100%
+- Body text on cards and banners: 80–85%
+- Secondary / supporting text (footer description, help text): 72–78%
+- Nav links and contact details: 78–80%
+- Copyright and legal: 65%
+- Char count labels and metadata: 45–48%
+- Placeholder text in form fields: 38%
+- Disabled state text: 50–52%
+
+Reason: Grey text at any opacity on near-black backgrounds fails readability. Off-white at reduced opacity communicates hierarchy while remaining legible.
+
+---
+
+## Eyebrow Text on Dark Backgrounds
+
+Approved 2026-06-16
+
+Use Gold Light (#C9AF7E) at full opacity for eyebrow/label text on black or charcoal backgrounds.
+
+Do not use main Gold (#B89B5E) at reduced opacity for eyebrow text — the combination is too dim.
+
+Reserve Gold Light for small-scale text labels. Use main Gold for interactive elements (buttons, links, CTAs).
+
+---
+
+## FAQ Divider Style
+
+Approved 2026-06-16
+
+FAQ items use a bottom-only 1px stroke in Gold (#B89B5E) at 20% opacity.
+
+No full rectangular border. No top, left, or right stroke on FAQ items.
+
+---
+
 # Change Log
 
 ## Version 1.0
@@ -398,3 +443,16 @@ The following items remain unresolved:
 Created during specification phase.
 
 Represents approved decisions prior to Figma generation.
+
+---
+
+## Version 1.1 — 2026-06-16
+
+Phase 1 Design System reviewed and approved.
+
+- All component height compression issues resolved
+- Text contrast corrected throughout (grey → off-white)
+- FAQ border style locked to bottom-only divider
+- Ghost button and disabled state contrast corrected
+- Eyebrow text color convention locked to Gold Light on dark backgrounds
+- CTA Banner fully structured with correct padding and layout
