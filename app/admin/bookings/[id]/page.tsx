@@ -143,6 +143,14 @@ export default async function BookingDetailPage({ params }: Props) {
           }
         />
         <DetailRow
+          label="First Response"
+          value={
+            booking.responded_at
+              ? new Date(booking.responded_at).toLocaleString()
+              : "—"
+          }
+        />
+        <DetailRow
           label="Updated"
           value={
             booking.updated_at

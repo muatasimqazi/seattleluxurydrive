@@ -8,9 +8,25 @@ export async function updateBookingStatus(id: string, status: string): Promise<v
   if (!VALID.includes(status)) throw new Error("Invalid status");
 
   const supabase = createServiceClient();
+
+  // Fetch current status to decide whether to set responded_at
+  const { data: current } = await supabase
+    .from("booking_requests")
+    .select("status, responded_at")
+    .eq("id", id)
+    .single();
+
+  const now = new Date().toISOString();
+  const setRespondedAt =
+    current?.status === "new" && status !== "new" && !current?.responded_at;
+
   await supabase
     .from("booking_requests")
-    .update({ status, updated_at: new Date().toISOString() })
+    .update({
+      status,
+      updated_at: now,
+      ...(setRespondedAt ? { responded_at: now } : {}),
+    })
     .eq("id", id);
 
   revalidatePath("/admin");
