@@ -85,13 +85,17 @@ Analytics:
 
 /admin/bookings/[id]
 
+/admin/contacts
+
 /admin/vehicles
 
-/admin/vehicles/new
+/admin/vehicles/new (admin only)
 
-/admin/vehicles/[id]
+/admin/vehicles/[id]/edit (admin only)
 
-/admin/contacts
+/admin/settings (admin only)
+
+/admin/users (admin only — team management)
 
 ---
 
@@ -115,12 +119,12 @@ Admin login page: /admin/login
 
 Roles:
 
-- Admin (MVP)
+- Admin — full access: bookings, contacts, vehicles (CRUD), settings, team management
+- Staff — restricted access: bookings and contacts only; vehicle list is read-only; no access to settings or team management
 
-Future roles:
+Role stored in `public.profiles` table (id FK → auth.users, role text CHECK ('admin' | 'staff')).
 
-- Manager
-- Concierge
+Role enforcement: `lib/auth.ts` — `getCurrentUserRole()` (React cache, one DB fetch per request) and `requireAdmin()` (redirect to /admin?blocked=1 if not admin). Page-level and action-level guards — middleware remains session-only.
 
 ---
 

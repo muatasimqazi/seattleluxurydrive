@@ -181,29 +181,29 @@ Add Vehicle form uses `useActionState` (React 19) rather than a plain form actio
 
 ---
 
-### Booking list — simplified
+### Booking list — fully implemented
 
 **Spec:** Pagination (25/page), search by name/email, filter by status and date range, sort options
 
-**Built:** Status filter via `?status=` query param only. No pagination, no search, no date range filter, no sort toggle.
+**Built:** `?q=` search (first_name, last_name, email ilike), `?status=` filter, `?page=` pagination (25/page via `.range()` + `count: exact`). Date range filter and sort toggle not implemented.
 
-**Status:** Acceptable for MVP (low volume). Add pagination + search if list grows beyond ~100 rows.
+`buildHref()` helper in the page preserves active filters when switching pages or vice versa.
 
 ---
 
-### Booking detail — simplified
+### Booking detail — fully implemented
 
 **Spec:** Status update dropdown, admin notes textarea (autosave), responded_at display
 
-**Built:** Status update via server action buttons (new | contacted | confirmed | cancelled). No admin notes textarea. No responded_at display.
+**Built:** Status update via server action form buttons (new | contacted | confirmed | cancelled). `AdminNotesForm` client component uses `useActionState` with a Save button. `responded_at` set automatically on first status change out of `new` (fetches current status before update to avoid overwriting). All three displayed in the detail page.
 
 ---
 
-### Contact requests — card layout
+### Contact requests — fully implemented
 
 **Spec:** Table with separate detail view, pagination, search, status filter
 
-**Built:** Card layout with message displayed inline. Status update buttons on each card. No pagination, no search, no separate detail view.
+**Built:** Card layout with message displayed inline (no separate detail view). `?q=`, `?status=`, `?page=` params; search via ilike on first_name/last_name/email; 25/page pagination. `ContactNotesForm` client component on each card for inline notes. `responded_at` shown in card header when set.
 
 ---
 
@@ -212,7 +212,7 @@ Add Vehicle form uses `useActionState` (React 19) rather than a plain form actio
 ### Implemented
 
 - Per-page metadata (title, description, canonical, Open Graph) — all public pages
-- LocalBusiness schema — homepage only (not contact page)
+- LocalBusiness schema — homepage and /contact page (dynamic from `getSettings()`, with geo coordinates and 12-city areaServed)
 - FAQPage schema — FAQ page and Vehicle Detail page FAQ section
 - Organization schema — all public pages via `app/(site)/layout.tsx`
 - WebSite schema — all public pages via `app/(site)/layout.tsx`
@@ -220,12 +220,6 @@ Add Vehicle form uses `useActionState` (React 19) rather than a plain form actio
 - `app/sitemap.ts` — static routes + dynamic vehicle routes (graceful fallback)
 - `app/robots.ts` — disallows /admin/ and /admin
 - `app/opengraph-image.tsx` — Next.js built-in OG image generation (1200×630, edge runtime). Not in original spec.
-
-### Not implemented
-
-| Schema | Spec requirement | Status |
-|---|---|---|
-| LocalBusiness on /contact | Contact page | Pending |
 
 ### robots.ts deviation
 
@@ -301,7 +295,7 @@ The Phase 8 spec listed a general audit checklist. The following specific patter
 - Moved to `components/booking/BookingForm.tsx` (client component)
 - Import in BookingForm is type-only: `import { submitBookingRequest, type BookingFormState }`
 
-**`createServiceClient()` is async** — must be `await`ed in every server action that needs the service role client. Forgetting this causes a TypeScript error: `Property 'from' does not exist on type 'Promise<SupabaseClient...>'`.
+**`createServiceClient()` is synchronous** — do NOT `await` it. It returns a `SupabaseClient` directly. Only `createClient()` is async (it needs to read cookies). Incorrectly `await`ing `createServiceClient()` causes a TypeScript error: `Property 'from' does not exist on type 'Promise<SupabaseClient...>'`.
 
 ---
 
@@ -379,3 +373,89 @@ RLS: public SELECT (anon key), UPDATE admin only (service role key).
 **Spec:** `X-Frame-Options: SAMEORIGIN`
 
 **Built:** `X-Frame-Options: DENY` — stricter, prevents all framing including same-origin. No business requirement for same-origin iframes exists.
+
+---
+
+## Role-Based Access Control (RBAC)
+
+**Spec:** Admin role only (MVP). Manager/Concierge listed as future roles.
+
+**Built:** Two roles — `admin` and `staff` — implemented via a `profiles` table.
+
+### profiles table
+
+```sql
+id         UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE
+role       TEXT NOT NULL DEFAULT 'staff' CHECK (role IN ('admin', 'staff'))
+full_name  TEXT
+created_at TIMESTAMPTZ DEFAULT now()
+```
+
+RLS: users can SELECT their own row. All writes go through `createServiceClient()` (service role bypasses RLS).
+
+### Enforcement layers
+
+**1. `lib/auth.ts`:**
+- `getCurrentUserRole()` — async, wrapped in React `cache()`. Fetches auth user via `createClient()`, then profile via `createServiceClient()`. Returns `'admin' | 'staff' | null`. One DB call per request regardless of how many components call it.
+- `requireAdmin()` — calls `getCurrentUserRole()`, redirects to `/admin?blocked=1` if not admin.
+
+**2. Page-level:** Settings, vehicles/new, vehicles/[id]/edit call `await requireAdmin()` at the top of the page component.
+
+**3. Server action-level:** All vehicle mutations and settings/site-image actions call `assertAdmin()` (local helper that calls `getCurrentUserRole()` and throws `"Forbidden"` if not admin). This means direct form POSTs are also blocked even if a staff user bypasses the UI.
+
+**4. UI-level:** Admin sidebar hides Settings and Team nav items for staff. Vehicles list hides Add Vehicle button, Edit links, Archive/Restore, and Featured toggle. Role label shown under email in sidebar.
+
+**5. Middleware:** Unchanged — still session-only check. Role enforcement happens in pages and actions, not in middleware (avoids a DB call on every request).
+
+### Access matrix
+
+| Area | Admin | Staff |
+|---|---|---|
+| Dashboard | ✅ | ✅ |
+| Bookings (list + detail + notes) | ✅ | ✅ |
+| Contacts (list + notes) | ✅ | ✅ |
+| Vehicles list (read-only) | ✅ | ✅ |
+| Add / edit / delete vehicles | ✅ | ✗ |
+| Site settings | ✅ | ✗ |
+| Team management | ✅ | ✗ |
+
+### Provisioning
+
+Admin creates users via **Authentication → Users → Invite** in the Supabase dashboard or via the `/admin/users` Team page. Profile row is created on invite with the specified role.
+
+First admin must be seeded manually:
+```sql
+INSERT INTO public.profiles (id, role) VALUES ('<auth-user-id>', 'admin');
+```
+
+---
+
+## UTM Capture, IP Address, Admin Notes, responded_at
+
+**Spec:** Defined in schema, implementation deferred.
+
+**Built (now implemented):**
+
+- **UTM capture** — `BookingForm.tsx` reads `utm_source`, `utm_medium`, `utm_campaign` from `useSearchParams()` on mount and passes them as hidden inputs in Step 3. Server action stores them in `booking_requests`. `BookingForm` is wrapped in `<Suspense fallback={null}>` in `book/page.tsx` (required for `useSearchParams` in App Router).
+
+- **IP address** — `checkRateLimit()` in `lib/rate-limit.ts` extracts IP from `x-forwarded-for` header and returns `{ allowed, ip }`. Both `booking.ts` and `contact.ts` destructure `ip` from the return value and store it in the DB.
+
+- **Admin notes** — `AdminNotesForm` (bookings) and `ContactNotesForm` (contacts) are client components using `useActionState`. Each calls `updateBookingNotes` / `updateContactNotes` server actions. Notes are nullable text, saved with a button (not autosaved).
+
+- **responded_at** — Set in `updateBookingStatus` and `updateContactStatus` server actions: fetch current status first; if currently `new` and moving to any other status and `responded_at` is not already set, stamp it with the current timestamp.
+
+---
+
+## Team Management Page
+
+**Not in spec.** Built as `/admin/users` (admin only).
+
+Uses `supabase.auth.admin.listUsers()` (service role) to fetch all auth users, joined with the `profiles` table.
+
+Features:
+- **Invite** — `inviteUserByEmail(email)` sends a Supabase invite email; profile row with the selected role is created immediately so role is set before the invitee accepts.
+- **Role toggle** — server action form buttons (same pattern as booking/contact status buttons). Cannot change own role.
+- **Status** — Active (email confirmed) vs Pending (invite sent, not accepted).
+- **Remove** — `supabase.auth.admin.deleteUser(id)` (cascades to profiles). Cannot remove self.
+
+Nav item "Team" added to `NAV_ADMIN_ONLY` in admin layout (hidden from staff).

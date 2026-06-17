@@ -53,6 +53,10 @@ The goal is qualified lead generation through a concierge-style reservation requ
 `lib/supabase/client.ts`:
 - `createBrowserClient()` — for Client Components
 
+`lib/auth.ts`:
+- `getCurrentUserRole()` — async, React `cache()` (one DB call per request). Returns `'admin' | 'staff' | null`. Fetches current user from `createClient()`, then profile from `createServiceClient()`.
+- `requireAdmin()` — calls `getCurrentUserRole()`, redirects to `/admin?blocked=1` if not admin. Use at the top of admin-only page components and server actions.
+
 ---
 
 ## Route Group Structure
@@ -84,17 +88,23 @@ Admin pages (`app/admin/`) are NOT inside `(site)/` and render no site navigatio
 
 /admin/login — Login (public)
 /admin — Dashboard
-/admin/bookings — Booking list
-/admin/bookings/[id] — Booking detail
-/admin/contacts — Contact requests
-/admin/vehicles — Vehicle list (built)
-/admin/vehicles/new — Add vehicle form (built)
-/admin/vehicles/[id]/edit — Edit vehicle + image management (built)
-/admin/settings — Site settings editor (built — not in original spec)
+/admin/bookings — Booking list (search + pagination + status filter)
+/admin/bookings/[id] — Booking detail (status, admin notes, responded_at)
+/admin/contacts — Contact requests (search + pagination + status filter + notes)
+/admin/vehicles — Vehicle list (admin: full CRUD; staff: read-only)
+/admin/vehicles/new — Add vehicle form (admin only)
+/admin/vehicles/[id]/edit — Edit vehicle + image management (admin only)
+/admin/settings — Site settings editor (admin only)
+/admin/users — Team management: invite, role change, remove (admin only)
 
 ---
 
 ## Database Tables
+
+### profiles
+id (UUID, FK → auth.users, cascade delete), role ('admin' | 'staff', default 'staff'), full_name, created_at
+
+Stores the role for each admin-area user. Read by `getCurrentUserRole()` in `lib/auth.ts` (React `cache()` — one DB call per request). Service role bypasses RLS for all admin reads/writes. Users can SELECT their own row via RLS policy.
 
 ### vehicles
 id, slug, name, year, make, model, description, starting_hourly_rate, chauffeur_available, featured, status ('active' | 'archived'), created_at, updated_at
@@ -111,7 +121,7 @@ id, first_name, last_name, email, phone, pickup_location, dropoff_location, serv
 
 **Status values: `new` | `contacted` | `confirmed` | `cancelled`** (all lowercase)
 
-Columns in schema but NOT populated by MVP server action: vehicle_id, ip_address, utm_source, utm_medium, utm_campaign, responded_at, admin_notes
+All schema columns are now populated. `vehicle_id` is the only column not captured by the booking form (customers do not choose a specific vehicle).
 
 ### contact_requests
 id, **first_name**, **last_name**, email, phone, message, status, created_at, updated_at
@@ -186,6 +196,7 @@ contact_requests: INSERT public (anon), SELECT/UPDATE admin only (service role)
 vehicles: SELECT public (status = 'active' only), all mutations admin only
 vehicle_images: SELECT public, all mutations admin only
 site_settings: SELECT public (anon), UPDATE admin only (service role)
+profiles: SELECT own row only (auth.uid() = id); all writes via service role
 
 ---
 
@@ -219,8 +230,7 @@ Public (NEXT_PUBLIC_):
 - robots.ts — disallows /admin/ and /admin
 - OG image via `app/opengraph-image.tsx` (edge runtime, 1200×630)
 
-**Not yet implemented:**
-- LocalBusiness schema on /contact page (spec requires it; only on home currently)
+**LocalBusiness schema on /contact:** implemented (dynamic from `getSettings()`, includes geo coordinates and areaServed).
 
 ---
 
@@ -246,7 +256,4 @@ Business model: Concierge-first, manual reservations, offline payments, 4-busine
 - Availability calendars
 - SMS notifications
 - City-specific landing pages (Phase 2)
-- Admin notes on bookings (deferred)
-- UTM parameter capture (deferred)
-- responded_at tracking on bookings (deferred)
-- Booking list pagination, search, and date range filter (acceptable at current volume)
+- Booking date range filter (name/email/status search and pagination are implemented)
