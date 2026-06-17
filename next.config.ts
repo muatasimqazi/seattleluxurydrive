@@ -15,9 +15,6 @@ const nextConfig: NextConfig = {
   serverActions: {
     bodySizeLimit: "10mb",
   },
-  turbopack: {
-    root: __dirname,
-  },
   images: {
     remotePatterns: [
       // Supabase storage — replace PROJECT_ID once Supabase project is created
