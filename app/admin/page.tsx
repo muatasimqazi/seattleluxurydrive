@@ -66,14 +66,19 @@ interface ContactRow {
   created_at: string;
 }
 
-export default async function AdminDashboardPage() {
+export default async function AdminDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ blocked?: string }>;
+}) {
+  const { blocked } = await searchParams;
   let newBookings = 0;
   let newContacts = 0;
   let recentBookings: BookingRow[] = [];
   let recentContacts: ContactRow[] = [];
 
   try {
-    const supabase = await createServiceClient();
+    const supabase = createServiceClient();
 
     const [
       { count: bCount },
@@ -111,6 +116,11 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="p-8 max-w-6xl">
+      {blocked && (
+        <div className="mb-6 px-4 py-3 border border-red-400/30 bg-red-400/10 font-sans text-sm text-red-300">
+          You don&apos;t have permission to access that page.
+        </div>
+      )}
       <h1 className="font-heading text-3xl font-light text-offwhite mb-8">
         Dashboard
       </h1>

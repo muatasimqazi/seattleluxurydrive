@@ -3,11 +3,15 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/server";
+import { getCurrentUserRole } from "@/lib/auth";
 
 const BUCKET = "site-images";
 
 export async function uploadSiteImage(key: string, formData: FormData) {
-  const supabase = await createServiceClient();
+  const role = await getCurrentUserRole();
+  if (role !== "admin") throw new Error("Forbidden");
+
+  const supabase = createServiceClient();
   const file = formData.get("image") as File;
 
   if (!file || file.size === 0) throw new Error("No file provided");
@@ -34,7 +38,10 @@ export async function uploadSiteImage(key: string, formData: FormData) {
 }
 
 export async function removeSiteImage(key: string, imageUrl: string) {
-  const supabase = await createServiceClient();
+  const role = await getCurrentUserRole();
+  if (role !== "admin") throw new Error("Forbidden");
+
+  const supabase = createServiceClient();
 
   try {
     const storagePath = decodeURIComponent(

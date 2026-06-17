@@ -4,6 +4,7 @@ import { CheckCircle, ImageIcon, X } from "lucide-react";
 import { getSettings } from "@/lib/settings";
 import { updateSettings } from "@/app/actions/admin-settings";
 import { uploadSiteImage, removeSiteImage } from "@/app/actions/admin-site-images";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Settings" };
 
@@ -32,6 +33,7 @@ export default async function SettingsPage({
 }: {
   searchParams: Promise<{ saved?: string }>;
 }) {
+  await requireAdmin();
   const { saved } = await searchParams;
   const s = await getSettings();
 

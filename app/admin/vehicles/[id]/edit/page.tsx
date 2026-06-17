@@ -6,6 +6,7 @@ import { CheckCircle, Trash2, ImageIcon } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/server";
 import { updateVehicle, uploadVehicleImage, deleteVehicleImage } from "@/app/actions/admin-vehicles";
 import type { VehicleImage } from "@/types/database";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Edit Vehicle" };
 
@@ -29,10 +30,11 @@ export default async function EditVehiclePage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ saved?: string; uploaded?: string }>;
 }) {
+  await requireAdmin();
   const { id } = await params;
   const { saved, uploaded } = await searchParams;
 
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   const { data: vehicle } = await supabase
     .from("vehicles")
     .select("*, vehicle_images(*)")

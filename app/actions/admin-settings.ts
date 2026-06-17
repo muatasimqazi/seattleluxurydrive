@@ -3,11 +3,15 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/server";
+import { getCurrentUserRole } from "@/lib/auth";
 
 export async function updateSettings(formData: FormData) {
+  const role = await getCurrentUserRole();
+  if (role !== "admin") throw new Error("Forbidden");
+
   const get = (key: string) => (formData.get(key) as string)?.trim() ?? "";
 
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
 
   await supabase.from("site_settings").upsert(
     [

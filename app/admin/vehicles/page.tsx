@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
 import { setVehicleStatus, setVehicleFeatured } from "@/app/actions/admin-vehicles";
+import { getCurrentUserRole } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Vehicles" };
 
 export default async function VehiclesPage() {
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   const { data: vehicles } = await supabase
     .from("vehicles")
     .select("id, slug, name, year, make, model, starting_hourly_rate, chauffeur_available, featured, status")
     .order("created_at", { ascending: false });
+
+  const role = await getCurrentUserRole();
+  const isAdmin = role === "admin";
 
   const active = vehicles?.filter((v) => v.status === "active") ?? [];
   const archived = vehicles?.filter((v) => v.status === "archived") ?? [];
@@ -24,16 +28,20 @@ export default async function VehiclesPage() {
             {active.length} active · {archived.length} archived
           </p>
         </div>
-        <Link
-          href="/admin/vehicles/new"
-          className="bg-gold px-5 py-2.5 font-sans text-[11px] uppercase tracking-[0.18em] text-black hover:bg-gold-lt transition-colors"
-        >
-          Add Vehicle
-        </Link>
+        {isAdmin && (
+          <Link
+            href="/admin/vehicles/new"
+            className="bg-gold px-5 py-2.5 font-sans text-[11px] uppercase tracking-[0.18em] text-black hover:bg-gold-lt transition-colors"
+          >
+            Add Vehicle
+          </Link>
+        )}
       </div>
 
-      <VehicleTable vehicles={active} title="Active" />
-      {archived.length > 0 && <VehicleTable vehicles={archived} title="Archived" className="mt-10" />}
+      <VehicleTable vehicles={active} title="Active" isAdmin={isAdmin} />
+      {archived.length > 0 && (
+        <VehicleTable vehicles={archived} title="Archived" isAdmin={isAdmin} className="mt-10" />
+      )}
     </div>
   );
 }
@@ -54,10 +62,12 @@ type Vehicle = {
 function VehicleTable({
   vehicles,
   title,
+  isAdmin,
   className = "",
 }: {
   vehicles: Vehicle[];
   title: string;
+  isAdmin: boolean;
   className?: string;
 }) {
   if (vehicles.length === 0) return null;
@@ -98,18 +108,24 @@ function VehicleTable({
                     {v.chauffeur_available ? "Yes" : "No"}
                   </td>
                   <td className="px-4 py-4">
-                    <form action={featuredAction}>
-                      <button
-                        type="submit"
-                        className={`font-sans text-xs transition-colors ${
-                          v.featured
-                            ? "text-gold hover:text-offwhite/60"
-                            : "text-offwhite/25 hover:text-offwhite/60"
-                        }`}
-                      >
-                        {v.featured ? "★ Featured" : "☆ Set featured"}
-                      </button>
-                    </form>
+                    {isAdmin ? (
+                      <form action={featuredAction}>
+                        <button
+                          type="submit"
+                          className={`font-sans text-xs transition-colors ${
+                            v.featured
+                              ? "text-gold hover:text-offwhite/60"
+                              : "text-offwhite/25 hover:text-offwhite/60"
+                          }`}
+                        >
+                          {v.featured ? "★ Featured" : "☆ Set featured"}
+                        </button>
+                      </form>
+                    ) : (
+                      <span className={`font-sans text-xs ${v.featured ? "text-gold" : "text-offwhite/25"}`}>
+                        {v.featured ? "★ Featured" : "—"}
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-4">
                     <span
@@ -126,22 +142,24 @@ function VehicleTable({
                     </span>
                   </td>
                   <td className="px-4 py-4">
-                    <div className="flex items-center gap-4 justify-end">
-                      <form action={archiveAction}>
-                        <button
-                          type="submit"
-                          className="font-sans text-[11px] text-offwhite/35 hover:text-offwhite/70 transition-colors"
+                    {isAdmin && (
+                      <div className="flex items-center gap-4 justify-end">
+                        <form action={archiveAction}>
+                          <button
+                            type="submit"
+                            className="font-sans text-[11px] text-offwhite/35 hover:text-offwhite/70 transition-colors"
+                          >
+                            {v.status === "active" ? "Archive" : "Restore"}
+                          </button>
+                        </form>
+                        <Link
+                          href={`/admin/vehicles/${v.id}/edit`}
+                          className="font-sans text-[11px] text-gold hover:text-gold-lt transition-colors"
                         >
-                          {v.status === "active" ? "Archive" : "Restore"}
-                        </button>
-                      </form>
-                      <Link
-                        href={`/admin/vehicles/${v.id}/edit`}
-                        className="font-sans text-[11px] text-gold hover:text-gold-lt transition-colors"
-                      >
-                        Edit →
-                      </Link>
-                    </div>
+                          Edit →
+                        </Link>
+                      </div>
+                    )}
                   </td>
                 </tr>
               );
