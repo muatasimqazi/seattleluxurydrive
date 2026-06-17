@@ -17,57 +17,39 @@ export default function AcceptInvitePage() {
   const router = useRouter();
 
   useEffect(() => {
+    // Session is already set in cookies by /auth/callback — just verify it exists
     const supabase = createClient();
-    let resolved = false;
-
-    const resolve = (hasSession: boolean) => {
-      if (resolved) return;
-      resolved = true;
-      setStatus(hasSession ? "ready" : "invalid");
-    };
-
-    // Listen for auth state change triggered by the hash tokens
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => resolve(!!session)
-    );
-
-    // Also check immediately in case the session was already established
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) resolve(true);
+      setStatus(session ? "ready" : "invalid");
     });
-
-    // If nothing has resolved in 5s, the link is invalid/expired
-    const timeout = setTimeout(() => resolve(false), 5000);
-
-    return () => {
-      subscription.unsubscribe();
-      clearTimeout(timeout);
-    };
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirm) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
-    setPending(true);
-    setError("");
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (password !== confirm) {
+        setError("Passwords do not match.");
+        return;
+      }
+      if (password.length < 8) {
+        setError("Password must be at least 8 characters.");
+        return;
+      }
+      setPending(true);
+      setError("");
 
-    const supabase = createClient();
-    const { error: updateError } = await supabase.auth.updateUser({ password });
+      const supabase = createClient();
+      const { error: updateError } = await supabase.auth.updateUser({ password });
 
-    if (updateError) {
-      setError(updateError.message);
-      setPending(false);
-    } else {
-      router.push("/admin");
-    }
-  }, [password, confirm, router]);
+      if (updateError) {
+        setError(updateError.message);
+        setPending(false);
+      } else {
+        router.push("/admin");
+      }
+    },
+    [password, confirm, router]
+  );
 
   if (status === "loading") {
     return (
