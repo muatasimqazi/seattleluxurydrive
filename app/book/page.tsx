@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "Request a Reservation",
   description:
     "Request a luxury vehicle reservation with Seattle Luxury Drive. Choose self drive or chauffeur service for airport transfers, corporate events, weddings, and more throughout the Greater Seattle Area.",
+  alternates: { canonical: "https://seattleluxurydrive.com/book" },
+  openGraph: {
+    title: "Request a Reservation | Seattle Luxury Drive",
+    description:
+      "Book self-drive or chauffeur service for airport transfers, corporate events, weddings, and special occasions throughout Greater Seattle.",
+    url: "https://seattleluxurydrive.com/book",
+  },
 };
 
 export default function BookPage() {

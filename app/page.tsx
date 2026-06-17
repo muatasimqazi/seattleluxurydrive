@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
 import {
   Briefcase,
   Plane,
@@ -18,6 +19,13 @@ export const metadata: Metadata = {
   title: "Seattle Luxury Drive | Luxury Chauffeur & Executive Transportation Seattle",
   description:
     "Luxury chauffeur services, executive transportation, airport transfers, and Rolls-Royce rentals throughout Seattle, Bellevue, Redmond, and the Greater Seattle Area.",
+  alternates: { canonical: "https://seattleluxurydrive.com" },
+  openGraph: {
+    title: "Seattle Luxury Drive | Luxury Chauffeur & Executive Transportation",
+    description:
+      "Premier luxury transportation in the Greater Seattle Area. Chauffeur-driven Rolls-Royce for executive transfers, airport pickups, corporate events, and weddings.",
+    url: "https://seattleluxurydrive.com",
+  },
 };
 
 const SERVICE_AREA_CITIES = [
@@ -466,9 +474,51 @@ function FinalCTASection() {
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
+const LOCAL_BUSINESS_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Seattle Luxury Drive",
+  description:
+    "Premier luxury transportation and concierge service in the Greater Seattle Area. Chauffeur-driven and self-drive luxury vehicles for executive transfers, airport pickups, corporate events, weddings, and special occasions.",
+  url: "https://seattleluxurydrive.com",
+  telephone: "+12066691109",
+  email: "info@seattleluxurydrive.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "14723 Aurora Ave N",
+    addressLocality: "Shoreline",
+    addressRegion: "WA",
+    postalCode: "98133",
+    addressCountry: "US",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 47.7577,
+    longitude: -122.3443,
+  },
+  areaServed: [
+    "Seattle, WA",
+    "Shoreline, WA",
+    "Bellevue, WA",
+    "Redmond, WA",
+    "Kirkland, WA",
+    "Mercer Island, WA",
+    "Lynnwood, WA",
+    "Edmonds, WA",
+    "Bothell, WA",
+    "Tacoma, WA",
+    "Everett, WA",
+    "Renton, WA",
+  ],
+  priceRange: "$$$",
+  openingHours: "Mo-Su 07:00-22:00",
+  sameAs: ["https://seattleluxurydrive.com"],
+};
+
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={LOCAL_BUSINESS_SCHEMA} />
       <HeroSection />
       <ServicesSection />
       <FeaturedVehicleSection />

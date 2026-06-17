@@ -31,9 +31,20 @@ export async function generateMetadata({
   const vehicle = await getVehicle(slug);
   if (!vehicle) return { title: "Vehicle Not Found" };
 
+  const url = `https://seattleluxurydrive.com/fleet/${slug}`;
+  const desc =
+    vehicle.description ??
+    `${vehicle.name} available for luxury chauffeur service and self-drive throughout the Greater Seattle Area.`;
+
   return {
     title: vehicle.name,
-    description: vehicle.description ?? undefined,
+    description: desc,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${vehicle.name} | Seattle Luxury Drive`,
+      description: desc,
+      url,
+    },
   };
 }
 

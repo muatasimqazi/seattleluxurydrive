@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Contact Seattle Luxury Drive for executive transportation, chauffeur services, airport transfers, corporate events, and luxury travel throughout the Greater Seattle Area.",
+  alternates: { canonical: "https://seattleluxurydrive.com/contact" },
+  openGraph: {
+    title: "Contact | Seattle Luxury Drive",
+    description:
+      "Reach our concierge team to arrange executive transportation, chauffeur service, airport transfers, and luxury travel throughout the Greater Seattle Area.",
+    url: "https://seattleluxurydrive.com/contact",
+  },
 };
 
 export default function ContactPage() {

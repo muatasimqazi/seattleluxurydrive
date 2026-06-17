@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "Services",
   description:
     "Luxury chauffeur services, executive transportation, airport transfers, corporate events, weddings, and premium vehicle rentals throughout the Greater Seattle Area.",
+  alternates: { canonical: "https://seattleluxurydrive.com/services" },
+  openGraph: {
+    title: "Services | Seattle Luxury Drive",
+    description:
+      "Executive transportation, airport transfers, corporate events, weddings, and premium vehicle rentals throughout the Greater Seattle Area.",
+    url: "https://seattleluxurydrive.com/services",
+  },
 };
 
 const SERVICES = [
@@ -145,13 +152,13 @@ function ServiceSection({
       <div className="mx-auto max-w-7xl">
         <div className={`flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 ${isEven ? "" : "lg:flex-row-reverse"}`}>
           {/* Image placeholder */}
-          <div className="relative aspect-[4/3] w-full shrink-0 bg-charcoal lg:w-[480px]">
+          <div className="relative aspect-4/3 w-full shrink-0 bg-charcoal lg:w-120">
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
                 Service Photography
               </span>
             </div>
-            <div className={`absolute bottom-0 ${isEven ? "left-0" : "right-0"} h-[2px] w-12 bg-gold`} />
+            <div className={`absolute bottom-0 ${isEven ? "left-0" : "right-0"} h-0.5 w-12 bg-gold`} />
           </div>
 
           {/* Content */}

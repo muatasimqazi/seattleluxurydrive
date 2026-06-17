@@ -2,11 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqPanel } from "@/components/faq/FaqAccordion";
 import type { FaqCategory } from "@/components/faq/FaqAccordion";
+import JsonLd from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Find answers to common questions about Seattle Luxury Drive's luxury transportation services, chauffeur options, airport transfers, vehicle rentals, and reservation process.",
+  alternates: { canonical: "https://seattleluxurydrive.com/faq" },
+  openGraph: {
+    title: "FAQ | Seattle Luxury Drive",
+    description:
+      "Answers to common questions about our luxury transportation services, chauffeur options, airport transfers, and reservation process.",
+    url: "https://seattleluxurydrive.com/faq",
+  },
 };
 
 const FAQ_CATEGORIES: FaqCategory[] = [
@@ -109,9 +117,22 @@ const FAQ_CATEGORIES: FaqCategory[] = [
   },
 ];
 
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_CATEGORIES.flatMap((cat) =>
+    cat.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    }))
+  ),
+};
+
 export default function FaqPage() {
   return (
     <>
+      <JsonLd data={FAQ_SCHEMA} />
       {/* Hero */}
       <section className="bg-black pt-40 pb-20 px-6 text-center">
         <div className="mx-auto max-w-3xl">

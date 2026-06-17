@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   title: "Our Fleet",
   description:
     "Explore our curated fleet of luxury vehicles available for executive transportation, chauffeur service, and premium experiences throughout Greater Seattle.",
+  alternates: { canonical: "https://seattleluxurydrive.com/fleet" },
+  openGraph: {
+    title: "Our Fleet | Seattle Luxury Drive",
+    description:
+      "Explore our curated fleet of luxury vehicles available for chauffeur service and self-drive throughout the Greater Seattle Area.",
+    url: "https://seattleluxurydrive.com/fleet",
+  },
 };
 
 async function getVehicles(): Promise<Vehicle[]> {

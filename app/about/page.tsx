@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Learn about Seattle Luxury Drive, a family-owned luxury transportation company providing executive transportation, chauffeur services, airport transfers, and premium travel experiences throughout the Greater Seattle Area.",
+  alternates: { canonical: "https://seattleluxurydrive.com/about" },
+  openGraph: {
+    title: "About | Seattle Luxury Drive",
+    description:
+      "Family-owned luxury transportation serving the Greater Seattle Area with executive transfers, chauffeur service, and premium vehicle rentals.",
+    url: "https://seattleluxurydrive.com/about",
+  },
 };
 
 const VALUES = [
