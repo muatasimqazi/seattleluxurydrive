@@ -18,6 +18,22 @@ export async function updateBookingStatus(id: string, status: string): Promise<v
   revalidatePath(`/admin/bookings/${id}`);
 }
 
+export async function updateBookingNotes(
+  id: string,
+  _prevState: { saved: boolean },
+  formData: FormData
+): Promise<{ saved: boolean }> {
+  const notes = (formData.get("admin_notes") as string)?.trim() ?? "";
+  const supabase = createServiceClient();
+  await supabase
+    .from("booking_requests")
+    .update({ admin_notes: notes || null, updated_at: new Date().toISOString() })
+    .eq("id", id);
+
+  revalidatePath(`/admin/bookings/${id}`);
+  return { saved: true };
+}
+
 export async function updateContactStatus(id: string, status: string): Promise<void> {
   const VALID = ["new", "contacted", "resolved"];
   if (!VALID.includes(status)) throw new Error("Invalid status");

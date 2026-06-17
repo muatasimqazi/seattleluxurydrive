@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/server";
 import { updateBookingStatus } from "@/app/actions/admin-data";
+import { AdminNotesForm } from "./notes-form";
 
 export const metadata: Metadata = { title: "Booking Detail" };
 
@@ -37,7 +38,7 @@ export default async function BookingDetailPage({ params }: Props) {
   let booking: Record<string, string | null> | null = null;
 
   try {
-    const supabase = await createServiceClient();
+    const supabase = createServiceClient();
     const { data } = await supabase
       .from("booking_requests")
       .select("*")
@@ -174,6 +175,8 @@ export default async function BookingDetailPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <AdminNotesForm bookingId={id} initialNotes={booking.admin_notes ?? null} />
     </div>
   );
 }
