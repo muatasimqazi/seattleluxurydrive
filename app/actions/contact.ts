@@ -1,5 +1,12 @@
 "use server";
 
+import { Resend } from "resend";
+import { createServiceClient } from "@/lib/supabase/server";
+import ContactAdminEmail from "@/emails/ContactAdminEmail";
+import ContactCustomerEmail from "@/emails/ContactCustomerEmail";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export type ContactFormState =
   | { status: "idle" }
   | { status: "success" }
@@ -25,7 +32,7 @@ export async function submitContactForm(
 
   // Honeypot — bots fill hidden fields, humans don't
   const honeypot = formData.get("_hp") as string;
-  if (honeypot) return { status: "success" }; // silently accept
+  if (honeypot) return { status: "success" };
 
   // Validate
   const errors: Record<string, string> = {};
@@ -41,17 +48,54 @@ export async function submitContactForm(
     return { status: "validation", errors };
   }
 
-  // TODO (Phase 5): Insert into contact_requests via Supabase service role client
-  // TODO (Phase 5): Send admin notification email via Resend
-  // TODO (Phase 5): Send customer acknowledgment email via Resend
+  // Split name into first/last for email templates
+  const nameParts = name.split(" ");
+  const firstName = nameParts[0] ?? name;
+  const lastName = nameParts.slice(1).join(" ") || "";
+
+  let submissionId = crypto.randomUUID();
 
   try {
-    // Placeholder — replace with real Supabase insert in Phase 5
-    return { status: "success" };
+    const supabase = await createServiceClient();
+    const { data, error } = await supabase
+      .from("contact_requests")
+      .insert({
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        phone,
+        message,
+        status: "new",
+      })
+      .select("id")
+      .single();
+
+    if (!error && data?.id) {
+      submissionId = data.id;
+    }
   } catch {
-    return {
-      status: "error",
-      message: "We were unable to submit your message at this time. Please try again or call us directly at (206) 669-1109.",
-    };
+    // DB not connected — continue without failing the user experience
   }
+
+  const fromEmail = process.env.RESEND_FROM_EMAIL ?? "notifications@seattleluxurydrive.com";
+  const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL ?? "info@seattleluxurydrive.com";
+
+  Promise.all([
+    resend.emails.send({
+      from: fromEmail,
+      to: adminEmail,
+      subject: `New Contact Message — ${name}`,
+      react: ContactAdminEmail({ firstName, lastName, email, phone, message, submissionId }),
+    }),
+    resend.emails.send({
+      from: fromEmail,
+      to: email,
+      subject: "We Received Your Message — Seattle Luxury Drive",
+      react: ContactCustomerEmail({ firstName }),
+    }),
+  ]).catch(() => {
+    // Email errors are non-fatal
+  });
+
+  return { status: "success" };
 }
