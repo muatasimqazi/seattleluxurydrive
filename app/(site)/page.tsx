@@ -90,31 +90,31 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
       <div className="relative z-10 flex-1 flex flex-col justify-center px-6 lg:px-8 pt-20 pb-8">
         <div className="w-full max-w-4xl">
           {/* Eyebrow — condensed on mobile, full on desktop */}
-          <p className="lg:hidden font-sans text-sm font-medium uppercase tracking-[0.3em] text-gold-lt mb-6">
+          <p className="lg:hidden font-sans text-xs font-medium uppercase tracking-[0.3em] text-gold-lt mb-4">
             Luxury Transportation · Greater Seattle
           </p>
           <p className="hidden lg:block font-sans text-sm font-medium uppercase tracking-[0.3em] text-gold-lt mb-6">
             — Chauffeur Service · Executive Transportation · Greater Seattle —
           </p>
 
-          <h1 className="font-heading text-5xl font-light leading-tight text-offwhite lg:text-7xl">
+          <h1 className="font-heading text-4xl font-light leading-tight text-offwhite lg:text-7xl">
             Seattle&apos;s Premier Luxury<br className="hidden sm:block" />Transportation Experience.
           </h1>
-          <p className="mt-8 max-w-xl font-sans text-base leading-relaxed text-offwhite/70 lg:text-lg">
+          <p className="mt-5 max-w-xl font-sans text-sm leading-relaxed text-offwhite/70 lg:text-lg lg:mt-8">
             Luxury chauffeur services, executive transportation, airport transfers,
             and exclusive vehicle rentals throughout the Greater Seattle Area.
           </p>
 
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4">
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4 lg:mt-10">
             <Link
               href="/book"
-              className="bg-gold px-4 sm:px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors text-center"
+              className="bg-gold px-4 sm:px-10 py-3 sm:py-4 font-sans text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors text-center"
             >
               Request Reservation
             </Link>
             <Link
               href="/fleet"
-              className="border border-offwhite/40 px-4 sm:px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite hover:border-offwhite/80 transition-colors text-center"
+              className="border border-offwhite/40 px-4 sm:px-10 py-3 sm:py-4 font-sans text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-offwhite hover:border-offwhite/80 transition-colors text-center"
             >
               Explore Fleet
             </Link>
