@@ -22,7 +22,7 @@ export default function Error({
       <h1 className="font-heading text-4xl lg:text-5xl font-light text-offwhite mb-4">
         An Error Occurred
       </h1>
-      <p className="font-sans text-sm text-offwhite/60 max-w-sm mb-10">
+      <p className="font-sans text-sm text-offwhite/75 max-w-sm mb-10">
         We apologize for the inconvenience. Please try again or contact us
         directly at{" "}
         <a
@@ -42,7 +42,7 @@ export default function Error({
         </button>
         <Link
           href="/"
-          className="border border-offwhite/30 px-8 py-3 font-sans text-[11px] uppercase tracking-[0.18em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+          className="border border-offwhite/30 px-8 py-3 font-sans text-[11px] uppercase tracking-[0.18em] text-offwhite/85 hover:border-offwhite/60 hover:text-offwhite transition-colors"
         >
           Return Home
         </Link>

@@ -18,7 +18,7 @@ function StatCard({
       href={href}
       className="block bg-charcoal border border-offwhite/[0.06] p-6 hover:border-gold/30 transition-colors"
     >
-      <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/40 mb-2">
+      <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/60 mb-2">
         {label}
       </p>
       <p className="font-heading text-4xl font-light text-offwhite">{value}</p>
@@ -38,7 +38,7 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={`inline-block px-2 py-0.5 font-sans text-[10px] uppercase tracking-[0.1em] rounded-sm ${
-        STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/50"
+        STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/65"
       }`}
     >
       {status}
@@ -134,7 +134,7 @@ export default async function AdminDashboardPage({
       {/* Recent bookings */}
       <section className="mb-10">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/40">
+          <h2 className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/60">
             Recent Booking Requests
           </h2>
           <Link
@@ -146,7 +146,7 @@ export default async function AdminDashboardPage({
         </div>
 
         {recentBookings.length === 0 ? (
-          <p className="font-sans text-sm text-offwhite/30 py-8">No booking requests yet.</p>
+          <p className="font-sans text-sm text-offwhite/50 py-8">No booking requests yet.</p>
         ) : (
           <div className="border border-offwhite/[0.06] overflow-hidden">
             <table className="w-full text-left">
@@ -156,7 +156,7 @@ export default async function AdminDashboardPage({
                     (h) => (
                       <th
                         key={h}
-                        className="px-4 py-3 font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/30"
+                        className="px-4 py-3 font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/50"
                       >
                         {h}
                       </th>
@@ -178,19 +178,19 @@ export default async function AdminDashboardPage({
                         {b.first_name} {b.last_name}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 font-sans text-sm text-offwhite/60">
+                    <td className="px-4 py-3 font-sans text-sm text-offwhite/75">
                       {b.email}
                     </td>
-                    <td className="px-4 py-3 font-sans text-sm text-offwhite/60">
+                    <td className="px-4 py-3 font-sans text-sm text-offwhite/75">
                       {b.service_type}
                     </td>
-                    <td className="px-4 py-3 font-sans text-sm text-offwhite/60">
+                    <td className="px-4 py-3 font-sans text-sm text-offwhite/75">
                       {b.start_date}
                     </td>
                     <td className="px-4 py-3">
                       <StatusBadge status={b.status} />
                     </td>
-                    <td className="px-4 py-3 font-sans text-xs text-offwhite/35">
+                    <td className="px-4 py-3 font-sans text-xs text-offwhite/55">
                       {new Date(b.created_at).toLocaleDateString()}
                     </td>
                   </tr>
@@ -204,7 +204,7 @@ export default async function AdminDashboardPage({
       {/* Recent contacts */}
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/40">
+          <h2 className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/60">
             Recent Contact Requests
           </h2>
           <Link
@@ -216,7 +216,7 @@ export default async function AdminDashboardPage({
         </div>
 
         {recentContacts.length === 0 ? (
-          <p className="font-sans text-sm text-offwhite/30 py-8">No contact requests yet.</p>
+          <p className="font-sans text-sm text-offwhite/50 py-8">No contact requests yet.</p>
         ) : (
           <div className="border border-offwhite/[0.06] overflow-hidden">
             <table className="w-full text-left">
@@ -225,7 +225,7 @@ export default async function AdminDashboardPage({
                   {["Name", "Email", "Status", "Received"].map((h) => (
                     <th
                       key={h}
-                      className="px-4 py-3 font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/30"
+                      className="px-4 py-3 font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/50"
                     >
                       {h}
                     </th>
@@ -241,13 +241,13 @@ export default async function AdminDashboardPage({
                     <td className="px-4 py-3 font-sans text-sm text-offwhite">
                       {c.first_name} {c.last_name}
                     </td>
-                    <td className="px-4 py-3 font-sans text-sm text-offwhite/60">
+                    <td className="px-4 py-3 font-sans text-sm text-offwhite/75">
                       {c.email}
                     </td>
                     <td className="px-4 py-3">
                       <StatusBadge status={c.status} />
                     </td>
-                    <td className="px-4 py-3 font-sans text-xs text-offwhite/35">
+                    <td className="px-4 py-3 font-sans text-xs text-offwhite/55">
                       {new Date(c.created_at).toLocaleDateString()}
                     </td>
                   </tr>

@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Team" };
 
 const ROLE_COLORS: Record<string, string> = {
   admin: "bg-gold/20 text-gold",
-  staff: "bg-offwhite/10 text-offwhite/60",
+  staff: "bg-offwhite/10 text-offwhite/75",
 };
 
 export default async function UsersPage() {
@@ -38,7 +38,7 @@ export default async function UsersPage() {
   return (
     <div className="p-8 max-w-4xl">
       <h1 className="font-heading text-3xl font-light text-offwhite mb-2">Team</h1>
-      <p className="font-sans text-xs text-offwhite/40 mb-10">
+      <p className="font-sans text-xs text-offwhite/60 mb-10">
         {rows.length} member{rows.length !== 1 ? "s" : ""}
       </p>
 
@@ -62,7 +62,7 @@ export default async function UsersPage() {
                 {["User", "Role", "Status", "Last Sign In", ""].map((h) => (
                   <th
                     key={h}
-                    className="px-4 py-3 text-left font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35"
+                    className="px-4 py-3 text-left font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/55"
                   >
                     {h}
                   </th>
@@ -84,13 +84,13 @@ export default async function UsersPage() {
                       <p className="font-sans text-sm text-offwhite">
                         {row.email}
                         {isSelf && (
-                          <span className="ml-2 font-sans text-[9px] uppercase tracking-[0.15em] text-offwhite/30">
+                          <span className="ml-2 font-sans text-[9px] uppercase tracking-[0.15em] text-offwhite/50">
                             (you)
                           </span>
                         )}
                       </p>
                       {row.profile?.full_name && (
-                        <p className="font-sans text-xs text-offwhite/40 mt-0.5">
+                        <p className="font-sans text-xs text-offwhite/60 mt-0.5">
                           {row.profile.full_name}
                         </p>
                       )}
@@ -101,7 +101,7 @@ export default async function UsersPage() {
                       {isSelf ? (
                         <span
                           className={`inline-block px-2 py-0.5 font-sans text-[10px] uppercase tracking-widest rounded-sm ${
-                            ROLE_COLORS[role] ?? "bg-offwhite/10 text-offwhite/50"
+                            ROLE_COLORS[role] ?? "bg-offwhite/10 text-offwhite/65"
                           }`}
                         >
                           {role}
@@ -118,7 +118,7 @@ export default async function UsersPage() {
                                   className={`px-2.5 py-1 font-sans text-[9px] uppercase tracking-widest border transition-colors disabled:cursor-default ${
                                     role === r
                                       ? "border-gold bg-gold/10 text-gold"
-                                      : "border-offwhite/15 text-offwhite/35 hover:border-offwhite/40 hover:text-offwhite/70"
+                                      : "border-offwhite/15 text-offwhite/55 hover:border-offwhite/40 hover:text-offwhite/85"
                                   }`}
                                 >
                                   {r}
@@ -134,7 +134,7 @@ export default async function UsersPage() {
                     <td className="px-4 py-4">
                       <span
                         className={`font-sans text-[10px] uppercase tracking-widest ${
-                          row.confirmed ? "text-emerald-400" : "text-offwhite/30"
+                          row.confirmed ? "text-emerald-400" : "text-offwhite/50"
                         }`}
                       >
                         {row.confirmed ? "Active" : "Pending"}
@@ -142,7 +142,7 @@ export default async function UsersPage() {
                     </td>
 
                     {/* Last sign in */}
-                    <td className="px-4 py-4 font-sans text-xs text-offwhite/35">
+                    <td className="px-4 py-4 font-sans text-xs text-offwhite/55">
                       {row.lastSignIn
                         ? new Date(row.lastSignIn).toLocaleDateString()
                         : "—"}

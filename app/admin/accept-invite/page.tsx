@@ -75,7 +75,7 @@ export default function AcceptInvitePage() {
   if (status === "loading") {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <p className="font-sans text-sm text-offwhite/40">Setting up your account…</p>
+        <p className="font-sans text-sm text-offwhite/60">Setting up your account…</p>
       </div>
     );
   }
@@ -91,7 +91,7 @@ export default function AcceptInvitePage() {
           <h1 className="font-heading text-2xl font-light text-offwhite mb-3">
             Invite Link Expired
           </h1>
-          <p className="font-sans text-sm text-offwhite/50 mb-8">
+          <p className="font-sans text-sm text-offwhite/65 mb-8">
             This invitation link is invalid or has expired. Please contact an
             admin to send a new invite.
           </p>
@@ -116,7 +116,7 @@ export default function AcceptInvitePage() {
           <h1 className="font-heading text-3xl font-light text-offwhite mb-3">
             Set Your Password
           </h1>
-          <p className="font-sans text-sm text-offwhite/50">
+          <p className="font-sans text-sm text-offwhite/65">
             Create a password you&apos;ll use to log in to the admin portal.
           </p>
         </div>
@@ -125,7 +125,7 @@ export default function AcceptInvitePage() {
           <div>
             <label
               htmlFor="password"
-              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/65 mb-2"
             >
               Password
             </label>
@@ -137,14 +137,14 @@ export default function AcceptInvitePage() {
               autoComplete="new-password"
               required
               minLength={8}
-              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors"
+              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/40 focus:outline-none focus:border-gold transition-colors"
             />
           </div>
 
           <div>
             <label
               htmlFor="confirm"
-              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/65 mb-2"
             >
               Confirm Password
             </label>
@@ -155,7 +155,7 @@ export default function AcceptInvitePage() {
               onChange={(e) => setConfirm(e.target.value)}
               autoComplete="new-password"
               required
-              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors"
+              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/40 focus:outline-none focus:border-gold transition-colors"
             />
           </div>
 

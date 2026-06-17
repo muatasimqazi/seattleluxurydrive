@@ -63,7 +63,7 @@ export default async function AboutPage() {
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
             Luxury Transportation.<br />Family Values.<br />Exceptional Service.
           </h1>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-xl mx-auto">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80 max-w-xl mx-auto">
             Seattle Luxury Drive is a family-owned company dedicated to delivering
             premium transportation experiences with professionalism, hospitality,
             and attention to detail.
@@ -80,7 +80,7 @@ export default async function AboutPage() {
                 <Image src={s.image_about_brand} alt="Seattle Luxury Drive brand" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+                  <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
                     Brand Photography
                   </span>
                 </div>
@@ -95,7 +95,7 @@ export default async function AboutPage() {
               <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-8">
                 Built Around Service.
               </h2>
-              <div className="space-y-5 font-sans text-sm leading-relaxed text-offwhite/65">
+              <div className="space-y-5 font-sans text-sm leading-relaxed text-offwhite/80">
                 <p>
                   Seattle Luxury Drive was founded with a simple belief: luxury
                   transportation should be more than just getting from one destination
@@ -127,7 +127,7 @@ export default async function AboutPage() {
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-8">
             Elevating Every Journey.
           </h2>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80">
             Our mission is to provide luxury transportation services that combine
             comfort, professionalism, and personalized attention. We strive to create
             memorable experiences for every client by delivering dependable service,
@@ -156,7 +156,7 @@ export default async function AboutPage() {
                 <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                   {v.title}
                 </h3>
-                <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+                <p className="font-sans text-sm leading-relaxed text-offwhite/80">
                   {v.description}
                 </p>
               </div>
@@ -176,7 +176,7 @@ export default async function AboutPage() {
               <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-6">
                 Serving The Greater<br />Seattle Area.
               </h2>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-10">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-10">
                 Whether your transportation needs involve executive travel, airport
                 transfers, corporate events, or special occasions, our team is
                 committed to delivering a first-class experience wherever you need
@@ -184,7 +184,7 @@ export default async function AboutPage() {
               </p>
               <ul className="grid grid-cols-2 gap-x-8 gap-y-3">
                 {SERVICE_AREA_CITIES.map((city) => (
-                  <li key={city} className="flex items-center gap-2.5 font-sans text-sm text-offwhite/65">
+                  <li key={city} className="flex items-center gap-2.5 font-sans text-sm text-offwhite/80">
                     <span className="h-px w-4 bg-gold/60 shrink-0" />
                     {city}
                   </li>
@@ -197,7 +197,7 @@ export default async function AboutPage() {
                 <Image src={s.image_service_area} alt="Greater Seattle area" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+                  <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
                     Seattle Photography
                   </span>
                 </div>
@@ -215,7 +215,7 @@ export default async function AboutPage() {
           <h2 className="font-heading text-4xl font-light text-offwhite mb-4">
             Experience The Difference.
           </h2>
-          <p className="font-sans text-sm text-offwhite/60 mb-10 max-w-md mx-auto">
+          <p className="font-sans text-sm text-offwhite/75 mb-10 max-w-md mx-auto">
             Discover why clients throughout the Greater Seattle Area trust Seattle
             Luxury Drive for luxury transportation, chauffeur services, and
             personalized travel experiences.
@@ -229,7 +229,7 @@ export default async function AboutPage() {
             </Link>
             <Link
               href="/contact"
-              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/85 hover:border-offwhite/60 hover:text-offwhite transition-colors"
             >
               Contact Us
             </Link>

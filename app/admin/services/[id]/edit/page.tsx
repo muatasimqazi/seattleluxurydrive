@@ -27,12 +27,12 @@ function Field({
 }) {
   return (
     <div>
-      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">
+      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75 mb-2">
         {label}
       </p>
       {children}
       {hint && (
-        <p className="font-sans text-[11px] text-offwhite/30 mt-1.5">{hint}</p>
+        <p className="font-sans text-[11px] text-offwhite/50 mt-1.5">{hint}</p>
       )}
     </div>
   );
@@ -67,14 +67,14 @@ export default async function EditServicePage({
       <div className="mb-8">
         <Link
           href="/admin/services"
-          className="font-sans text-[11px] text-offwhite/40 hover:text-offwhite/70 transition-colors"
+          className="font-sans text-[11px] text-offwhite/60 hover:text-offwhite/85 transition-colors"
         >
           ← Services
         </Link>
         <h1 className="font-heading text-2xl font-light text-offwhite mt-3 mb-1">
           {service.name}
         </h1>
-        <p className="font-sans text-xs text-offwhite/40">
+        <p className="font-sans text-xs text-offwhite/60">
           Service {service.eyebrow}
         </p>
       </div>
@@ -221,7 +221,7 @@ export default async function EditServicePage({
           <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
             Photo
           </p>
-          <p className="font-sans text-xs text-offwhite/35">
+          <p className="font-sans text-xs text-offwhite/55">
             JPEG, PNG, WebP or AVIF · Max 10 MB.
           </p>
         </div>
@@ -244,11 +244,11 @@ export default async function EditServicePage({
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/avif"
                   required
-                  className="font-sans text-xs text-offwhite/60 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/60 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+                  className="font-sans text-xs text-offwhite/75 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/75 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
                 />
                 <button
                   type="submit"
-                  className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/50 hover:text-offwhite transition-colors"
+                  className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/65 hover:text-offwhite transition-colors"
                 >
                   Replace
                 </button>
@@ -256,7 +256,7 @@ export default async function EditServicePage({
               <form action={removeAction}>
                 <button
                   type="submit"
-                  className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/30 hover:text-red-400 transition-colors"
+                  className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/50 hover:text-red-400 transition-colors"
                 >
                   <X size={11} strokeWidth={1.5} />
                   Remove
@@ -267,18 +267,18 @@ export default async function EditServicePage({
         ) : (
           <form action={uploadAction} className="flex items-center gap-3">
             <div className="flex items-center justify-center w-16 h-12 bg-offwhite/4 border border-dashed border-offwhite/15 shrink-0">
-              <ImageIcon size={16} strokeWidth={1} className="text-offwhite/20" />
+              <ImageIcon size={16} strokeWidth={1} className="text-offwhite/35" />
             </div>
             <input
               name="image"
               type="file"
               accept="image/jpeg,image/png,image/webp,image/avif"
               required
-              className="flex-1 font-sans text-xs text-offwhite/60 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/60 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+              className="flex-1 font-sans text-xs text-offwhite/75 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/75 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
             />
             <button
               type="submit"
-              className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/50 hover:text-offwhite transition-colors"
+              className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/65 hover:text-offwhite transition-colors"
             >
               Upload
             </button>

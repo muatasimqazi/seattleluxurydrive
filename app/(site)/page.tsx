@@ -100,7 +100,7 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
           <h1 className="font-heading text-4xl font-light leading-tight text-offwhite lg:text-7xl">
             Seattle&apos;s Premier Luxury<br className="hidden sm:block" />Transportation Experience.
           </h1>
-          <p className="mt-5 max-w-xl font-sans text-sm leading-relaxed text-offwhite/70 lg:text-lg lg:mt-8">
+          <p className="mt-5 max-w-xl font-sans text-sm leading-relaxed text-offwhite/85 lg:text-lg lg:mt-8">
             Luxury chauffeur services, executive transportation, airport transfers,
             and exclusive vehicle rentals throughout the Greater Seattle Area.
           </p>
@@ -133,7 +133,7 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
           ].map((item) => (
             <div
               key={item}
-              className="px-6 py-5 font-sans text-xs font-medium uppercase tracking-[0.2em] text-offwhite/50"
+              className="px-6 py-5 font-sans text-xs font-medium uppercase tracking-[0.2em] text-offwhite/65"
             >
               {item}
             </div>
@@ -148,7 +148,7 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
           ].map((item) => (
             <span
               key={item}
-              className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-offwhite/50"
+              className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-offwhite/65"
             >
               {item}
             </span>
@@ -194,7 +194,7 @@ function ServicesSection() {
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl">
             Luxury Transportation,<br />Tailored To Every Occasion.
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl font-sans text-sm leading-relaxed text-offwhite/65">
+          <p className="mx-auto mt-6 max-w-2xl font-sans text-sm leading-relaxed text-offwhite/80">
             Whether you&apos;re traveling for business, arriving at the airport,
             entertaining clients, or celebrating a milestone, our concierge-driven
             service ensures every journey is seamless and memorable.
@@ -208,7 +208,7 @@ function ServicesSection() {
               <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 {s.name}
               </h3>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-8">
                 {s.description}
               </p>
               <Link
@@ -224,7 +224,7 @@ function ServicesSection() {
         <div className="mt-12 text-center">
           <Link
             href="/services"
-            className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-offwhite/60 hover:text-offwhite transition-colors border-b border-offwhite/20 pb-0.5"
+            className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-offwhite/75 hover:text-offwhite transition-colors border-b border-offwhite/20 pb-0.5"
           >
             View All 8 Services
           </Link>
@@ -267,7 +267,7 @@ function FeaturedVehicleSection({
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
                   Vehicle Photography
                 </span>
               </div>
@@ -287,7 +287,7 @@ function FeaturedVehicleSection({
               Starting at ${rate}/hour
             </p>
             {vehicle.description && (
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-8">
                 {vehicle.description}
               </p>
             )}
@@ -295,20 +295,20 @@ function FeaturedVehicleSection({
             <div className="flex gap-6 mb-10">
               {vehicle.chauffeur_available && (
                 <>
-                  <div className="font-sans text-xs text-offwhite/55">
-                    <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-xs mb-1">Chauffeur</span>
+                  <div className="font-sans text-xs text-offwhite/70">
+                    <span className="block text-offwhite/55 uppercase tracking-[0.15em] text-xs mb-1">Chauffeur</span>
                     Available
                   </div>
                   <div className="w-px bg-offwhite/10" />
                 </>
               )}
-              <div className="font-sans text-xs text-offwhite/55">
-                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-xs mb-1">Self-Drive</span>
+              <div className="font-sans text-xs text-offwhite/70">
+                <span className="block text-offwhite/55 uppercase tracking-[0.15em] text-xs mb-1">Self-Drive</span>
                 Available
               </div>
               <div className="w-px bg-offwhite/10" />
-              <div className="font-sans text-xs text-offwhite/55">
-                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-xs mb-1">Pricing</span>
+              <div className="font-sans text-xs text-offwhite/70">
+                <span className="block text-offwhite/55 uppercase tracking-[0.15em] text-xs mb-1">Pricing</span>
                 Custom available
               </div>
             </div>
@@ -373,7 +373,7 @@ function WhyChooseSection() {
               <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 {p.title}
               </h3>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80">
                 {p.description}
               </p>
             </div>
@@ -445,7 +445,7 @@ function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
             <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-8">
               Serving The Greater<br />Seattle Area.
             </h2>
-            <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-10">
+            <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-10">
               Seattle Luxury Drive proudly serves clients throughout the Greater
               Seattle Area. Whether your destination is a downtown meeting, a
               luxury hotel, an airport terminal, or a special event venue, our
@@ -457,7 +457,7 @@ function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
               {SERVICE_AREA_CITIES.map((city) => (
                 <li
                   key={city}
-                  className="flex items-center gap-2.5 font-sans text-sm text-offwhite/70"
+                  className="flex items-center gap-2.5 font-sans text-sm text-offwhite/85"
                 >
                   <span className="h-px w-4 bg-gold/60 shrink-0" />
                   {city}
@@ -478,7 +478,7 @@ function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
               <Image src={seattleImage} alt="Seattle area" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
                   Seattle Photography
                 </span>
               </div>
@@ -543,7 +543,7 @@ function ReservationProcessSection() {
               <h3 className="font-heading text-xl font-medium text-offwhite mb-3">
                 {step.title}
               </h3>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/60">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/75">
                 {step.description}
               </p>
             </div>
@@ -574,7 +574,7 @@ function FinalCTASection() {
         <h2 className="font-heading text-4xl font-light text-offwhite lg:text-6xl mb-8">
           Reserve Your Experience.
         </h2>
-        <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-12 max-w-xl mx-auto">
+        <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-12 max-w-xl mx-auto">
           From executive transportation and airport transfers to luxury events and
           special occasions, Seattle Luxury Drive is ready to deliver a
           transportation experience tailored around you.
@@ -588,7 +588,7 @@ function FinalCTASection() {
           </Link>
           <Link
             href="/contact"
-            className="w-full sm:w-auto border border-offwhite/30 px-12 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+            className="w-full sm:w-auto border border-offwhite/30 px-12 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/85 hover:border-offwhite/60 hover:text-offwhite transition-colors"
           >
             Contact Us
           </Link>

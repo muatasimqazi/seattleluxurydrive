@@ -90,7 +90,7 @@ function ChipButton({
       className={`px-5 py-2.5 font-sans text-sm font-medium uppercase tracking-[0.15em] border transition-colors focus-visible:outline-2 focus-visible:outline-gold ${
         selected
           ? "border-gold bg-gold/10 text-gold"
-          : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite/70"
+          : "border-offwhite/20 text-offwhite/65 hover:border-offwhite/40 hover:text-offwhite/85"
       }`}
     >
       {label}
@@ -126,7 +126,7 @@ function InputField({
     <div>
       <label
         htmlFor={id}
-        className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+        className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/65 mb-2"
       >
         {label}
         {required && <span className="text-gold ml-1" aria-hidden="true">*</span>}
@@ -142,7 +142,7 @@ function InputField({
         min={min}
         aria-describedby={error ? errorId : undefined}
         aria-invalid={error ? true : undefined}
-        className={`w-full bg-transparent border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors ${
+        className={`w-full bg-transparent border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/40 focus:outline-none focus:border-gold transition-colors ${
           error ? "border-red-400/60" : "border-offwhite/20"
         }`}
       />
@@ -163,7 +163,7 @@ function StepIndicator({ step }: { step: number }) {
                 ? "bg-gold text-black"
                 : step > n
                 ? "bg-gold/30 text-gold"
-                : "bg-offwhite/10 text-offwhite/35"
+                : "bg-offwhite/10 text-offwhite/55"
             }`}
           >
             {n}
@@ -177,7 +177,7 @@ function StepIndicator({ step }: { step: number }) {
           )}
         </div>
       ))}
-      <span className="ml-2 font-sans text-xs uppercase tracking-[0.2em] text-offwhite/40">
+      <span className="ml-2 font-sans text-xs uppercase tracking-[0.2em] text-offwhite/60">
         {labels[step - 1]}
       </span>
     </div>
@@ -187,7 +187,7 @@ function StepIndicator({ step }: { step: number }) {
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-4">
-      <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35 shrink-0">
+      <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/55 shrink-0">
         {label}
       </span>
       <span className="font-sans text-sm text-offwhite/80 text-right">{value}</span>
@@ -299,7 +299,7 @@ export default function BookingForm() {
         <div className="space-y-8">
           {/* Service type */}
           <fieldset>
-            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/65 mb-3">
               Service Type <span className="text-gold" aria-hidden="true">*</span>
               <span className="sr-only">(required)</span>
             </legend>
@@ -318,7 +318,7 @@ export default function BookingForm() {
 
           {/* Rental type */}
           <fieldset>
-            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/65 mb-3">
               Rental Type <span className="text-gold" aria-hidden="true">*</span>
               <span className="sr-only">(required)</span>
             </legend>
@@ -462,7 +462,7 @@ export default function BookingForm() {
           />
 
           <fieldset>
-            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/65 mb-3">
               Preferred Contact Method <span className="text-gold" aria-hidden="true">*</span>
               <span className="sr-only">(required)</span>
             </legend>
@@ -483,7 +483,7 @@ export default function BookingForm() {
             <button
               type="button"
               onClick={goBack}
-              className="inline-flex items-center gap-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/50 hover:text-offwhite transition-colors"
+              className="inline-flex items-center gap-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/65 hover:text-offwhite transition-colors"
             >
               <ChevronLeft size={14} /> Back
             </button>
@@ -531,7 +531,7 @@ export default function BookingForm() {
         <div>
           <label
             htmlFor="occasion"
-            className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+            className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/65 mb-2"
           >
             Occasion (optional)
           </label>
@@ -555,7 +555,7 @@ export default function BookingForm() {
         <div>
           <label
             htmlFor="specialRequests"
-            className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+            className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/65 mb-2"
           >
             Special Requests (optional)
           </label>
@@ -567,13 +567,13 @@ export default function BookingForm() {
             maxLength={500}
             rows={4}
             placeholder="Any special requirements, preferences, or questions…"
-            className={`w-full bg-transparent border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors resize-none ${
+            className={`w-full bg-transparent border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/40 focus:outline-none focus:border-gold transition-colors resize-none ${
               errors.specialRequests ? "border-red-400/60" : "border-offwhite/20"
             }`}
           />
           <div className="flex justify-between mt-1">
             <FieldError id="specialRequests-error" msg={errors.specialRequests} />
-            <span className="font-sans text-xs text-offwhite/30 ml-auto" aria-live="polite">
+            <span className="font-sans text-xs text-offwhite/50 ml-auto" aria-live="polite">
               {data.specialRequests.length}/500
             </span>
           </div>
@@ -588,7 +588,7 @@ export default function BookingForm() {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
+              className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/60 hover:text-gold transition-colors"
             >
               Edit Trip
             </button>
@@ -611,7 +611,7 @@ export default function BookingForm() {
             <button
               type="button"
               onClick={() => setStep(2)}
-              className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
+              className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/60 hover:text-gold transition-colors"
             >
               Edit Contact
             </button>
@@ -643,7 +643,7 @@ export default function BookingForm() {
             >
               {data.privacyConsent && <div className="w-2 h-2 bg-gold" aria-hidden="true" />}
             </button>
-            <label htmlFor="privacyConsent" className="font-sans text-xs text-offwhite/55 leading-relaxed cursor-pointer">
+            <label htmlFor="privacyConsent" className="font-sans text-xs text-offwhite/70 leading-relaxed cursor-pointer">
               I agree to the{" "}
               <a
                 href="/privacy-policy"
@@ -670,7 +670,7 @@ export default function BookingForm() {
           <button
             type="button"
             onClick={goBack}
-            className="inline-flex items-center gap-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/50 hover:text-offwhite transition-colors"
+            className="inline-flex items-center gap-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/65 hover:text-offwhite transition-colors"
           >
             <ChevronLeft size={14} /> Back
           </button>

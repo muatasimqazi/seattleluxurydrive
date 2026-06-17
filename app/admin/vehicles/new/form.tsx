@@ -18,12 +18,12 @@ function Field({
 }) {
   return (
     <div>
-      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">
+      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75 mb-2">
         {label}
       </p>
       {children}
       {hint && (
-        <p className="font-sans text-[11px] text-offwhite/30 mt-1.5">{hint}</p>
+        <p className="font-sans text-[11px] text-offwhite/50 mt-1.5">{hint}</p>
       )}
     </div>
   );
@@ -119,7 +119,7 @@ export function NewVehicleForm() {
 
         <Field label="Starting Hourly Rate (USD)">
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/40">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/60">
               $
             </span>
             <input
@@ -130,7 +130,7 @@ export function NewVehicleForm() {
               className={`${inputCls} pl-8`}
               placeholder="350"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/40">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/60">
               /hr
             </span>
           </div>
@@ -149,7 +149,7 @@ export function NewVehicleForm() {
             defaultChecked
             className="w-4 h-4 accent-[#B89B5E]"
           />
-          <span className="font-sans text-sm text-offwhite/70">
+          <span className="font-sans text-sm text-offwhite/85">
             Chauffeur service available
           </span>
         </label>
@@ -160,7 +160,7 @@ export function NewVehicleForm() {
             type="checkbox"
             className="w-4 h-4 accent-[#B89B5E]"
           />
-          <span className="font-sans text-sm text-offwhite/70">
+          <span className="font-sans text-sm text-offwhite/85">
             Feature on homepage
           </span>
         </label>
@@ -176,7 +176,7 @@ export function NewVehicleForm() {
         </button>
         <Link
           href="/admin/vehicles"
-          className="font-sans text-xs text-offwhite/40 hover:text-offwhite/70 transition-colors"
+          className="font-sans text-xs text-offwhite/60 hover:text-offwhite/85 transition-colors"
         >
           Cancel
         </Link>

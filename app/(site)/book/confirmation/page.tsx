@@ -46,7 +46,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
           {name ? `Thank You, ${name}.` : "Thank You."}
         </h1>
 
-        <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-lg mx-auto mb-10">
+        <p className="font-sans text-sm leading-relaxed text-offwhite/80 max-w-lg mx-auto mb-10">
           Your reservation request has been received. Our concierge team will
           review your details and reach out within {s.response_hours} business hours to confirm
           availability and finalize your booking.
@@ -60,7 +60,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
             </p>
             {service && (
               <div className="flex justify-between gap-4">
-                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35">
+                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/55">
                   Service
                 </span>
                 <span className="font-sans text-sm text-offwhite/80">{service}</span>
@@ -68,7 +68,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
             )}
             {date && (
               <div className="flex justify-between gap-4">
-                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35">
+                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/55">
                   Date
                 </span>
                 <span className="font-sans text-sm text-offwhite/80">{date}</span>
@@ -76,7 +76,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
             )}
             {pickup && (
               <div className="flex justify-between gap-4">
-                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35">
+                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/55">
                   Pickup
                 </span>
                 <span className="font-sans text-sm text-offwhite/80 text-right">{pickup}</span>
@@ -88,7 +88,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
         {/* Phone CTA */}
         <div className="flex items-center justify-center gap-3 mb-10">
           <Phone size={14} strokeWidth={1.5} className="text-gold" />
-          <p className="font-sans text-sm text-offwhite/65">
+          <p className="font-sans text-sm text-offwhite/80">
             Need to reach us sooner?{" "}
             <a
               href={phoneHref(s.contact_phone)}

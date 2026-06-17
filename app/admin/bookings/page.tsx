@@ -17,7 +17,7 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={`inline-block px-2 py-0.5 font-sans text-[10px] uppercase tracking-[0.1em] rounded-sm ${
-        STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/50"
+        STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/65"
       }`}
     >
       {status}
@@ -118,7 +118,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             name="q"
             defaultValue={search}
             placeholder="Search by name or email…"
-            className="w-64 bg-offwhite/4 border border-offwhite/10 px-3 py-2 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/20 focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-64 bg-offwhite/4 border border-offwhite/10 px-3 py-2 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/35 focus:outline-none focus:border-gold/50 transition-colors"
           />
           <button
             type="submit"
@@ -129,7 +129,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
           {search && (
             <Link
               href={buildHref({ status: filterStatus }, {})}
-              className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 transition-colors"
+              className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 hover:border-offwhite/40 transition-colors"
             >
               Clear
             </Link>
@@ -137,7 +137,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
         </form>
 
         {/* Result count */}
-        <p className="font-sans text-xs text-offwhite/30">
+        <p className="font-sans text-xs text-offwhite/50">
           {total} result{total !== 1 ? "s" : ""}
           {search ? ` for "${search}"` : ""}
         </p>
@@ -150,7 +150,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
           className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors ${
             !filterStatus
               ? "border-gold text-gold bg-gold/10"
-              : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40"
+              : "border-offwhite/20 text-offwhite/65 hover:border-offwhite/40"
           }`}
         >
           All
@@ -162,7 +162,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors ${
               filterStatus === s
                 ? "border-gold text-gold bg-gold/10"
-                : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40"
+                : "border-offwhite/20 text-offwhite/65 hover:border-offwhite/40"
             }`}
           >
             {s}
@@ -172,7 +172,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
 
       {/* Table */}
       {bookings.length === 0 ? (
-        <p className="font-sans text-sm text-offwhite/30 py-12">
+        <p className="font-sans text-sm text-offwhite/50 py-12">
           No booking requests
           {filterStatus ? ` with status "${filterStatus}"` : ""}
           {search ? ` matching "${search}"` : ""}.
@@ -186,7 +186,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                   (h) => (
                     <th
                       key={h}
-                      className="px-4 py-3 font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/30 whitespace-nowrap"
+                      className="px-4 py-3 font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/50 whitespace-nowrap"
                     >
                       {h}
                     </th>
@@ -206,25 +206,25 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                     </Link>
                   </td>
                   <td className="px-4 py-3">
-                    <div className="font-sans text-xs text-offwhite/60">{b.email}</div>
-                    <div className="font-sans text-xs text-offwhite/40">{b.phone}</div>
+                    <div className="font-sans text-xs text-offwhite/75">{b.email}</div>
+                    <div className="font-sans text-xs text-offwhite/60">{b.phone}</div>
                   </td>
-                  <td className="px-4 py-3 font-sans text-sm text-offwhite/60 whitespace-nowrap">
+                  <td className="px-4 py-3 font-sans text-sm text-offwhite/75 whitespace-nowrap">
                     {b.service_type}
                   </td>
-                  <td className="px-4 py-3 font-sans text-sm text-offwhite/60 whitespace-nowrap">
+                  <td className="px-4 py-3 font-sans text-sm text-offwhite/75 whitespace-nowrap">
                     {b.rental_type}
                   </td>
-                  <td className="px-4 py-3 font-sans text-sm text-offwhite/60 whitespace-nowrap">
+                  <td className="px-4 py-3 font-sans text-sm text-offwhite/75 whitespace-nowrap">
                     {b.start_date}
                   </td>
-                  <td className="px-4 py-3 font-sans text-sm text-offwhite/60 max-w-[180px] truncate">
+                  <td className="px-4 py-3 font-sans text-sm text-offwhite/75 max-w-[180px] truncate">
                     {b.pickup_location}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <StatusBadge status={b.status} />
                   </td>
-                  <td className="px-4 py-3 font-sans text-xs text-offwhite/35 whitespace-nowrap">
+                  <td className="px-4 py-3 font-sans text-xs text-offwhite/55 whitespace-nowrap">
                     {new Date(b.created_at).toLocaleDateString()}
                   </td>
                 </tr>
@@ -237,14 +237,14 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <p className="font-sans text-xs text-offwhite/30">
+          <p className="font-sans text-xs text-offwhite/50">
             Page {page} of {totalPages}
           </p>
           <div className="flex gap-2">
             {page > 1 && (
               <Link
                 href={buildHref(baseParams, { page: String(page - 1) })}
-                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite transition-colors"
+                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 hover:border-offwhite/40 hover:text-offwhite transition-colors"
               >
                 ← Previous
               </Link>
@@ -252,7 +252,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             {page < totalPages && (
               <Link
                 href={buildHref(baseParams, { page: String(page + 1) })}
-                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite transition-colors"
+                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 hover:border-offwhite/40 hover:text-offwhite transition-colors"
               >
                 Next →
               </Link>

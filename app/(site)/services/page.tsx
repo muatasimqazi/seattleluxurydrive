@@ -55,7 +55,7 @@ function ServiceSection({
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
                   Service Photography
                 </span>
               </div>
@@ -71,16 +71,16 @@ function ServiceSection({
             <h2 className="font-heading text-3xl font-light text-offwhite lg:text-4xl mb-4">
               {service.name}
             </h2>
-            <p className="font-heading text-xl font-light text-offwhite/70 italic mb-6 lg:text-2xl">
+            <p className="font-heading text-xl font-light text-offwhite/85 italic mb-6 lg:text-2xl">
               {service.headline}
             </p>
-            <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
+            <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-8">
               {service.description}
             </p>
 
             <ul className="space-y-2 mb-10">
               {service.benefits.map((b) => (
-                <li key={b} className="flex items-center gap-3 font-sans text-sm text-offwhite/60">
+                <li key={b} className="flex items-center gap-3 font-sans text-sm text-offwhite/75">
                   <span className="h-px w-4 bg-gold/60 shrink-0" />
                   {b}
                 </li>
@@ -128,7 +128,7 @@ export default async function ServicesPage() {
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
             Luxury Transportation,<br />Tailored To Every Occasion.
           </h1>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-xl mx-auto">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80 max-w-xl mx-auto">
             Whether you&apos;re traveling for business, arriving at the airport,
             entertaining clients, or celebrating a milestone, our concierge-driven
             service ensures every journey is seamless and memorable.
@@ -148,7 +148,7 @@ export default async function ServicesPage() {
           <h2 className="font-heading text-4xl font-light text-offwhite mb-4">
             Ready to Begin?
           </h2>
-          <p className="font-sans text-sm text-offwhite/60 mb-10">
+          <p className="font-sans text-sm text-offwhite/75 mb-10">
             Contact our concierge team to discuss your transportation needs and
             request a reservation.
           </p>
@@ -161,7 +161,7 @@ export default async function ServicesPage() {
             </Link>
             <Link
               href="/contact"
-              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/85 hover:border-offwhite/60 hover:text-offwhite transition-colors"
             >
               Contact Us
             </Link>

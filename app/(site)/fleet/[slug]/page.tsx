@@ -91,12 +91,12 @@ export default async function VehicleDetailPage({
       {/* Breadcrumb */}
       <div className="bg-black pt-24 pb-0 px-6">
         <div className="mx-auto max-w-7xl">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-sans text-xs text-offwhite/40">
-            <Link href="/" className="hover:text-offwhite/70 transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-sans text-xs text-offwhite/60">
+            <Link href="/" className="hover:text-offwhite/85 transition-colors">Home</Link>
             <ChevronRight size={12} />
-            <Link href="/fleet" className="hover:text-offwhite/70 transition-colors">Fleet</Link>
+            <Link href="/fleet" className="hover:text-offwhite/85 transition-colors">Fleet</Link>
             <ChevronRight size={12} />
-            <span className="text-offwhite/60">{vehicle.name}</span>
+            <span className="text-offwhite/75">{vehicle.name}</span>
           </nav>
         </div>
       </div>
@@ -119,25 +119,25 @@ export default async function VehicleDetailPage({
               {vehicle.starting_hourly_rate && (
                 <p className="font-sans text-lg text-gold mb-6">
                   Starting at ${vehicle.starting_hourly_rate.toLocaleString()}/hour
-                  <span className="text-offwhite/40 text-sm ml-2">· Custom pricing available</span>
+                  <span className="text-offwhite/60 text-sm ml-2">· Custom pricing available</span>
                 </p>
               )}
 
               {vehicle.description && (
-                <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
+                <p className="font-sans text-sm leading-relaxed text-offwhite/80 mb-8">
                   {vehicle.description}
                 </p>
               )}
 
               <div className="flex gap-6 mb-10 pb-10 border-b border-offwhite/[0.08]">
                 {vehicle.chauffeur_available && (
-                  <div className="font-sans text-xs text-offwhite/55">
-                    <span className="block text-offwhite/35 uppercase tracking-[0.12em] text-xs mb-1">Chauffeur</span>
+                  <div className="font-sans text-xs text-offwhite/70">
+                    <span className="block text-offwhite/55 uppercase tracking-[0.12em] text-xs mb-1">Chauffeur</span>
                     Available
                   </div>
                 )}
-                <div className="font-sans text-xs text-offwhite/55">
-                  <span className="block text-offwhite/35 uppercase tracking-[0.12em] text-xs mb-1">Self-Drive</span>
+                <div className="font-sans text-xs text-offwhite/70">
+                  <span className="block text-offwhite/55 uppercase tracking-[0.12em] text-xs mb-1">Self-Drive</span>
                   Available
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default async function VehicleDetailPage({
                 </Link>
                 <a
                   href={phoneHref(s.contact_phone)}
-                  className="flex items-center justify-center gap-2 border border-offwhite/30 px-8 py-4 font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+                  className="flex items-center justify-center gap-2 border border-offwhite/30 px-8 py-4 font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/85 hover:border-offwhite/60 hover:text-offwhite transition-colors"
                 >
                   <Phone size={13} strokeWidth={1.5} />
                   Call Now
@@ -173,7 +173,7 @@ export default async function VehicleDetailPage({
               <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 Self-Drive
               </h3>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80">
                 Experience the freedom of driving our Rolls-Royce yourself.
                 Self-drive availability is subject to approval and specific terms.
                 Contact our concierge team to discuss eligibility and conditions.
@@ -183,7 +183,7 @@ export default async function VehicleDetailPage({
               <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 With Chauffeur
               </h3>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80">
                 Sit back and enjoy a fully attended luxury experience with our
                 professional, discreet chauffeur. Ideal for executive travel,
                 airport transfers, corporate events, and special occasions.
@@ -211,7 +211,7 @@ export default async function VehicleDetailPage({
                 <dt className="font-heading text-xl font-medium text-offwhite mb-3">
                   {item.q}
                 </dt>
-                <dd className="font-sans text-sm leading-relaxed text-offwhite/65">
+                <dd className="font-sans text-sm leading-relaxed text-offwhite/80">
                   {item.a}
                 </dd>
               </div>
@@ -234,7 +234,7 @@ export default async function VehicleDetailPage({
           <h2 className="font-heading text-3xl font-light text-offwhite mb-4">
             Ready to Book?
           </h2>
-          <p className="font-sans text-sm text-offwhite/60 mb-8">
+          <p className="font-sans text-sm text-offwhite/75 mb-8">
             Request a reservation and our concierge team will confirm details
             within 4 business hours.
           </p>

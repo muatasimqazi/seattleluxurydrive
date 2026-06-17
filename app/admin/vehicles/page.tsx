@@ -24,7 +24,7 @@ export default async function VehiclesPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="font-heading text-2xl font-light text-offwhite mb-1">Vehicles</h1>
-          <p className="font-sans text-xs text-offwhite/40">
+          <p className="font-sans text-xs text-offwhite/60">
             {active.length} active · {archived.length} archived
           </p>
         </div>
@@ -82,7 +82,7 @@ function VehicleTable({
               {["Vehicle", "Rate", "Chauffeur", "Featured", "Status", ""].map((h) => (
                 <th
                   key={h}
-                  className="px-4 py-3 text-left font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35"
+                  className="px-4 py-3 text-left font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/55"
                 >
                   {h}
                 </th>
@@ -97,14 +97,14 @@ function VehicleTable({
                 <tr key={v.id} className="border-b border-offwhite/6 hover:bg-offwhite/2 transition-colors">
                   <td className="px-4 py-4">
                     <p className="font-sans text-sm text-offwhite">{v.name}</p>
-                    <p className="font-sans text-xs text-offwhite/40">
+                    <p className="font-sans text-xs text-offwhite/60">
                       {v.year} · {v.make} {v.model}
                     </p>
                   </td>
-                  <td className="px-4 py-4 font-sans text-sm text-offwhite/70">
+                  <td className="px-4 py-4 font-sans text-sm text-offwhite/85">
                     {v.starting_hourly_rate ? `$${v.starting_hourly_rate}/hr` : "—"}
                   </td>
-                  <td className="px-4 py-4 font-sans text-xs text-offwhite/50">
+                  <td className="px-4 py-4 font-sans text-xs text-offwhite/65">
                     {v.chauffeur_available ? "Yes" : "No"}
                   </td>
                   <td className="px-4 py-4">
@@ -114,15 +114,15 @@ function VehicleTable({
                           type="submit"
                           className={`font-sans text-xs transition-colors ${
                             v.featured
-                              ? "text-gold hover:text-offwhite/60"
-                              : "text-offwhite/25 hover:text-offwhite/60"
+                              ? "text-gold hover:text-offwhite/75"
+                              : "text-offwhite/40 hover:text-offwhite/75"
                           }`}
                         >
                           {v.featured ? "★ Featured" : "☆ Set featured"}
                         </button>
                       </form>
                     ) : (
-                      <span className={`font-sans text-xs ${v.featured ? "text-gold" : "text-offwhite/25"}`}>
+                      <span className={`font-sans text-xs ${v.featured ? "text-gold" : "text-offwhite/40"}`}>
                         {v.featured ? "★ Featured" : "—"}
                       </span>
                     )}
@@ -130,7 +130,7 @@ function VehicleTable({
                   <td className="px-4 py-4">
                     <span
                       className={`inline-flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.1em] ${
-                        v.status === "active" ? "text-emerald-400" : "text-offwhite/35"
+                        v.status === "active" ? "text-emerald-400" : "text-offwhite/55"
                       }`}
                     >
                       <span
@@ -147,7 +147,7 @@ function VehicleTable({
                         <form action={archiveAction}>
                           <button
                             type="submit"
-                            className="font-sans text-[11px] text-offwhite/35 hover:text-offwhite/70 transition-colors"
+                            className="font-sans text-[11px] text-offwhite/55 hover:text-offwhite/85 transition-colors"
                           >
                             {v.status === "active" ? "Archive" : "Restore"}
                           </button>

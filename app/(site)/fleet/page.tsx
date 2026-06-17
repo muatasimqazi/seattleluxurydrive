@@ -52,7 +52,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+            <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
               Vehicle Photography
             </span>
           </div>
@@ -78,7 +78,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
           </p>
         )}
         {vehicle.description && (
-          <p className="font-sans text-sm leading-relaxed text-offwhite/60 mb-8 line-clamp-3">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/75 mb-8 line-clamp-3">
             {vehicle.description}
           </p>
         )}
@@ -102,7 +102,7 @@ function EmptyFleet() {
       <h2 className="font-heading text-3xl font-light text-offwhite mb-6">
         Fleet Details Coming Soon
       </h2>
-      <p className="font-sans text-sm text-offwhite/55 max-w-sm mx-auto mb-10">
+      <p className="font-sans text-sm text-offwhite/70 max-w-sm mx-auto mb-10">
         Our fleet information is being finalized. Contact us directly to
         discuss vehicle availability.
       </p>
@@ -138,7 +138,7 @@ export default async function FleetPage() {
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
             Curated For Distinction.
           </h1>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80">
             Curated luxury vehicles for executive transportation and premium
             experiences throughout the Greater Seattle Area.
           </p>
@@ -166,7 +166,7 @@ export default async function FleetPage() {
           <h2 className="font-heading text-3xl font-light text-offwhite mb-4">
             Ready to Reserve?
           </h2>
-          <p className="font-sans text-sm text-offwhite/60 mb-8">
+          <p className="font-sans text-sm text-offwhite/75 mb-8">
             Contact our concierge team to discuss availability, pricing, and
             your transportation needs.
           </p>

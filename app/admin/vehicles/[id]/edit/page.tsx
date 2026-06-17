@@ -16,9 +16,9 @@ const inputCls =
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">{label}</p>
+      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75 mb-2">{label}</p>
       {children}
-      {hint && <p className="font-sans text-[11px] text-offwhite/30 mt-1.5">{hint}</p>}
+      {hint && <p className="font-sans text-[11px] text-offwhite/50 mt-1.5">{hint}</p>}
     </div>
   );
 }
@@ -55,13 +55,13 @@ export default async function EditVehiclePage({
       <div className="mb-8">
         <Link
           href="/admin/vehicles"
-          className="font-sans text-[11px] text-offwhite/40 hover:text-offwhite/70 transition-colors"
+          className="font-sans text-[11px] text-offwhite/60 hover:text-offwhite/85 transition-colors"
         >
           ← Vehicles
         </Link>
         <h1 className="font-heading text-2xl font-light text-offwhite mt-3 mb-1">{vehicle.name}</h1>
-        <p className="font-sans text-xs text-offwhite/40">
-          Slug: <span className="font-mono text-offwhite/50">{vehicle.slug}</span>
+        <p className="font-sans text-xs text-offwhite/60">
+          Slug: <span className="font-mono text-offwhite/65">{vehicle.slug}</span>
         </p>
       </div>
 
@@ -130,7 +130,7 @@ export default async function EditVehiclePage({
 
           <Field label="Starting Hourly Rate (USD)">
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/40">$</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/60">$</span>
               <input
                 name="starting_hourly_rate"
                 type="number"
@@ -139,7 +139,7 @@ export default async function EditVehiclePage({
                 defaultValue={vehicle.starting_hourly_rate ?? ""}
                 className={`${inputCls} pl-8`}
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/40">/hr</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/60">/hr</span>
             </div>
           </Field>
         </section>
@@ -154,7 +154,7 @@ export default async function EditVehiclePage({
               defaultChecked={vehicle.chauffeur_available}
               className="w-4 h-4 accent-gold"
             />
-            <span className="font-sans text-sm text-offwhite/70">Chauffeur service available</span>
+            <span className="font-sans text-sm text-offwhite/85">Chauffeur service available</span>
           </label>
 
           <label className="flex items-center gap-3 cursor-pointer">
@@ -164,7 +164,7 @@ export default async function EditVehiclePage({
               defaultChecked={vehicle.featured}
               className="w-4 h-4 accent-gold"
             />
-            <span className="font-sans text-sm text-offwhite/70">Feature on homepage</span>
+            <span className="font-sans text-sm text-offwhite/85">Feature on homepage</span>
           </label>
         </section>
 
@@ -180,7 +180,7 @@ export default async function EditVehiclePage({
       <div className="mt-10 space-y-6">
         <div className="border-t border-offwhite/8 pt-8">
           <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">Images</p>
-          <p className="font-sans text-xs text-offwhite/35 mb-6">
+          <p className="font-sans text-xs text-offwhite/55 mb-6">
             First image is used as the primary photo on the fleet page and homepage.
           </p>
 
@@ -206,12 +206,12 @@ export default async function EditVehiclePage({
                       )}
                     </div>
                     {img.alt_text && (
-                      <p className="font-sans text-[11px] text-offwhite/40 mt-1.5 truncate">{img.alt_text}</p>
+                      <p className="font-sans text-[11px] text-offwhite/60 mt-1.5 truncate">{img.alt_text}</p>
                     )}
                     <form action={deleteAction} className="mt-1">
                       <button
                         type="submit"
-                        className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/30 hover:text-red-400 transition-colors"
+                        className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/50 hover:text-red-400 transition-colors"
                       >
                         <Trash2 size={11} strokeWidth={1.5} />
                         Delete
@@ -223,30 +223,30 @@ export default async function EditVehiclePage({
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center border border-dashed border-offwhite/15 py-12 mb-6">
-              <ImageIcon size={28} strokeWidth={1} className="text-offwhite/20 mb-3" />
-              <p className="font-sans text-xs text-offwhite/35">No images yet</p>
+              <ImageIcon size={28} strokeWidth={1} className="text-offwhite/35 mb-3" />
+              <p className="font-sans text-xs text-offwhite/55">No images yet</p>
             </div>
           )}
 
           {/* Upload form */}
           <form action={uploadWithId} className="border border-offwhite/8 p-5 space-y-4">
-            <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50">Add Image</p>
+            <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65">Add Image</p>
 
             <div>
-              <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">File</p>
+              <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75 mb-2">File</p>
               <input
                 name="image"
                 type="file"
                 accept="image/jpeg,image/png,image/webp,image/avif"
                 required
-                className="w-full font-sans text-sm text-offwhite/70 file:mr-4 file:bg-offwhite/8 file:border-0 file:px-4 file:py-2 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/70 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+                className="w-full font-sans text-sm text-offwhite/85 file:mr-4 file:bg-offwhite/8 file:border-0 file:px-4 file:py-2 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/85 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
               />
-              <p className="font-sans text-[11px] text-offwhite/30 mt-1.5">JPEG, PNG, WebP or AVIF · Max 10 MB</p>
+              <p className="font-sans text-[11px] text-offwhite/50 mt-1.5">JPEG, PNG, WebP or AVIF · Max 10 MB</p>
             </div>
 
             <div>
-              <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">
-                Alt Text <span className="normal-case tracking-normal text-offwhite/30">(optional)</span>
+              <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75 mb-2">
+                Alt Text <span className="normal-case tracking-normal text-offwhite/50">(optional)</span>
               </p>
               <input
                 name="alt_text"
@@ -258,7 +258,7 @@ export default async function EditVehiclePage({
 
             <button
               type="submit"
-              className="bg-offwhite/8 px-6 py-2.5 font-sans text-[11px] uppercase tracking-[0.18em] text-offwhite/70 hover:bg-offwhite/12 hover:text-offwhite transition-colors"
+              className="bg-offwhite/8 px-6 py-2.5 font-sans text-[11px] uppercase tracking-[0.18em] text-offwhite/85 hover:bg-offwhite/12 hover:text-offwhite transition-colors"
             >
               Upload Image
             </button>

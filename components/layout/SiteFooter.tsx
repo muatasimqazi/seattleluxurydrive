@@ -32,12 +32,12 @@ export default function SiteFooter({
                 <span className="font-heading text-3xl font-light tracking-[0.12em] text-gold">
                   SJD
                 </span>
-                <span className="font-sans text-[9px] uppercase tracking-[0.22em] text-offwhite/60">
+                <span className="font-sans text-[9px] uppercase tracking-[0.22em] text-offwhite/75">
                   Seattle Luxury Drive
                 </span>
               </div>
             </Link>
-            <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-xs">
+            <p className="font-sans text-sm leading-relaxed text-offwhite/80 max-w-xs">
               Seattle&apos;s premier luxury transportation and concierge service.
               Family-owned and dedicated to delivering a white-glove experience
               throughout the Greater Seattle Area.
@@ -54,7 +54,7 @@ export default function SiteFooter({
                 <li key={href}>
                   <Link
                     href={href}
-                    className="font-sans text-sm text-offwhite/70 hover:text-offwhite transition-colors"
+                    className="font-sans text-sm text-offwhite/85 hover:text-offwhite transition-colors"
                   >
                     {label}
                   </Link>
@@ -72,7 +72,7 @@ export default function SiteFooter({
               <li>
                 <a
                   href={phoneHref(phone)}
-                  className="flex items-center gap-3 font-sans text-sm text-offwhite/70 hover:text-offwhite transition-colors"
+                  className="flex items-center gap-3 font-sans text-sm text-offwhite/85 hover:text-offwhite transition-colors"
                 >
                   <Phone size={14} strokeWidth={1.5} className="text-gold shrink-0" />
                   {phone}
@@ -81,14 +81,14 @@ export default function SiteFooter({
               <li>
                 <a
                   href={`mailto:${email}`}
-                  className="flex items-center gap-3 font-sans text-sm text-offwhite/70 hover:text-offwhite transition-colors"
+                  className="flex items-center gap-3 font-sans text-sm text-offwhite/85 hover:text-offwhite transition-colors"
                 >
                   <Mail size={14} strokeWidth={1.5} className="text-gold shrink-0" />
                   {email}
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-3 font-sans text-sm text-offwhite/70">
+                <div className="flex items-start gap-3 font-sans text-sm text-offwhite/85">
                   <MapPin size={14} strokeWidth={1.5} className="text-gold shrink-0 mt-0.5" />
                   <span>{address}</span>
                 </div>
@@ -108,12 +108,12 @@ export default function SiteFooter({
       {/* Bottom bar */}
       <div className="border-t border-offwhite/[0.06]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-sans text-xs text-offwhite/45">
+          <p className="font-sans text-xs text-offwhite/60">
             © {new Date().getFullYear()} Seattle Luxury Drive. All rights reserved.
           </p>
           <Link
             href="/privacy-policy"
-            className="font-sans text-xs text-offwhite/45 hover:text-offwhite/70 transition-colors"
+            className="font-sans text-xs text-offwhite/60 hover:text-offwhite/85 transition-colors"
           >
             Privacy Policy
           </Link>

@@ -98,7 +98,7 @@ export default function SiteNav({ phone }: { phone: string }) {
             <span className="font-heading text-2xl font-light tracking-[0.12em] text-gold">
               SJD
             </span>
-            <span className="font-sans text-[9px] font-normal tracking-[0.22em] text-offwhite/70 uppercase">
+            <span className="font-sans text-[9px] font-normal tracking-[0.22em] text-offwhite/85 uppercase">
               Seattle Luxury Drive
             </span>
           </Link>
@@ -186,7 +186,7 @@ export default function SiteNav({ phone }: { phone: string }) {
             <span className="font-heading text-xl font-light tracking-[0.12em] text-gold">
               SJD
             </span>
-            <span className="font-sans text-[8px] uppercase tracking-[0.22em] text-offwhite/60">
+            <span className="font-sans text-[8px] uppercase tracking-[0.22em] text-offwhite/75">
               Seattle Luxury Drive
             </span>
           </div>
@@ -194,7 +194,7 @@ export default function SiteNav({ phone }: { phone: string }) {
             ref={closeButtonRef}
             onClick={() => setDrawerOpen(false)}
             aria-label="Close menu"
-            className="text-offwhite/70 hover:text-offwhite transition-colors"
+            className="text-offwhite/85 hover:text-offwhite transition-colors"
           >
             <X size={22} strokeWidth={1.5} />
           </button>
@@ -229,7 +229,7 @@ export default function SiteNav({ phone }: { phone: string }) {
           >
             {PHONE}
           </a>
-          <p className="font-sans text-xs text-offwhite/40 mt-1">
+          <p className="font-sans text-xs text-offwhite/60 mt-1">
             Tap to call
           </p>
         </div>

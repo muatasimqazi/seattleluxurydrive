@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/65 mb-2"
             >
               Email
             </label>
@@ -36,14 +36,14 @@ export default function AdminLoginPage() {
               type="email"
               autoComplete="email"
               required
-              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors"
+              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/40 focus:outline-none focus:border-gold transition-colors"
             />
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+              className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/65 mb-2"
             >
               Password
             </label>
@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
               type="password"
               autoComplete="current-password"
               required
-              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors"
+              className="w-full bg-transparent border border-offwhite/20 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/40 focus:outline-none focus:border-gold transition-colors"
             />
           </div>
 

@@ -37,7 +37,7 @@ function InputField({
     <div>
       <label
         htmlFor={id}
-        className="block font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/60 mb-2"
+        className="block font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/75 mb-2"
       >
         {label}
         {required && <span className="text-gold ml-1" aria-hidden="true">*</span>}
@@ -50,7 +50,7 @@ function InputField({
         placeholder={placeholder}
         autoComplete={autoComplete}
         required={required}
-        className={`w-full bg-black/40 border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors ${
+        className={`w-full bg-black/40 border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/50 focus:outline-none focus:border-gold transition-colors ${
           error ? "border-red-400/60" : "border-offwhite/15"
         }`}
         aria-describedby={error ? errorId : undefined}
@@ -77,7 +77,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
         <h3 className="font-heading text-3xl font-normal text-offwhite">
           Message Received
         </h3>
-        <p className="font-sans text-sm text-offwhite/60 max-w-sm">
+        <p className="font-sans text-sm text-offwhite/75 max-w-sm">
           Thank you for contacting Seattle Luxury Drive. A member of our team
           will review your message and respond as soon as possible.
         </p>
@@ -130,7 +130,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
       <div>
         <label
           htmlFor="message"
-          className="block font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/60 mb-2"
+          className="block font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/75 mb-2"
         >
           Message <span className="text-gold">*</span>
         </label>
@@ -140,7 +140,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
           rows={5}
           placeholder="Tell us about your transportation needs…"
           required
-          className={`w-full bg-black/40 border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors resize-none ${
+          className={`w-full bg-black/40 border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/50 focus:outline-none focus:border-gold transition-colors resize-none ${
             errors.message ? "border-red-400/60" : "border-offwhite/15"
           }`}
           aria-describedby={errors.message ? "message-error" : undefined}
@@ -157,7 +157,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
         {isPending ? "Sending…" : "Send Request"}
       </button>
 
-      <p className="font-sans text-xs text-offwhite/35 text-center">
+      <p className="font-sans text-xs text-offwhite/55 text-center">
         We respond to all inquiries within {responseHours} business hours.
       </p>
     </form>

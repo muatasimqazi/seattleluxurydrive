@@ -38,7 +38,7 @@ export default async function BookPage() {
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
             Request a Reservation
           </h1>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80">
             Complete the form below and our concierge team will confirm availability
             and reach out within {s.response_hours} business hours. For immediate assistance, call{" "}
             <a

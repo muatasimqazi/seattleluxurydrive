@@ -52,7 +52,7 @@ export function FaqAccordion({ items, categorySlug }: { items: FaqItem[]; catego
               hidden={!isOpen}
               className="pb-6"
             >
-              <p className="font-sans text-sm leading-relaxed text-offwhite/65">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/80">
                 {item.a}
               </p>
             </div>
@@ -85,7 +85,7 @@ export function FaqCategoryNav({
                 className={`w-full text-left px-4 py-3 font-sans text-sm transition-colors border-l-2 ${
                   isActive
                     ? "border-gold text-gold bg-gold/5"
-                    : "border-transparent text-offwhite/60 hover:text-offwhite hover:border-offwhite/20"
+                    : "border-transparent text-offwhite/75 hover:text-offwhite hover:border-offwhite/20"
                 }`}
               >
                 {cat.name}

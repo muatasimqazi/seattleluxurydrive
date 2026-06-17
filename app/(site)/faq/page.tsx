@@ -152,7 +152,7 @@ export default function FaqPage() {
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
             Frequently Asked Questions
           </h1>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-xl mx-auto">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80 max-w-xl mx-auto">
             Find answers to common questions about our luxury transportation
             services, chauffeur options, airport transfers, vehicle rentals,
             and reservation process.
@@ -173,7 +173,7 @@ export default function FaqPage() {
           <h2 className="font-heading text-3xl font-light text-offwhite mb-4">
             Still Have Questions?
           </h2>
-          <p className="font-sans text-sm text-offwhite/60 mb-8">
+          <p className="font-sans text-sm text-offwhite/75 mb-8">
             Our concierge team is happy to help. Reach out by phone, email, or
             the contact form and we&apos;ll get back to you within 4 business hours.
           </p>
@@ -186,7 +186,7 @@ export default function FaqPage() {
             </a>
             <Link
               href="/contact"
-              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/85 hover:border-offwhite/60 hover:text-offwhite transition-colors"
             >
               Contact Us
             </Link>

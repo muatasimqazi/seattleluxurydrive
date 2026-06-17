@@ -22,11 +22,11 @@ export default async function PrivacyPolicyPage() {
         <h1 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-4">
           Privacy Policy
         </h1>
-        <p className="font-sans text-xs text-offwhite/40 mb-16">
+        <p className="font-sans text-xs text-offwhite/60 mb-16">
           Last updated: June 2025
         </p>
 
-        <div className="space-y-12 font-sans text-sm leading-relaxed text-offwhite/70">
+        <div className="space-y-12 font-sans text-sm leading-relaxed text-offwhite/85">
 
           <div>
             <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
@@ -53,7 +53,7 @@ export default async function PrivacyPolicyPage() {
             <p className="font-medium text-offwhite/85 mb-2">
               Information you provide directly:
             </p>
-            <ul className="list-disc list-inside space-y-2 mb-6 text-offwhite/65">
+            <ul className="list-disc list-inside space-y-2 mb-6 text-offwhite/80">
               <li>
                 <span className="font-medium text-offwhite/80">Reservation requests:</span>{" "}
                 name, email address, phone number, pickup and dropoff locations,
@@ -68,7 +68,7 @@ export default async function PrivacyPolicyPage() {
             <p className="font-medium text-offwhite/85 mb-2">
               Information collected automatically:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-offwhite/65">
+            <ul className="list-disc list-inside space-y-2 text-offwhite/80">
               <li>
                 Usage data including pages visited, session duration, referring
                 URLs, and general browser and device information, collected through
@@ -86,7 +86,7 @@ export default async function PrivacyPolicyPage() {
               3. How We Use Your Information
             </h2>
             <p className="mb-4">We use the information we collect to:</p>
-            <ul className="list-disc list-inside space-y-2 text-offwhite/65">
+            <ul className="list-disc list-inside space-y-2 text-offwhite/80">
               <li>Respond to your reservation requests and general inquiries</li>
               <li>Coordinate and confirm your transportation service</li>
               <li>
@@ -125,7 +125,7 @@ export default async function PrivacyPolicyPage() {
             <div className="space-y-6">
               <div>
                 <p className="font-medium text-offwhite/85 mb-1">Google Analytics</p>
-                <p className="text-offwhite/65">
+                <p className="text-offwhite/80">
                   We use Google Analytics to understand how visitors interact with
                   our Site. Google Analytics collects anonymous usage data using
                   cookies. Your IP address is anonymized before storage. You may
@@ -152,7 +152,7 @@ export default async function PrivacyPolicyPage() {
               </div>
               <div>
                 <p className="font-medium text-offwhite/85 mb-1">PostHog</p>
-                <p className="text-offwhite/65">
+                <p className="text-offwhite/80">
                   We use PostHog for product analytics to understand how users
                   navigate and interact with our Site. PostHog collects page view
                   and interaction data. Data is processed in accordance with
@@ -170,7 +170,7 @@ export default async function PrivacyPolicyPage() {
               </div>
               <div>
                 <p className="font-medium text-offwhite/85 mb-1">Resend</p>
-                <p className="text-offwhite/65">
+                <p className="text-offwhite/80">
                   We use Resend to deliver transactional emails, including booking
                   confirmations and inquiry responses. Your name and email address
                   are transmitted to Resend solely for the purpose of delivering
@@ -180,7 +180,7 @@ export default async function PrivacyPolicyPage() {
               </div>
               <div>
                 <p className="font-medium text-offwhite/85 mb-1">Supabase</p>
-                <p className="text-offwhite/65">
+                <p className="text-offwhite/80">
                   Your form submissions are stored securely in Supabase, a managed
                   cloud database platform. Supabase employs industry-standard
                   security practices including encryption at rest and in transit.
@@ -199,7 +199,7 @@ export default async function PrivacyPolicyPage() {
               Our Site uses cookies and similar technologies for the following
               purposes:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-offwhite/65 mb-4">
+            <ul className="list-disc list-inside space-y-2 text-offwhite/80 mb-4">
               <li>
                 <span className="font-medium text-offwhite/80">Analytics cookies</span>{" "}
                 (Google Analytics, PostHog): Collect anonymous data about how you
@@ -234,7 +234,7 @@ export default async function PrivacyPolicyPage() {
               Depending on your location and applicable law, you may have the right
               to:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-offwhite/65">
+            <ul className="list-disc list-inside space-y-2 text-offwhite/80">
               <li>Access the personal information we hold about you</li>
               <li>Request correction of inaccurate or incomplete information</li>
               <li>Request deletion of your personal information</li>
@@ -301,7 +301,7 @@ export default async function PrivacyPolicyPage() {
               privacy rights, or have concerns about how your information is handled,
               please contact us:
             </p>
-            <div className="space-y-1 text-offwhite/65">
+            <div className="space-y-1 text-offwhite/80">
               <p className="font-medium text-offwhite/85">{s.site_name}</p>
               <p>{s.site_address}</p>
               <p>

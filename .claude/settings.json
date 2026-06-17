@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_figma_figma__get_metadata",
+      "mcp__plugin_figma_figma__use_figma",
+      "Read(//Users/muatasimqazi/.claude/plugins/cache/claude-plugins-official/figma/2.2.50/skills/figma-generate-library/references/**)",
+      "mcp__plugin_figma_figma__get_screenshot",
+      "Bash(git -C /Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive status)",
+      "Bash(git -C /Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive log --oneline -5)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(npm --version)",
+      "Bash(npx create-next-app@15 /tmp/sld-nextjs --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --no-git)",
+      "Bash(rm -rf /tmp/sld-nextjs)",
+      "Bash(npx create-next-app@15 /tmp/sld-nextjs --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --no-git --turbopack)",
+      "Bash(ls /tmp/sld-nextjs)",
+      "Read(//private/tmp/sld-nextjs/**)",
+      "Bash(cp -r /tmp/sld-nextjs/app .)",
+      "Bash(cp -r /tmp/sld-nextjs/public .)",
+      "Bash(cp /tmp/sld-nextjs/next-env.d.ts .)",
+      "Bash(cp /tmp/sld-nextjs/next.config.ts .)",
+      "Bash(cp /tmp/sld-nextjs/postcss.config.mjs .)",
+      "Bash(npm install *)",
+      "Bash(cp /tmp/sld-nextjs/.gitignore *)",
+      "Bash(npx shadcn@latest init --yes --defaults)",
+      "Bash(npm run *)",
+      "Bash(git -C /Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive add app/layout.tsx app/error.tsx app/not-found.tsx components/layout/GoogleAnalytics.tsx components/layout/SiteFooter.tsx components/layout/SiteNav.tsx lib/supabase/client.ts lib/supabase/server.ts middleware.ts)",
+      "Bash(git -C /Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive commit -m ' *)",
+      "Bash(git -C /Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive add app/services/page.tsx app/about/page.tsx app/faq/page.tsx app/contact/page.tsx app/privacy-policy/page.tsx app/actions/contact.ts components/faq/FaqAccordion.tsx components/contact/ContactForm.tsx)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(npx tsc *)",
+      "mcp__plugin_figma_figma__generate_figma_design",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s --max-time 10 http://localhost:3000/)",
+      "Bash(curl -s --max-time 5 http://localhost:3000/faq)",
+      "Bash(curl -s -I --max-time 10 http://localhost:3000/faq)",
+      "Bash(curl -s --max-time 10 http://localhost:3000/faq)",
+      "Bash(curl -s -I --max-time 10 \"https://mcp.figma.com/mcp/html-to-design/capture.js\")",
+      "Bash(curl -s --max-time 10 \"http://localhost:3000/faq\")",
+      "Bash(curl -s -o /tmp/sld-site.png \"https://www.figma.com/api/mcp/asset/f1014e00-d4ef-41b1-8afe-57589e2c84a1\")",
+      "Bash(curl -s -o /tmp/sld-colors.png \"https://www.figma.com/api/mcp/asset/c1ed39e2-187f-4936-9192-61837f58c3d6\")",
+      "Bash(curl -s -o /tmp/sld-nav.png \"https://www.figma.com/api/mcp/asset/c212123f-7936-4306-b43e-9973543f03e8\")",
+      "Bash(curl -s -o /tmp/sld-navbar.png \"https://www.figma.com/api/mcp/asset/672295e6-34d1-43c6-803b-9ecc7fae7bbc\")",
+      "Bash(mkdir -p /Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive/app/admin/services/\\\\[id\\\\]/edit)",
+      "Bash(xargs sed -i '' -e 's/text-offwhite\\\\/70/text-offwhite\\\\/Z85/g' -e 's/text-offwhite\\\\/65/text-offwhite\\\\/Z80/g' -e 's/text-offwhite\\\\/60/text-offwhite\\\\/Z75/g' -e 's/text-offwhite\\\\/55/text-offwhite\\\\/Z70/g' -e 's/text-offwhite\\\\/50/text-offwhite\\\\/Z65/g' -e 's/text-offwhite\\\\/45/text-offwhite\\\\/Z60/g' -e 's/text-offwhite\\\\/40/text-offwhite\\\\/Z60/g' -e 's/text-offwhite\\\\/35/text-offwhite\\\\/Z55/g' -e 's/text-offwhite\\\\/30/text-offwhite\\\\/Z50/g' -e 's/text-offwhite\\\\/25/text-offwhite\\\\/Z40/g' -e 's/text-offwhite\\\\/20/text-offwhite\\\\/Z35/g' -e 's/text-offwhite\\\\/Z/text-offwhite\\\\//g')"
+    ],
+    "additionalDirectories": [
+      "/private/tmp/sld-nextjs",
+      "/Users/muatasimqazi/code/src/github.com/muatasimqazi/seattleluxurydrive/app/admin/services/[id]"
+    ]
+  }
+}

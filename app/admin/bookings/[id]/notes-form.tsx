@@ -24,7 +24,7 @@ export function AdminNotesForm({
           defaultValue={initialNotes ?? ""}
           rows={4}
           placeholder="Add internal notes visible only to admin…"
-          className="w-full bg-offwhite/[0.04] border border-offwhite/10 px-4 py-3 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/20 resize-y focus:outline-none focus:border-gold/50 transition-colors"
+          className="w-full bg-offwhite/[0.04] border border-offwhite/10 px-4 py-3 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/35 resize-y focus:outline-none focus:border-gold/50 transition-colors"
         />
         <div className="flex items-center gap-4">
           <button

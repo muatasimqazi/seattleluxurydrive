@@ -20,7 +20,7 @@ function DetailRow({ label, value }: { label: string; value?: string | null }) {
   if (!value) return null;
   return (
     <div className="flex gap-6 py-3 border-b border-offwhite/[0.06]">
-      <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35 w-40 shrink-0 pt-0.5">
+      <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/55 w-40 shrink-0 pt-0.5">
         {label}
       </span>
       <span className="font-sans text-sm text-offwhite/80">{value}</span>
@@ -58,7 +58,7 @@ export default async function BookingDetailPage({ params }: Props) {
       {/* Back */}
       <Link
         href="/admin/bookings"
-        className="inline-flex items-center gap-1 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors mb-8"
+        className="inline-flex items-center gap-1 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/60 hover:text-gold transition-colors mb-8"
       >
         ← All Bookings
       </Link>
@@ -68,13 +68,13 @@ export default async function BookingDetailPage({ params }: Props) {
           <h1 className="font-heading text-3xl font-light text-offwhite">
             {booking.first_name} {booking.last_name}
           </h1>
-          <p className="font-sans text-xs text-offwhite/35 mt-1">ID: {id}</p>
+          <p className="font-sans text-xs text-offwhite/55 mt-1">ID: {id}</p>
         </div>
 
         {/* Status badge */}
         <span
           className={`shrink-0 inline-block px-3 py-1 font-sans text-[10px] uppercase tracking-[0.1em] rounded-sm ${
-            STATUS_COLORS[booking.status ?? "new"] ?? "bg-offwhite/10 text-offwhite/50"
+            STATUS_COLORS[booking.status ?? "new"] ?? "bg-offwhite/10 text-offwhite/65"
           }`}
         >
           {booking.status}
@@ -118,7 +118,7 @@ export default async function BookingDetailPage({ params }: Props) {
           <DetailRow label="Occasion" value={booking.occasion} />
           {booking.special_requests && (
             <div className="py-3 border-b border-offwhite/[0.06]">
-              <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35 block mb-2">
+              <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/55 block mb-2">
                 Special Requests
               </span>
               <p className="font-sans text-sm text-offwhite/80 whitespace-pre-wrap">
@@ -174,7 +174,7 @@ export default async function BookingDetailPage({ params }: Props) {
                 className={`px-5 py-2.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                   booking.status === s
                     ? "border-gold bg-gold/10 text-gold"
-                    : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite"
+                    : "border-offwhite/20 text-offwhite/65 hover:border-offwhite/40 hover:text-offwhite"
                 }`}
               >
                 {s}

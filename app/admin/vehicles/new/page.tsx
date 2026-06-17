@@ -13,14 +13,14 @@ export default async function NewVehiclePage() {
       <div className="mb-8">
         <Link
           href="/admin/vehicles"
-          className="font-sans text-[11px] text-offwhite/40 hover:text-offwhite/70 transition-colors"
+          className="font-sans text-[11px] text-offwhite/60 hover:text-offwhite/85 transition-colors"
         >
           ← Vehicles
         </Link>
         <h1 className="font-heading text-2xl font-light text-offwhite mt-3 mb-1">
           Add Vehicle
         </h1>
-        <p className="font-sans text-xs text-offwhite/40">
+        <p className="font-sans text-xs text-offwhite/60">
           New vehicle will be active by default.
         </p>
       </div>

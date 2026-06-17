@@ -67,7 +67,7 @@ export default async function ContactPage() {
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
             Let&apos;s Plan Your<br />Transportation Experience.
           </h1>
-          <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-xl mx-auto">
+          <p className="font-sans text-sm leading-relaxed text-offwhite/80 max-w-xl mx-auto">
             Whether you need executive transportation, chauffeur service, airport
             transfers, or luxury transportation for a special occasion, our team
             is ready to assist.
@@ -88,7 +88,7 @@ export default async function ContactPage() {
               <h2 className="font-heading text-3xl font-light text-offwhite mb-4">
                 Speak With Our<br />Concierge Team
               </h2>
-              <p className="font-sans text-sm leading-relaxed text-offwhite/60 mb-10">
+              <p className="font-sans text-sm leading-relaxed text-offwhite/75 mb-10">
                 Our concierge team is available to answer questions, discuss
                 transportation options, and help coordinate your reservation.
               </p>
@@ -100,7 +100,7 @@ export default async function ContactPage() {
                       <Phone size={16} strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/40 mb-1">
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/60 mb-1">
                         Phone
                       </p>
                       <a
@@ -109,7 +109,7 @@ export default async function ContactPage() {
                       >
                         {s.contact_phone}
                       </a>
-                      <p className="font-sans text-xs text-offwhite/40 mt-1">
+                      <p className="font-sans text-xs text-offwhite/60 mt-1">
                         Call or text anytime
                       </p>
                     </div>
@@ -121,7 +121,7 @@ export default async function ContactPage() {
                       <Mail size={16} strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/40 mb-1">
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/60 mb-1">
                         Email
                       </p>
                       <a
@@ -139,7 +139,7 @@ export default async function ContactPage() {
                       <MapPin size={16} strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/40 mb-1">
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/60 mb-1">
                         Address
                       </p>
                       <p className="font-sans text-base text-offwhite">
@@ -155,7 +155,7 @@ export default async function ContactPage() {
                       <Clock size={16} strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/40 mb-1">
+                      <p className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/60 mb-1">
                         Hours
                       </p>
                       <p className="font-sans text-base text-offwhite">
@@ -200,7 +200,7 @@ export default async function ContactPage() {
             <h2 className="font-heading text-3xl font-light text-offwhite">
               Find Us in Shoreline
             </h2>
-            <p className="font-sans text-sm text-offwhite/55 mt-2">
+            <p className="font-sans text-sm text-offwhite/70 mt-2">
               14723 Aurora Ave N, Shoreline, WA 98133
             </p>
           </div>

@@ -34,7 +34,7 @@ export default function AdminSidebar({ nav, email, role }: Props) {
         <button
           onClick={() => setOpen(true)}
           aria-label="Open menu"
-          className="text-offwhite/50 hover:text-offwhite transition-colors"
+          className="text-offwhite/65 hover:text-offwhite transition-colors"
         >
           <Menu size={20} />
         </button>
@@ -68,7 +68,7 @@ export default function AdminSidebar({ nav, email, role }: Props) {
           <button
             onClick={close}
             aria-label="Close menu"
-            className="lg:hidden text-offwhite/40 hover:text-offwhite transition-colors"
+            className="lg:hidden text-offwhite/60 hover:text-offwhite transition-colors"
           >
             <X size={16} />
           </button>
@@ -84,7 +84,7 @@ export default function AdminSidebar({ nav, email, role }: Props) {
               className={`block px-3 py-2.5 font-sans text-xs transition-colors rounded-sm ${
                 isActive(item)
                   ? "text-offwhite bg-offwhite/6"
-                  : "text-offwhite/60 hover:text-offwhite hover:bg-offwhite/4"
+                  : "text-offwhite/75 hover:text-offwhite hover:bg-offwhite/4"
               }`}
             >
               {item.label}
@@ -94,18 +94,18 @@ export default function AdminSidebar({ nav, email, role }: Props) {
 
         {/* User + sign out */}
         <div className="px-6 py-5 border-t border-offwhite/6">
-          <p className="font-sans text-[10px] text-offwhite/35 truncate mb-1">
+          <p className="font-sans text-[10px] text-offwhite/55 truncate mb-1">
             {email}
           </p>
           {role && (
-            <p className="font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/20 mb-3">
+            <p className="font-sans text-[9px] uppercase tracking-[0.2em] text-offwhite/35 mb-3">
               {role}
             </p>
           )}
           <form action={signOut}>
             <button
               type="submit"
-              className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
+              className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/60 hover:text-gold transition-colors"
             >
               Sign Out
             </button>

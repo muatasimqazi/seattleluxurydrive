@@ -21,7 +21,7 @@ export default async function ServicesAdminPage() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="font-heading text-2xl font-light text-offwhite mb-1">Services</h1>
-        <p className="font-sans text-xs text-offwhite/40">
+        <p className="font-sans text-xs text-offwhite/60">
           {active.length} active · {archived.length} archived
         </p>
       </div>
@@ -63,7 +63,7 @@ function ServiceTable({
               {["#", "Service", "Image", "Status", ""].map((h) => (
                 <th
                   key={h}
-                  className="px-4 py-3 text-left font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35"
+                  className="px-4 py-3 text-left font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/55"
                 >
                   {h}
                 </th>
@@ -76,14 +76,14 @@ function ServiceTable({
                 <td className="px-4 py-4 font-sans text-xs text-gold-lt w-10">{s.eyebrow}</td>
                 <td className="px-4 py-4 font-sans text-sm text-offwhite">{s.name}</td>
                 <td className="px-4 py-4">
-                  <span className={`font-sans text-xs ${s.image_url ? "text-emerald-400" : "text-offwhite/25"}`}>
+                  <span className={`font-sans text-xs ${s.image_url ? "text-emerald-400" : "text-offwhite/40"}`}>
                     {s.image_url ? "Uploaded" : "No photo"}
                   </span>
                 </td>
                 <td className="px-4 py-4">
                   <span
                     className={`inline-flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-widest ${
-                      s.status === "active" ? "text-emerald-400" : "text-offwhite/35"
+                      s.status === "active" ? "text-emerald-400" : "text-offwhite/55"
                     }`}
                   >
                     <span

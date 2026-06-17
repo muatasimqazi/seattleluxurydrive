@@ -20,7 +20,7 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={`inline-block px-2 py-0.5 font-sans text-[10px] uppercase tracking-widest rounded-sm ${
-        STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/50"
+        STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/65"
       }`}
     >
       {status}
@@ -117,7 +117,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
             name="q"
             defaultValue={search}
             placeholder="Search by name or email…"
-            className="w-64 bg-offwhite/4 border border-offwhite/10 px-3 py-2 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/20 focus:outline-none focus:border-gold/50 transition-colors"
+            className="w-64 bg-offwhite/4 border border-offwhite/10 px-3 py-2 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/35 focus:outline-none focus:border-gold/50 transition-colors"
           />
           <button
             type="submit"
@@ -128,13 +128,13 @@ export default async function AdminContactsPage({ searchParams }: Props) {
           {search && (
             <Link
               href={buildHref({ status: filterStatus }, {})}
-              className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 transition-colors"
+              className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 hover:border-offwhite/40 transition-colors"
             >
               Clear
             </Link>
           )}
         </form>
-        <p className="font-sans text-xs text-offwhite/30">
+        <p className="font-sans text-xs text-offwhite/50">
           {total} result{total !== 1 ? "s" : ""}
           {search ? ` for "${search}"` : ""}
         </p>
@@ -147,7 +147,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
           className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors ${
             !filterStatus
               ? "border-gold text-gold bg-gold/10"
-              : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40"
+              : "border-offwhite/20 text-offwhite/65 hover:border-offwhite/40"
           }`}
         >
           All
@@ -159,7 +159,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
             className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors ${
               filterStatus === s
                 ? "border-gold text-gold bg-gold/10"
-                : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40"
+                : "border-offwhite/20 text-offwhite/65 hover:border-offwhite/40"
             }`}
           >
             {s}
@@ -169,7 +169,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
 
       {/* Cards */}
       {contacts.length === 0 ? (
-        <p className="font-sans text-sm text-offwhite/30 py-12">
+        <p className="font-sans text-sm text-offwhite/50 py-12">
           No contact requests
           {filterStatus ? ` with status "${filterStatus}"` : ""}
           {search ? ` matching "${search}"` : ""}.
@@ -185,7 +185,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
                     <p className="font-sans text-sm text-offwhite font-medium">
                       {c.first_name} {c.last_name}
                     </p>
-                    <p className="font-sans text-xs text-offwhite/50 mt-0.5">
+                    <p className="font-sans text-xs text-offwhite/65 mt-0.5">
                       <a href={`mailto:${c.email}`} className="hover:text-gold transition-colors">
                         {c.email}
                       </a>{" "}
@@ -197,18 +197,18 @@ export default async function AdminContactsPage({ searchParams }: Props) {
                   </div>
                   <div className="text-right shrink-0">
                     <StatusBadge status={c.status} />
-                    <p className="font-sans text-[10px] text-offwhite/30 mt-1">
+                    <p className="font-sans text-[10px] text-offwhite/50 mt-1">
                       {new Date(c.created_at).toLocaleDateString()}
                     </p>
                     {c.responded_at && (
-                      <p className="font-sans text-[10px] text-offwhite/20 mt-0.5">
+                      <p className="font-sans text-[10px] text-offwhite/35 mt-0.5">
                         Responded {new Date(c.responded_at).toLocaleDateString()}
                       </p>
                     )}
                   </div>
                 </div>
 
-                <p className="font-sans text-sm text-offwhite/70 leading-relaxed whitespace-pre-wrap mb-5 border-l-2 border-offwhite/10 pl-4">
+                <p className="font-sans text-sm text-offwhite/85 leading-relaxed whitespace-pre-wrap mb-5 border-l-2 border-offwhite/10 pl-4">
                   {c.message}
                 </p>
 
@@ -221,7 +221,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
                         className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-widest border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                           c.status === s
                             ? "border-gold bg-gold/10 text-gold"
-                            : "border-offwhite/20 text-offwhite/40 hover:border-offwhite/40 hover:text-offwhite/70"
+                            : "border-offwhite/20 text-offwhite/60 hover:border-offwhite/40 hover:text-offwhite/85"
                         }`}
                       >
                         {s}
@@ -240,14 +240,14 @@ export default async function AdminContactsPage({ searchParams }: Props) {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <p className="font-sans text-xs text-offwhite/30">
+          <p className="font-sans text-xs text-offwhite/50">
             Page {page} of {totalPages}
           </p>
           <div className="flex gap-2">
             {page > 1 && (
               <Link
                 href={buildHref(baseParams, { page: String(page - 1) })}
-                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite transition-colors"
+                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 hover:border-offwhite/40 hover:text-offwhite transition-colors"
               >
                 ← Previous
               </Link>
@@ -255,7 +255,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
             {page < totalPages && (
               <Link
                 href={buildHref(baseParams, { page: String(page + 1) })}
-                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite transition-colors"
+                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 hover:border-offwhite/40 hover:text-offwhite transition-colors"
               >
                 Next →
               </Link>

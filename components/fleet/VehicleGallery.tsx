@@ -18,7 +18,7 @@ export default function VehicleGallery({
     return (
       <div className="relative aspect-[4/3] overflow-hidden bg-charcoal">
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+          <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/35">
             Vehicle Photography
           </span>
         </div>

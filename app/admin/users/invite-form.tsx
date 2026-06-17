@@ -9,7 +9,7 @@ export function InviteForm() {
   return (
     <form action={formAction} className="flex flex-wrap items-end gap-3">
       <div>
-        <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 mb-2">
+        <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 mb-2">
           Email
         </p>
         <input
@@ -17,11 +17,11 @@ export function InviteForm() {
           name="email"
           required
           placeholder="staff@example.com"
-          className="w-64 bg-black/40 border border-offwhite/15 px-3 py-2.5 font-sans text-sm text-offwhite placeholder:text-offwhite/20 focus:outline-none focus:border-gold transition-colors"
+          className="w-64 bg-black/40 border border-offwhite/15 px-3 py-2.5 font-sans text-sm text-offwhite placeholder:text-offwhite/35 focus:outline-none focus:border-gold transition-colors"
         />
       </div>
       <div>
-        <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 mb-2">
+        <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65 mb-2">
           Role
         </p>
         <select

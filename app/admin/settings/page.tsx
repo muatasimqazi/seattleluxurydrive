@@ -17,7 +17,7 @@ const DAYS_OPTIONS = [
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">
+      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75 mb-2">
         {label}
       </p>
       {children}
@@ -40,7 +40,7 @@ export default async function SettingsPage({
   return (
     <div className="p-8 max-w-xl">
       <h1 className="font-heading text-2xl font-light text-offwhite mb-1">Settings</h1>
-      <p className="font-sans text-xs text-offwhite/40 mb-8">
+      <p className="font-sans text-xs text-offwhite/60 mb-8">
         Site-wide configuration. Changes take effect immediately.
       </p>
 
@@ -59,7 +59,7 @@ export default async function SettingsPage({
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Site Identity
             </p>
-            <p className="font-sans text-xs text-offwhite/35">
+            <p className="font-sans text-xs text-offwhite/55">
               Appears in the footer, emails, and structured schema data.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default async function SettingsPage({
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Business Hours
             </p>
-            <p className="font-sans text-xs text-offwhite/35">
+            <p className="font-sans text-xs text-offwhite/55">
               Shown in Google search results via the LocalBusiness schema.
             </p>
           </div>
@@ -119,9 +119,9 @@ export default async function SettingsPage({
             </Field>
           </div>
 
-          <p className="font-sans text-[11px] text-offwhite/30">
+          <p className="font-sans text-[11px] text-offwhite/50">
             Schema value:{" "}
-            <span className="font-mono text-offwhite/50">
+            <span className="font-mono text-offwhite/65">
               {s.hours_days} {s.hours_open}–{s.hours_close}
             </span>
           </p>
@@ -133,7 +133,7 @@ export default async function SettingsPage({
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Contact Information
             </p>
-            <p className="font-sans text-xs text-offwhite/35">
+            <p className="font-sans text-xs text-offwhite/55">
               Appears in navigation, footer, and all customer-facing emails.
             </p>
           </div>
@@ -165,14 +165,14 @@ export default async function SettingsPage({
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Pricing
             </p>
-            <p className="font-sans text-xs text-offwhite/35">
+            <p className="font-sans text-xs text-offwhite/55">
               Display rate shown in hero, services section, and FAQ. Enter the number only.
             </p>
           </div>
 
           <Field label="Starting Hourly Rate (USD)">
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/40">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/60">
                 $
               </span>
               <input
@@ -184,7 +184,7 @@ export default async function SettingsPage({
                 placeholder="350"
                 className={`${inputCls} pl-8`}
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/40">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/60">
                 /hr
               </span>
             </div>
@@ -197,7 +197,7 @@ export default async function SettingsPage({
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Response Time Commitment
             </p>
-            <p className="font-sans text-xs text-offwhite/35">
+            <p className="font-sans text-xs text-offwhite/55">
               The &ldquo;within X business hours&rdquo; promise shown on booking, contact, and in emails.
             </p>
           </div>
@@ -213,15 +213,15 @@ export default async function SettingsPage({
                 placeholder="4"
                 className={`${inputCls} pr-24`}
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/40">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/60">
                 business hrs
               </span>
             </div>
           </Field>
 
-          <p className="font-sans text-[11px] text-offwhite/30">
+          <p className="font-sans text-[11px] text-offwhite/50">
             Displays as:{" "}
-            <span className="font-mono text-offwhite/50">
+            <span className="font-mono text-offwhite/65">
               within {s.response_hours} business hours
             </span>
           </p>
@@ -242,7 +242,7 @@ export default async function SettingsPage({
             <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Site Images
             </p>
-            <p className="font-sans text-xs text-offwhite/35">
+            <p className="font-sans text-xs text-offwhite/55">
               Uploaded to the <span className="font-mono">site-images</span> bucket. JPEG, PNG, WebP or AVIF · Max 10 MB.
             </p>
           </div>
@@ -291,8 +291,8 @@ function SiteImageSlot({
   return (
     <div className="border-t border-offwhite/8 pt-5 space-y-3">
       <div>
-        <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60">{label}</p>
-        <p className="font-sans text-[11px] text-offwhite/30 mt-0.5">{hint}</p>
+        <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/75">{label}</p>
+        <p className="font-sans text-[11px] text-offwhite/50 mt-0.5">{hint}</p>
       </div>
 
       {currentUrl ? (
@@ -307,11 +307,11 @@ function SiteImageSlot({
                 type="file"
                 accept="image/jpeg,image/png,image/webp,image/avif"
                 required
-                className="font-sans text-xs text-offwhite/60 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/60 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+                className="font-sans text-xs text-offwhite/75 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/75 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
               />
               <button
                 type="submit"
-                className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/50 hover:text-offwhite transition-colors"
+                className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/65 hover:text-offwhite transition-colors"
               >
                 Replace
               </button>
@@ -319,7 +319,7 @@ function SiteImageSlot({
             <form action={removeAction}>
               <button
                 type="submit"
-                className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/30 hover:text-red-400 transition-colors"
+                className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/50 hover:text-red-400 transition-colors"
               >
                 <X size={11} strokeWidth={1.5} />
                 Remove
@@ -330,18 +330,18 @@ function SiteImageSlot({
       ) : (
         <form action={uploadAction} className="flex items-center gap-3">
           <div className="flex items-center justify-center w-16 h-12 bg-offwhite/4 border border-dashed border-offwhite/15 shrink-0">
-            <ImageIcon size={16} strokeWidth={1} className="text-offwhite/20" />
+            <ImageIcon size={16} strokeWidth={1} className="text-offwhite/35" />
           </div>
           <input
             name="image"
             type="file"
             accept="image/jpeg,image/png,image/webp,image/avif"
             required
-            className="flex-1 font-sans text-xs text-offwhite/60 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/60 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+            className="flex-1 font-sans text-xs text-offwhite/75 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/75 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
           />
           <button
             type="submit"
-            className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/50 hover:text-offwhite transition-colors"
+            className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/65 hover:text-offwhite transition-colors"
           >
             Upload
           </button>
