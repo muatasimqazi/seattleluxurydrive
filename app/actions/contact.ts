@@ -2,6 +2,7 @@
 
 import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/server";
+import { checkRateLimit } from "@/lib/rate-limit";
 import ContactAdminEmail from "@/emails/ContactAdminEmail";
 import ContactCustomerEmail from "@/emails/ContactCustomerEmail";
 
@@ -33,6 +34,15 @@ export async function submitContactForm(
   // Honeypot — bots fill hidden fields, humans don't
   const honeypot = formData.get("_hp") as string;
   if (honeypot) return { status: "success" };
+
+  // Rate limiting
+  const { allowed } = await checkRateLimit();
+  if (!allowed) {
+    return {
+      status: "error",
+      message: "Too many requests. Please try again in 15 minutes or call us directly at (206) 669-1109.",
+    };
+  }
 
   // Validate
   const errors: Record<string, string> = {};

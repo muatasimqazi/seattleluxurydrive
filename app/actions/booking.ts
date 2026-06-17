@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/server";
+import { checkRateLimit } from "@/lib/rate-limit";
 import BookingAdminEmail from "@/emails/BookingAdminEmail";
 import BookingCustomerEmail from "@/emails/BookingCustomerEmail";
 
@@ -26,8 +27,18 @@ export async function submitBookingRequest(
   formData: FormData
 ): Promise<BookingFormState> {
   // Honeypot
-  if (formData.get("website")) {
+  if (formData.get("_hp")) {
     return { status: "success" };
+  }
+
+  // Rate limiting
+  const { allowed } = await checkRateLimit();
+  if (!allowed) {
+    return {
+      status: "error",
+      errors: {},
+      general: "Too many requests. Please try again in 15 minutes or call us directly at (206) 669-1109.",
+    };
   }
 
   const raw = {
