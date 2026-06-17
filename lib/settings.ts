@@ -4,6 +4,9 @@ export { phoneHref } from "@/lib/utils";
 export const SETTING_DEFAULTS: Record<string, string> = {
   site_name: "Seattle Luxury Drive",
   site_address: "14723 Aurora Ave N, Shoreline, WA 98133",
+  image_home_hero: "",
+  image_service_area: "",
+  image_about_brand: "",
   hours_days: "Mo-Su",
   hours_open: "07:00",
   hours_close: "22:00",

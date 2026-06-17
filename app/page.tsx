@@ -66,13 +66,22 @@ async function getFeaturedVehicle(): Promise<Vehicle | null> {
 
 // ─── SECTIONS ────────────────────────────────────────────────────────────────
 
-function HeroSection({ startingRate }: { startingRate: string }) {
+function HeroSection({ startingRate, heroImage }: { startingRate: string; heroImage: string }) {
   return (
     <section
       aria-label="Hero"
       className="relative flex min-h-screen flex-col items-center justify-center bg-black px-6 text-center"
     >
-      {/* Image placeholder — replace with next/image when photography is available */}
+      {heroImage && (
+        <Image
+          src={heroImage}
+          alt="Seattle Luxury Drive hero"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+      )}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black"
@@ -358,7 +367,7 @@ function WhyChooseSection() {
 // Enable this section once real testimonials are available.
 // function TestimonialsSection() { ... }
 
-function ServiceAreaSection() {
+function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
   return (
     <section className="bg-black px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
@@ -398,13 +407,16 @@ function ServiceAreaSection() {
             </Link>
           </div>
 
-          {/* Image placeholder */}
           <div className="relative aspect-square bg-charcoal lg:aspect-auto lg:h-[560px]">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
-                Seattle Photography
-              </span>
-            </div>
+            {seattleImage ? (
+              <Image src={seattleImage} alt="Seattle area" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                  Seattle Photography
+                </span>
+              </div>
+            )}
             <div className="absolute bottom-0 right-0 h-[2px] w-16 bg-gold" />
           </div>
         </div>
@@ -567,12 +579,12 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd data={localBusinessSchema} />
-      <HeroSection startingRate={s.starting_rate} />
+      <HeroSection startingRate={s.starting_rate} heroImage={s.image_home_hero} />
       <ServicesSection />
       <FeaturedVehicleSection vehicle={featuredVehicle} fallbackRate={s.starting_rate} />
       <WhyChooseSection />
       {/* TestimonialsSection hidden — enable once minimum 3 real reviews collected */}
-      <ServiceAreaSection />
+      <ServiceAreaSection seattleImage={s.image_service_area} />
       <ReservationProcessSection />
       <FinalCTASection />
     </>

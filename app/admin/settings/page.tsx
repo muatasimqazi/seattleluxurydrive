@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { CheckCircle } from "lucide-react";
+import Image from "next/image";
+import { CheckCircle, ImageIcon, X } from "lucide-react";
 import { getSettings } from "@/lib/settings";
 import { updateSettings } from "@/app/actions/admin-settings";
+import { uploadSiteImage, removeSiteImage } from "@/app/actions/admin-site-images";
 
 export const metadata: Metadata = { title: "Settings" };
 
@@ -230,6 +232,118 @@ export default async function SettingsPage({
           Save Settings
         </button>
       </form>
+
+      {/* ── Site Images ── (separate forms — file uploads can't share a form with text fields) */}
+      <div className="mt-6 space-y-4">
+        <section className="border border-offwhite/8 p-6 space-y-6">
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
+              Site Images
+            </p>
+            <p className="font-sans text-xs text-offwhite/35">
+              Uploaded to the <span className="font-mono">site-images</span> bucket. JPEG, PNG, WebP or AVIF · Max 10 MB.
+            </p>
+          </div>
+
+          <SiteImageSlot
+            label="Home Hero Background"
+            hint="Full-screen background on the home page hero section."
+            settingKey="image_home_hero"
+            currentUrl={s.image_home_hero}
+          />
+
+          <SiteImageSlot
+            label="Seattle / Service Area Photo"
+            hint="Shown in the service area section on both the home page and about page."
+            settingKey="image_service_area"
+            currentUrl={s.image_service_area}
+          />
+
+          <SiteImageSlot
+            label="About — Brand / Story Photo"
+            hint="Shown in the 'Our Story' section on the about page."
+            settingKey="image_about_brand"
+            currentUrl={s.image_about_brand}
+          />
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function SiteImageSlot({
+  label,
+  hint,
+  settingKey,
+  currentUrl,
+}: {
+  label: string;
+  hint: string;
+  settingKey: string;
+  currentUrl: string;
+}) {
+  const uploadAction = uploadSiteImage.bind(null, settingKey);
+  const removeAction = removeSiteImage.bind(null, settingKey, currentUrl);
+
+  return (
+    <div className="border-t border-offwhite/8 pt-5 space-y-3">
+      <div>
+        <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60">{label}</p>
+        <p className="font-sans text-[11px] text-offwhite/30 mt-0.5">{hint}</p>
+      </div>
+
+      {currentUrl ? (
+        <div className="flex items-start gap-4">
+          <div className="relative w-32 aspect-video overflow-hidden bg-charcoal shrink-0">
+            <Image src={currentUrl} alt={label} fill className="object-cover" sizes="128px" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <form action={uploadAction} className="flex items-center gap-2">
+              <input
+                name="image"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/avif"
+                required
+                className="font-sans text-xs text-offwhite/60 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/60 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+              />
+              <button
+                type="submit"
+                className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/50 hover:text-offwhite transition-colors"
+              >
+                Replace
+              </button>
+            </form>
+            <form action={removeAction}>
+              <button
+                type="submit"
+                className="flex items-center gap-1.5 font-sans text-[11px] text-offwhite/30 hover:text-red-400 transition-colors"
+              >
+                <X size={11} strokeWidth={1.5} />
+                Remove
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : (
+        <form action={uploadAction} className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-16 h-12 bg-offwhite/4 border border-dashed border-offwhite/15 shrink-0">
+            <ImageIcon size={16} strokeWidth={1} className="text-offwhite/20" />
+          </div>
+          <input
+            name="image"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            required
+            className="flex-1 font-sans text-xs text-offwhite/60 file:mr-3 file:bg-offwhite/8 file:border-0 file:px-3 file:py-1.5 file:font-sans file:text-[11px] file:uppercase file:tracking-[0.12em] file:text-offwhite/60 hover:file:bg-offwhite/12 file:transition-colors file:cursor-pointer"
+          />
+          <button
+            type="submit"
+            className="shrink-0 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/50 hover:text-offwhite transition-colors"
+          >
+            Upload
+          </button>
+        </form>
+      )}
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { getSettings } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "About",
@@ -39,7 +41,8 @@ const SERVICE_AREA_CITIES = [
   "Edmonds", "Mukilteo", "Tacoma", "SeaTac Airport",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const s = await getSettings();
   return (
     <>
       {/* Hero */}
@@ -63,14 +66,17 @@ export default function AboutPage() {
       <section className="bg-charcoal px-6 py-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
-            {/* Image placeholder */}
-            <div className="relative aspect-[4/3] bg-black lg:aspect-auto lg:h-[500px]">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
-                  Brand Photography
-                </span>
-              </div>
-              <div className="absolute bottom-0 left-0 h-[2px] w-12 bg-gold" />
+            <div className="relative aspect-4/3 bg-black lg:aspect-auto lg:h-125">
+              {s.image_about_brand ? (
+                <Image src={s.image_about_brand} alt="Seattle Luxury Drive brand" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                    Brand Photography
+                  </span>
+                </div>
+              )}
+              <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gold" />
             </div>
 
             <div>
@@ -134,7 +140,7 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-px bg-offwhite/[0.06] sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-px bg-offwhite/6 sm:grid-cols-2">
             {VALUES.map((v) => (
               <div key={v.title} className="bg-charcoal p-10 lg:p-14">
                 <div className="h-px w-8 bg-gold mb-8" />
@@ -177,14 +183,17 @@ export default function AboutPage() {
               </ul>
             </div>
 
-            {/* Image placeholder */}
-            <div className="relative aspect-square bg-charcoal lg:aspect-auto lg:h-[480px]">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
-                  Seattle Photography
-                </span>
-              </div>
-              <div className="absolute bottom-0 right-0 h-[2px] w-12 bg-gold" />
+            <div className="relative aspect-square bg-charcoal lg:aspect-auto lg:h-120">
+              {s.image_service_area ? (
+                <Image src={s.image_service_area} alt="Greater Seattle area" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                    Seattle Photography
+                  </span>
+                </div>
+              )}
+              <div className="absolute bottom-0 right-0 h-0.5 w-12 bg-gold" />
             </div>
           </div>
         </div>
