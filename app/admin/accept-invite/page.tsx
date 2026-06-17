@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AlertCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -14,7 +13,6 @@ export default function AcceptInvitePage() {
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const supabase = createClient();
@@ -65,10 +63,13 @@ export default function AcceptInvitePage() {
         setError(updateError.message);
         setPending(false);
       } else {
-        router.push("/admin");
+        // Full navigation so the server picks up the fresh session cookies.
+        // router.push triggers an RSC fetch before cookies are flushed,
+        // causing the sidebar to be missing until a manual refresh.
+        window.location.href = "/admin";
       }
     },
-    [password, confirm, router]
+    [password, confirm]
   );
 
   if (status === "loading") {
