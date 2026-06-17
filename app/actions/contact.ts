@@ -37,7 +37,7 @@ export async function submitContactForm(
   if (honeypot) return { status: "success" };
 
   // Rate limiting
-  const { allowed } = await checkRateLimit();
+  const { allowed, ip } = await checkRateLimit();
   if (!allowed) {
     return {
       status: "error",
@@ -76,6 +76,7 @@ export async function submitContactForm(
         email,
         phone,
         message,
+        ip_address: ip !== "unknown" ? ip : null,
         status: "new",
       })
       .select("id")

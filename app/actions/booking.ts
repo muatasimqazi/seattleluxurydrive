@@ -33,7 +33,7 @@ export async function submitBookingRequest(
   }
 
   // Rate limiting
-  const { allowed } = await checkRateLimit();
+  const { allowed, ip } = await checkRateLimit();
   if (!allowed) {
     return {
       status: "error",
@@ -149,6 +149,7 @@ export async function submitBookingRequest(
         utm_source: raw.utmSource || null,
         utm_medium: raw.utmMedium || null,
         utm_campaign: raw.utmCampaign || null,
+        ip_address: ip !== "unknown" ? ip : null,
         status: "new",
       })
       .select("id")
