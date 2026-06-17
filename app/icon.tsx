@@ -20,46 +20,20 @@ export default async function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          flexDirection: "column",
         }}
       >
-        {/* Thin gold border inset */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 28,
-            border: "1px solid #B89B5E",
-            opacity: 0.5,
-          }}
-        />
-        {/* Monogram */}
         <span
           style={{
             fontFamily: "Cormorant",
             fontStyle: "italic",
             fontWeight: 300,
-            fontSize: 210,
+            fontSize: 280,
             color: "#B89B5E",
             lineHeight: 1,
-            letterSpacing: "-0.02em",
-            marginBottom: 12,
+            letterSpacing: "-0.03em",
           }}
         >
           SJD
-        </span>
-        {/* Wordmark */}
-        <span
-          style={{
-            fontFamily: "sans-serif",
-            fontWeight: 400,
-            fontSize: 36,
-            color: "#B89B5E",
-            letterSpacing: "0.28em",
-            opacity: 0.7,
-            textTransform: "uppercase",
-          }}
-        >
-          SEATTLE LUXURY DRIVE
         </span>
       </div>
     ),
