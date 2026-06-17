@@ -124,7 +124,7 @@ export async function submitBookingRequest(
   // Insert into Supabase
   let submissionId = crypto.randomUUID();
   try {
-    const supabase = await createServiceClient();
+    const supabase = createServiceClient();
     const { data, error } = await supabase
       .from("booking_requests")
       .insert({

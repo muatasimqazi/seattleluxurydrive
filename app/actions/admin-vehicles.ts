@@ -27,8 +27,11 @@ function parseVehicleForm(formData: FormData) {
   return { name, year, make, model, slug, description, starting_hourly_rate, chauffeur_available, featured, status };
 }
 
-export async function createVehicle(formData: FormData) {
-  const supabase = await createServiceClient();
+export async function createVehicle(
+  _prevState: { error?: string },
+  formData: FormData
+): Promise<{ error?: string }> {
+  const supabase = createServiceClient();
   const fields = parseVehicleForm(formData);
 
   const { data, error } = await supabase
@@ -37,15 +40,16 @@ export async function createVehicle(formData: FormData) {
     .select("id")
     .single();
 
-  if (error) throw new Error(error.message);
+  if (error) return { error: error.message };
 
   revalidatePath("/admin/vehicles");
   revalidatePath("/fleet", "layout");
   redirect(`/admin/vehicles/${data.id}/edit?saved=1`);
+  return {};
 }
 
 export async function updateVehicle(id: string, formData: FormData) {
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   const { slug: _slug, ...fields } = parseVehicleForm(formData);
 
   const { error } = await supabase
@@ -61,7 +65,7 @@ export async function updateVehicle(id: string, formData: FormData) {
 }
 
 export async function uploadVehicleImage(vehicleId: string, formData: FormData) {
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   const file = formData.get("image") as File;
   const altText = (formData.get("alt_text") as string)?.trim() || null;
 
@@ -100,7 +104,7 @@ export async function uploadVehicleImage(vehicleId: string, formData: FormData) 
 }
 
 export async function deleteVehicleImage(imageId: string, vehicleId: string, imageUrl: string) {
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
 
   try {
     const storagePath = decodeURIComponent(
@@ -121,14 +125,14 @@ export async function deleteVehicleImage(imageId: string, vehicleId: string, ima
 }
 
 export async function setVehicleStatus(id: string, status: "active" | "archived") {
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   await supabase.from("vehicles").update({ status }).eq("id", id);
   revalidatePath("/admin/vehicles");
   revalidatePath("/fleet", "layout");
 }
 
 export async function setVehicleFeatured(id: string, featured: boolean) {
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   await supabase.from("vehicles").update({ featured }).eq("id", id);
   revalidatePath("/admin/vehicles");
   revalidatePath("/fleet", "layout");

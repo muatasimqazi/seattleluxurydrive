@@ -40,7 +40,7 @@ export default async function AdminContactsPage() {
   let contacts: ContactRow[] = [];
 
   try {
-    const supabase = await createServiceClient();
+    const supabase = createServiceClient();
     const { data } = await supabase
       .from("contact_requests")
       .select("id, first_name, last_name, email, phone, message, status, created_at, updated_at")

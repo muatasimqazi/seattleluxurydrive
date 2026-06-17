@@ -67,7 +67,7 @@ export async function submitContactForm(
   let submissionId = crypto.randomUUID();
 
   try {
-    const supabase = await createServiceClient();
+    const supabase = createServiceClient();
     const { data, error } = await supabase
       .from("contact_requests")
       .insert({

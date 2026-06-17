@@ -7,7 +7,7 @@ export async function updateBookingStatus(id: string, status: string): Promise<v
   const VALID = ["new", "contacted", "confirmed", "cancelled"];
   if (!VALID.includes(status)) throw new Error("Invalid status");
 
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   await supabase
     .from("booking_requests")
     .update({ status, updated_at: new Date().toISOString() })
@@ -22,7 +22,7 @@ export async function updateContactStatus(id: string, status: string): Promise<v
   const VALID = ["new", "contacted", "resolved"];
   if (!VALID.includes(status)) throw new Error("Invalid status");
 
-  const supabase = await createServiceClient();
+  const supabase = createServiceClient();
   await supabase
     .from("contact_requests")
     .update({ status, updated_at: new Date().toISOString() })

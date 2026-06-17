@@ -50,7 +50,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
   let bookings: BookingRow[] = [];
 
   try {
-    const supabase = await createServiceClient();
+    const supabase = createServiceClient();
     let query = supabase
       .from("booking_requests")
       .select(
