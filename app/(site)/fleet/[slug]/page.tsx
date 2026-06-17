@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Phone, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getSettings, phoneHref } from "@/lib/settings";
 import type { Vehicle } from "@/types/database";
 import JsonLd from "@/components/seo/JsonLd";
+import VehicleGallery from "@/components/fleet/VehicleGallery";
 
 async function getVehicle(slug: string): Promise<Vehicle | null> {
   try {
@@ -76,7 +76,6 @@ export default async function VehicleDetailPage({
 
   const images =
     vehicle.vehicle_images?.sort((a, b) => a.sort_order - b.sort_order) ?? [];
-  const primaryImage = images.at(0);
 
   return (
     <>
@@ -106,44 +105,8 @@ export default async function VehicleDetailPage({
       <section className="bg-black px-6 pt-8 pb-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
-            {/* Gallery — primary image */}
-            <div className="space-y-3">
-              <div className="relative aspect-[4/3] overflow-hidden bg-charcoal">
-                {primaryImage ? (
-                  <Image
-                    src={primaryImage.image_url}
-                    alt={primaryImage.alt_text ?? vehicle.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
-                      Vehicle Photography
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Thumbnail strip */}
-              {images.length > 1 && (
-                <div className="grid grid-cols-4 gap-3">
-                  {images.slice(1, 5).map((img) => (
-                    <div key={img.id} className="relative aspect-[4/3] overflow-hidden bg-charcoal">
-                      <Image
-                        src={img.image_url}
-                        alt={img.alt_text ?? vehicle.name}
-                        fill
-                        className="object-cover"
-                        sizes="25vw"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Gallery */}
+            <VehicleGallery images={images} vehicleName={vehicle.name} />
 
             {/* Vehicle info */}
             <div className="lg:sticky lg:top-28">
