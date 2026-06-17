@@ -17,11 +17,31 @@ export default function AcceptInvitePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Session is already set in cookies by /auth/callback — just verify it exists
     const supabase = createClient();
-    supabase.auth.getSession().then(({ data: { session } }) => {
+
+    async function init() {
+      // Invite links use implicit flow — tokens arrive in the URL hash
+      const params = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = params.get("access_token");
+      const refreshToken = params.get("refresh_token");
+
+      if (accessToken && refreshToken) {
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        // Remove tokens from URL so they aren't re-processed on refresh
+        window.history.replaceState(null, "", window.location.pathname);
+        setStatus(error ? "invalid" : "ready");
+        return;
+      }
+
+      // No hash — check for existing session (e.g. page refresh after invite)
+      const { data: { session } } = await supabase.auth.getSession();
       setStatus(session ? "ready" : "invalid");
-    });
+    }
+
+    init();
   }, []);
 
   const handleSubmit = useCallback(

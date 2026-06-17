@@ -32,7 +32,7 @@ export async function inviteUser(
     type: "invite",
     email,
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback?next=/admin/accept-invite`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/admin/accept-invite`,
     },
   });
 
