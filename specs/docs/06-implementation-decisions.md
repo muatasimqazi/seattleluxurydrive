@@ -307,6 +307,18 @@ This avoids the need for multi-step server action chaining or session storage.
 
 ---
 
+## Storage Bucket Name
+
+**Spec:** `vehicle-images`
+
+**Built:** `vehicle` — renamed during initial setup for simplicity.
+
+Upload path format: `vehicle/{vehicle_id}/{filename}` (e.g. `vehicle/2f51f.../image-1.jpg`)
+
+Public URL format: `https://{project}.supabase.co/storage/v1/object/public/vehicle/{vehicle_id}/{filename}`
+
+---
+
 ## Bug Fixed During Documentation Update
 
 `app/sitemap.ts` had `.eq("is_active", true)` — the vehicles table uses `status = 'active'`, not an `is_active` boolean. Fixed to `.eq("status", "active")`.
