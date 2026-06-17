@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { phoneHref } from "@/lib/settings";
+import { phoneHref } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -11,7 +11,15 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function SiteFooter({ phone, email }: { phone: string; email: string }) {
+export default function SiteFooter({
+  phone,
+  email,
+  address,
+}: {
+  phone: string;
+  email: string;
+  address: string;
+}) {
   return (
     <footer className="bg-charcoal border-t border-offwhite/[0.08]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
@@ -82,10 +90,7 @@ export default function SiteFooter({ phone, email }: { phone: string; email: str
               <li>
                 <div className="flex items-start gap-3 font-sans text-sm text-offwhite/70">
                   <MapPin size={14} strokeWidth={1.5} className="text-gold shrink-0 mt-0.5" />
-                  <span>
-                    14723 Aurora Ave N<br />
-                    Shoreline, WA 98133
-                  </span>
+                  <span>{address}</span>
                 </div>
               </li>
             </ul>

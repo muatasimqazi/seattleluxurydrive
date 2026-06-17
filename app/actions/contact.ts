@@ -107,6 +107,7 @@ export async function submitContactForm(
         firstName,
         phone: settings.contact_phone,
         email: settings.contact_email,
+        address: settings.site_address,
         responseHours: settings.response_hours,
       }),
     }),

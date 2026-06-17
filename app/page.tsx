@@ -481,7 +481,7 @@ export default async function HomePage() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Seattle Luxury Drive",
+    name: s.site_name,
     description:
       "Premier luxury transportation and concierge service in the Greater Seattle Area. Chauffeur-driven and self-drive luxury vehicles for executive transfers, airport pickups, corporate events, weddings, and special occasions.",
     url: "https://seattleluxurydrive.com",
@@ -489,10 +489,7 @@ export default async function HomePage() {
     email: s.contact_email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "14723 Aurora Ave N",
-      addressLocality: "Shoreline",
-      addressRegion: "WA",
-      postalCode: "98133",
+      streetAddress: s.site_address,
       addressCountry: "US",
     },
     geo: {

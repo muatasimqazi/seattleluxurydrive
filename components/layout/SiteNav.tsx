@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-import { phoneHref } from "@/lib/settings";
+import { phoneHref } from "@/lib/utils";
 
 export default function SiteNav({ phone }: { phone: string }) {
   const PHONE = phone;

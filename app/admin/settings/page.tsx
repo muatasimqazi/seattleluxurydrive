@@ -49,6 +49,38 @@ export default async function SettingsPage({
 
       <form action={updateSettings} className="space-y-6">
 
+        {/* ── Site Identity ── */}
+        <section className="border border-offwhite/8 p-6 space-y-5">
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
+              Site Identity
+            </p>
+            <p className="font-sans text-xs text-offwhite/35">
+              Appears in the footer, emails, and structured schema data.
+            </p>
+          </div>
+
+          <Field label="Business Name">
+            <input
+              name="site_name"
+              type="text"
+              defaultValue={s.site_name}
+              placeholder="Seattle Luxury Drive"
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label="Business Address">
+            <input
+              name="site_address"
+              type="text"
+              defaultValue={s.site_address}
+              placeholder="14723 Aurora Ave N, Shoreline, WA 98133"
+              className={inputCls}
+            />
+          </Field>
+        </section>
+
         {/* ── Business Hours ── */}
         <section className="border border-offwhite/8 p-6 space-y-5">
           <div>

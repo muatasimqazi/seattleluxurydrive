@@ -79,7 +79,7 @@ export default async function RootLayout({
           </a>
           <SiteNav phone={s.contact_phone} />
           <main id="main-content">{children}</main>
-          <SiteFooter phone={s.contact_phone} email={s.contact_email} />
+          <SiteFooter phone={s.contact_phone} email={s.contact_email} address={s.site_address} />
         </PostHogProvider>
       </body>
     </html>

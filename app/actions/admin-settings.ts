@@ -11,6 +11,8 @@ export async function updateSettings(formData: FormData) {
 
   await supabase.from("site_settings").upsert(
     [
+      { key: "site_name",      value: get("site_name")      || "Seattle Luxury Drive" },
+      { key: "site_address",   value: get("site_address")   },
       { key: "hours_days",     value: get("hours_days")     || "Mo-Su" },
       { key: "hours_open",     value: get("hours_open")     || "07:00" },
       { key: "hours_close",    value: get("hours_close")    || "22:00" },

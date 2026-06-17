@@ -24,6 +24,7 @@ interface Props {
   occasion?: string;
   phone?: string;
   email?: string;
+  address?: string;
   responseHours?: string;
 }
 
@@ -42,6 +43,7 @@ export default function BookingCustomerEmail({
   occasion,
   phone = "(206) 669-1109",
   email = "info@seattleluxurydrive.com",
+  address = "14723 Aurora Ave N, Shoreline, WA 98133",
   responseHours = "4",
 }: Props) {
   const phoneHref = `tel:+1${phone.replace(/\D/g, "")}`;
@@ -127,7 +129,7 @@ export default function BookingCustomerEmail({
               Seattle Luxury Drive
             </Text>
             <Text style={{ fontSize: "11px", color: "#555", margin: 0 }}>
-              14723 Aurora Ave N · Shoreline, WA 98133
+              {address}
             </Text>
           </Section>
 

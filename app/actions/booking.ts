@@ -203,6 +203,7 @@ export async function submitBookingRequest(
         occasion: raw.occasion || undefined,
         phone: settings.contact_phone,
         email: settings.contact_email,
+        address: settings.site_address,
         responseHours: settings.response_hours,
       }),
     }),
