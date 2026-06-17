@@ -28,6 +28,9 @@ if (typeof window !== "undefined") {
     person_profiles: "identified_only",
     capture_pageview: false, // manual via PostHogPageView
     capture_pageleave: true,
+    disable_session_recording: true,  // drops posthog-recorder.js (~49 KB)
+    disable_surveys: true,            // drops surveys.js (~31 KB)
+    autocapture: false,               // drops dead-clicks-autocapture.js
   });
 }
 

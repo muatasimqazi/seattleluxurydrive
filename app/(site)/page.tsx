@@ -535,7 +535,7 @@ function ReservationProcessSection() {
           {steps.map((step) => (
             <div key={step.number} className="bg-charcoal p-10 lg:p-12">
               <div className="flex items-center gap-4 mb-6">
-                <span className="font-heading text-4xl font-light text-gold/30">
+                <span className="font-heading text-4xl font-light text-gold/60">
                   {step.number}
                 </span>
                 <div className="text-gold">{step.icon}</div>

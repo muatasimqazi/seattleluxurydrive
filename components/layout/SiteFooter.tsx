@@ -27,7 +27,7 @@ export default function SiteFooter({
 
           {/* Brand column */}
           <div>
-            <Link href="/" aria-label="Seattle Luxury Drive — Home">
+            <Link href="/" aria-label="SJD — Seattle Luxury Drive — Home">
               <div className="flex flex-col leading-none mb-4">
                 <span className="font-heading text-3xl font-light tracking-[0.12em] text-gold">
                   SJD

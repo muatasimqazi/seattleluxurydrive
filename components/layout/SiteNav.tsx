@@ -94,7 +94,7 @@ export default function SiteNav({ phone }: { phone: string }) {
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
           {/* Logo */}
-          <Link href="/" className="flex flex-col leading-none" aria-label="Seattle Luxury Drive — Home">
+          <Link href="/" className="flex flex-col leading-none" aria-label="SJD — Seattle Luxury Drive — Home">
             <span className="font-heading text-2xl font-light tracking-[0.12em] text-gold">
               SJD
             </span>
