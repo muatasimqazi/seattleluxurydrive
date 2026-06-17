@@ -38,7 +38,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // Unauthenticated user hitting any /admin route → send to login
-  if (!user && pathname !== "/admin/login" && pathname.startsWith("/admin")) {
+  // /admin/accept-invite is exempt: session arrives via URL hash, not cookies
+  if (!user && pathname !== "/admin/login" && pathname !== "/admin/accept-invite" && pathname.startsWith("/admin")) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
