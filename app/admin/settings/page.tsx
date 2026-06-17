@@ -267,6 +267,7 @@ export default async function SettingsPage({
             settingKey="image_about_brand"
             currentUrl={s.image_about_brand}
           />
+
         </section>
       </div>
     </div>

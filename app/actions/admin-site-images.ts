@@ -34,6 +34,7 @@ export async function uploadSiteImage(key: string, formData: FormData) {
 
   revalidatePath("/", "layout");
   revalidatePath("/about");
+
   redirect("/admin/settings?saved=1");
 }
 
@@ -60,5 +61,6 @@ export async function removeSiteImage(key: string, imageUrl: string) {
 
   revalidatePath("/", "layout");
   revalidatePath("/about");
+
   redirect("/admin/settings?saved=1");
 }

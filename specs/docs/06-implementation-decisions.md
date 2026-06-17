@@ -462,6 +462,52 @@ Nav item "Team" added to `NAV_ADMIN_ONLY` in admin layout (hidden from staff).
 
 ---
 
+## Services Table and Admin Management — Not In Spec
+
+**Spec:** Services page content was hardcoded in the page component as a `SERVICES` array. Images were placeholders.
+
+**Built:**
+
+### services table
+
+Content extracted from the hardcoded array and stored in a `services` Supabase table (migration `007_services.sql`). Schema:
+
+```
+id, eyebrow, name, headline, description, benefits (text[]), cta, image_url, sort_order, status, created_at, updated_at
+```
+
+All 8 services seeded in the migration. `image_url` column added in migration `008_services_image.sql`.
+
+### `/admin/services` — list view (admin only)
+
+Table showing all services in sort order: number (eyebrow), name, image upload status, active/archived badge, Edit → link.
+
+### `/admin/services/[id]/edit` — edit page (admin only)
+
+Full edit form with:
+- **Identity**: eyebrow number, name, headline
+- **Content**: description (textarea), benefits (textarea — one benefit per line, split on newline and stored as `text[]`), CTA label
+- **Settings**: sort_order, status (active/archived)
+- **Photo**: separate upload form below (can't share a `<form>` with file + text inputs). Shows current image with Replace/Remove, or an upload slot if empty. Images stored at `site-images/services/{service_id}/{timestamp}.{ext}`.
+
+### Server actions — `app/actions/admin-services.ts`
+
+- `updateService(id, formData)` — updates all content fields; parses benefits textarea by splitting on newlines; revalidates `/services`; redirects back to edit with `?saved=1`
+- `uploadServiceImage(serviceId, formData)` — uploads to `site-images` bucket, removes old file from storage if replacing, updates `image_url` on the row; redirects to edit with `?uploaded=1`
+- `removeServiceImage(serviceId, imageUrl)` — deletes from storage and clears `image_url`; redirects to edit with `?saved=1`
+
+All three actions require admin role (`assertAdmin()`).
+
+### `/admin/services` in admin nav
+
+Added to `NAV_ADMIN_ONLY` in `app/admin/layout.tsx` — visible to admin only, hidden from staff.
+
+### `/services` public page
+
+Converted from a static Server Component (hardcoded array) to an async Server Component that queries `services` where `status = 'active'` ordered by `sort_order`. Each service section shows its own `image_url` if uploaded, otherwise falls back to the "Service Photography" placeholder text.
+
+---
+
 ## Figma Design Reconciliation (Typography & Visual Polish)
 
 Audit conducted against Figma file `jZygZG4CqGO86BPn8O87fK` (Foundations page — design tokens only, no page screens). All changes align the site to the Figma type scale and color palette.

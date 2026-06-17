@@ -16,6 +16,7 @@ const NAV_ALL = [
 ];
 
 const NAV_ADMIN_ONLY = [
+  { href: "/admin/services", label: "Services" },
   { href: "/admin/users", label: "Team" },
   { href: "/admin/settings", label: "Settings" },
 ];

@@ -210,13 +210,13 @@ Service categories:
 
 Each service section must include:
 
-- Image (high quality, contextually relevant)
+- Image (high quality, contextually relevant, uploaded per-service via admin)
 - Headline
 - Description (minimum 2 paragraphs)
 - 3–5 key benefits (bulleted)
 - CTA linking to booking page
 
-Content requirement: All service descriptions and benefit copy must be delivered before development begins.
+All service content (copy, benefits, CTA labels, sort order, status) is stored in the `services` database table and managed via `/admin/services`. Content is no longer hardcoded — changes take effect immediately without a code deploy.
 
 ---
 
@@ -466,6 +466,15 @@ Admin can:
 - Mark a vehicle as featured
 - Archive a vehicle (status change, not deletion)
 
+### Services Management
+
+Admin can:
+
+- Edit all service content (number, name, headline, description, benefits, CTA label)
+- Upload or replace a photo per service
+- Change sort order
+- Archive a service (hidden from site) or restore it
+
 ### Contact Requests
 
 Admin can:
@@ -636,7 +645,7 @@ The following must be finalized and handed off before development begins:
 - [x] Business hours — Mo–Su 07:00–22:00 (configured in site_settings)
 - [x] Admin notification email address — configured via ADMIN_NOTIFICATION_EMAIL env var
 - [ ] Vehicle photography (minimum 8 high-resolution, cinematic images of the 2021 Rolls-Royce)
-- [ ] Services page copy for all 6 services (description + benefits per service)
+- [x] Services page copy for all 8 services (seeded into `services` table via migration 007; editable via `/admin/services`)
 - [ ] About page copy (company story, mission, values, service commitment)
 - [ ] FAQ content (minimum 15 questions and answers across 5 categories)
 - [ ] Testimonials (minimum 3 real client quotes with first name and last initial — placeholders currently in place)

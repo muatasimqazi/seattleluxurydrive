@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -15,134 +17,23 @@ export const metadata: Metadata = {
   },
 };
 
-const SERVICES = [
-  {
-    eyebrow: "01",
-    name: "Executive Transportation",
-    headline: "Professional Transportation For Business Without Compromise.",
-    description:
-      "Seattle Luxury Drive provides premium executive transportation designed for professionals who value punctuality, discretion, and comfort. Whether you're traveling between meetings, hosting important clients, or attending a corporate event, our luxury transportation services ensure you arrive prepared and on time.",
-    benefits: [
-      "Professional presentation",
-      "Flexible scheduling",
-      "Luxury vehicle experience",
-      "Concierge-level service",
-      "Greater Seattle coverage",
-    ],
-    cta: "Request Executive Transportation",
-  },
-  {
-    eyebrow: "02",
-    name: "Chauffeur Service",
-    headline: "A Personal Chauffeur. A First-Class Experience.",
-    description:
-      "Our chauffeur service combines luxury, convenience, and professionalism. Whether you require transportation for a special event, executive travel, airport transfer, or private engagement, our team delivers a seamless experience from pickup to arrival.",
-    benefits: [
-      "Professional chauffeur service",
-      "Personalized itineraries",
-      "Stress-free transportation",
-      "Premium comfort and privacy",
-      "Flexible pickup and dropoff options",
-    ],
-    cta: "Book Chauffeur Service",
-  },
-  {
-    eyebrow: "03",
-    name: "Airport Transfers",
-    headline: "Luxury Airport Transportation Without The Hassle.",
-    description:
-      "Skip the uncertainty of rideshare services and enjoy a luxury airport transfer experience. Whether traveling for business or leisure, Seattle Luxury Drive provides dependable transportation designed around your schedule.",
-    benefits: [
-      "SeaTac Airport service",
-      "Luxury pickup and dropoff",
-      "Flight-aware scheduling",
-      "Executive-level comfort",
-      "Concierge support",
-    ],
-    cta: "Request Airport Transfer",
-  },
-  {
-    eyebrow: "04",
-    name: "VIP Transportation",
-    headline: "Transportation Designed For Exceptional Experiences.",
-    description:
-      "From private engagements to high-profile events, Seattle Luxury Drive delivers discreet, professional transportation tailored to your needs. Every reservation is managed with attention to detail and a commitment to excellence.",
-    benefits: [
-      "White-glove service",
-      "Personalized experience",
-      "Privacy and discretion",
-      "Luxury vehicle options",
-      "Flexible arrangements",
-    ],
-    cta: "Request VIP Transportation",
-  },
-  {
-    eyebrow: "05",
-    name: "Corporate Events",
-    headline: "Elevate Your Next Corporate Event.",
-    description:
-      "Create a lasting impression with luxury transportation that reflects your organization's standards. Our corporate event services help ensure guests, executives, and clients travel comfortably and arrive on schedule.",
-    benefits: [
-      "Executive transportation",
-      "Client hospitality",
-      "Professional image",
-      "Flexible scheduling",
-      "Luxury experience",
-    ],
-    cta: "Plan Corporate Transportation",
-  },
-  {
-    eyebrow: "06",
-    name: "Special Occasions",
-    headline: "Make Every Arrival Memorable.",
-    description:
-      "Whether you're celebrating an anniversary, date night, milestone event, or private gathering, Seattle Luxury Drive adds an extra level of sophistication to your experience.",
-    benefits: [
-      "Luxury arrivals",
-      "Personalized service",
-      "Memorable experiences",
-      "Flexible transportation options",
-      "Premium vehicle selection",
-    ],
-    cta: "Request Transportation",
-  },
-  {
-    eyebrow: "07",
-    name: "Weddings & Celebrations",
-    headline: "Arrive In Style On Your Special Day.",
-    description:
-      "Your celebration deserves exceptional transportation. From wedding day arrivals to anniversary dinners and formal events, our luxury vehicles provide comfort, elegance, and unforgettable presentation.",
-    benefits: [
-      "Wedding transportation",
-      "Luxury arrivals",
-      "Chauffeur availability",
-      "Professional service",
-      "Flexible scheduling",
-    ],
-    cta: "Request Wedding Transportation",
-  },
-  {
-    eyebrow: "08",
-    name: "Photoshoots & Productions",
-    headline: "Luxury Vehicles For Creative Projects.",
-    description:
-      "Our luxury vehicles are available for photoshoots, commercial productions, promotional campaigns, and creative projects. Add a distinctive visual element that elevates the quality and presentation of your work.",
-    benefits: [
-      "Photoshoots",
-      "Commercial productions",
-      "Music videos",
-      "Marketing campaigns",
-      "Luxury visual appeal",
-    ],
-    cta: "Request Vehicle Availability",
-  },
-];
+type Service = {
+  id: string;
+  eyebrow: string;
+  name: string;
+  headline: string;
+  description: string;
+  benefits: string[];
+  cta: string;
+  sort_order: number;
+  image_url: string;
+};
 
 function ServiceSection({
   service,
   index,
 }: {
-  service: (typeof SERVICES)[number];
+  service: Service;
   index: number;
 }) {
   const isEven = index % 2 === 0;
@@ -152,13 +43,23 @@ function ServiceSection({
     <section id={service.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")} className={`${bg} px-6 py-20 lg:py-28`}>
       <div className="mx-auto max-w-7xl">
         <div className={`flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 ${isEven ? "" : "lg:flex-row-reverse"}`}>
-          {/* Image placeholder */}
-          <div className="relative aspect-4/3 w-full shrink-0 bg-charcoal lg:w-120">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
-                Service Photography
-              </span>
-            </div>
+          {/* Image */}
+          <div className="relative aspect-4/3 w-full shrink-0 bg-charcoal lg:w-120 overflow-hidden">
+            {service.image_url ? (
+              <Image
+                src={service.image_url}
+                alt={service.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 480px"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
+                  Service Photography
+                </span>
+              </div>
+            )}
             <div className={`absolute bottom-0 ${isEven ? "left-0" : "right-0"} h-0.5 w-12 bg-gold`} />
           </div>
 
@@ -199,7 +100,15 @@ function ServiceSection({
   );
 }
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const supabase = await createClient();
+
+  const { data: services } = await supabase
+    .from("services")
+    .select("id, eyebrow, name, headline, description, benefits, cta, sort_order, image_url")
+    .eq("status", "active")
+    .order("sort_order", { ascending: true });
+
   return (
     <>
       <JsonLd data={{
@@ -227,9 +136,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 8 service sections */}
-      {SERVICES.map((service, i) => (
-        <ServiceSection key={service.name} service={service} index={i} />
+      {/* Service sections */}
+      {(services ?? []).map((service, i) => (
+        <ServiceSection key={service.id} service={service} index={i} />
       ))}
 
       {/* Final CTA */}

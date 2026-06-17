@@ -93,6 +93,10 @@ Analytics:
 
 /admin/vehicles/[id]/edit (admin only)
 
+/admin/services (admin only)
+
+/admin/services/[id]/edit (admin only)
+
 /admin/settings (admin only)
 
 /admin/users (admin only — team management)
@@ -148,6 +152,29 @@ Implementation:
 ---
 
 # Database Schema
+
+## services
+
+```
+id          UUID PRIMARY KEY DEFAULT gen_random_uuid()
+eyebrow     TEXT NOT NULL                        -- display number e.g. "01"
+name        TEXT NOT NULL
+headline    TEXT NOT NULL                        -- italic subheading
+description TEXT NOT NULL
+benefits    TEXT[] NOT NULL DEFAULT '{}'         -- bulleted list items
+cta         TEXT NOT NULL                        -- button label
+image_url   TEXT NOT NULL DEFAULT ''             -- per-service photo (site-images bucket)
+sort_order  INTEGER NOT NULL DEFAULT 0
+status      TEXT NOT NULL DEFAULT 'active'       -- 'active' | 'archived'
+created_at  TIMESTAMP WITH TIME ZONE DEFAULT now()
+updated_at  TIMESTAMP WITH TIME ZONE DEFAULT now()
+```
+
+RLS: public SELECT on `status = 'active'`; authenticated users can INSERT/UPDATE/DELETE.
+
+Seeded with 8 services via migration `007_services.sql`. Managed via `/admin/services`.
+
+---
 
 ## vehicles
 
