@@ -31,7 +31,9 @@ export async function inviteUser(
   const { data, error } = await supabase.auth.admin.generateLink({
     type: "invite",
     email,
-    options: { redirectTo: "https://seattleluxurydrive.com/admin/accept-invite" },
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/admin/accept-invite`,
+    },
   });
 
   if (error) return { error: error.message };
