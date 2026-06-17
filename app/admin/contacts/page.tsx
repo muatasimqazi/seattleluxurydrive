@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
 import { updateContactStatus } from "@/app/actions/admin-data";
+import { ContactNotesForm } from "./contact-notes-form";
 
 export const metadata: Metadata = { title: "Contact Requests" };
 
@@ -18,7 +19,7 @@ const STATUS_COLORS: Record<string, string> = {
 function StatusBadge({ status }: { status: string }) {
   return (
     <span
-      className={`inline-block px-2 py-0.5 font-sans text-[10px] uppercase tracking-[0.1em] rounded-sm ${
+      className={`inline-block px-2 py-0.5 font-sans text-[10px] uppercase tracking-widest rounded-sm ${
         STATUS_COLORS[status] ?? "bg-offwhite/10 text-offwhite/50"
       }`}
     >
@@ -35,6 +36,8 @@ interface ContactRow {
   phone: string;
   message: string;
   status: string;
+  admin_notes: string | null;
+  responded_at: string | null;
   created_at: string;
   updated_at?: string;
 }
@@ -68,7 +71,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
     let query = supabase
       .from("contact_requests")
       .select(
-        "id, first_name, last_name, email, phone, message, status, created_at, updated_at",
+        "id, first_name, last_name, email, phone, message, status, admin_notes, responded_at, created_at, updated_at",
         { count: "exact" }
       )
       .order("created_at", { ascending: false })
@@ -197,6 +200,11 @@ export default async function AdminContactsPage({ searchParams }: Props) {
                     <p className="font-sans text-[10px] text-offwhite/30 mt-1">
                       {new Date(c.created_at).toLocaleDateString()}
                     </p>
+                    {c.responded_at && (
+                      <p className="font-sans text-[10px] text-offwhite/20 mt-0.5">
+                        Responded {new Date(c.responded_at).toLocaleDateString()}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -210,7 +218,7 @@ export default async function AdminContactsPage({ searchParams }: Props) {
                       <button
                         type="submit"
                         disabled={c.status === s}
-                        className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.1em] border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+                        className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-widest border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                           c.status === s
                             ? "border-gold bg-gold/10 text-gold"
                             : "border-offwhite/20 text-offwhite/40 hover:border-offwhite/40 hover:text-offwhite/70"
@@ -221,6 +229,8 @@ export default async function AdminContactsPage({ searchParams }: Props) {
                     </form>
                   ))}
                 </div>
+
+                <ContactNotesForm contactId={c.id} initialNotes={c.admin_notes} />
               </div>
             );
           })}
