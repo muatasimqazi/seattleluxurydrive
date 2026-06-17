@@ -205,19 +205,17 @@ export default async function ContactPage() {
             </p>
           </div>
 
-          {/* Map placeholder — replace with Google Maps embed in Phase 7 */}
-          <div className="relative w-full h-[360px] bg-black flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-3">
-                <MapPin size={18} strokeWidth={1.5} className="text-gold" />
-              </div>
-              <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/25">
-                Google Maps Embed
-              </p>
-              <p className="font-sans text-xs text-offwhite/40 mt-1">
-                14723 Aurora Ave N, Shoreline, WA 98133
-              </p>
-            </div>
+          <div className="relative w-full h-100 overflow-hidden">
+            <iframe
+              title="Seattle Luxury Drive location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2684.3!2d-122.3443!3d47.7577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5490117b9a55b7e5%3A0x1!2s14723+Aurora+Ave+N%2C+Shoreline%2C+WA+98133!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(0.85)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
