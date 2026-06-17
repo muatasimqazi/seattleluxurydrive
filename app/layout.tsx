@@ -51,9 +51,6 @@ export const metadata: Metadata = {
     description:
       "Chauffeur-driven Rolls-Royce and luxury vehicles throughout the Greater Seattle Area.",
   },
-  alternates: {
-    canonical: "https://seattleluxurydrive.com",
-  },
 };
 
 export default function RootLayout({
