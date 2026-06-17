@@ -14,10 +14,11 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-const PHONE = "(206) 669-1109";
-const PHONE_HREF = "tel:+12066691109";
+import { phoneHref } from "@/lib/settings";
 
-export default function SiteNav() {
+export default function SiteNav({ phone }: { phone: string }) {
+  const PHONE = phone;
+  const PHONE_HREF = phoneHref(phone);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -123,7 +124,7 @@ export default function SiteNav() {
           <div className="hidden lg:flex items-center gap-6">
             <a
               href={PHONE_HREF}
-              className="flex items-center gap-2 font-sans text-xs tracking-[0.1em] text-offwhite/80 hover:text-offwhite transition-colors"
+              className="flex items-center gap-2 font-sans text-xs tracking-widest text-offwhite/80 hover:text-offwhite transition-colors"
             >
               <Phone size={13} strokeWidth={1.5} />
               {PHONE}
@@ -180,7 +181,7 @@ export default function SiteNav() {
         }`}
       >
         {/* Drawer top bar */}
-        <div className="flex items-center justify-between px-6 h-20 border-b border-offwhite/[0.08]">
+        <div className="flex items-center justify-between px-6 h-20 border-b border-offwhite/8">
           <div className="flex flex-col leading-none">
             <span className="font-heading text-xl font-light tracking-[0.12em] text-offwhite">
               SJD
@@ -205,7 +206,7 @@ export default function SiteNav() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center justify-between px-6 h-[68px] font-sans text-base tracking-[0.08em] border-b border-offwhite/[0.07] transition-colors ${
+              className={`flex items-center justify-between px-6 h-17 font-sans text-base tracking-[0.08em] border-b border-offwhite/[0.07] transition-colors ${
                 isActive(href)
                   ? "text-gold"
                   : "text-offwhite/80 hover:text-offwhite"
@@ -218,7 +219,7 @@ export default function SiteNav() {
         </nav>
 
         {/* Drawer phone section */}
-        <div className="px-6 py-8 border-t border-offwhite/[0.08]">
+        <div className="px-6 py-8 border-t border-offwhite/8">
           <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-2">
             Call Us Directly
           </p>

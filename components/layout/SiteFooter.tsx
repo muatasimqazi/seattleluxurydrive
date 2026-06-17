@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { phoneHref } from "@/lib/settings";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -10,7 +11,7 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function SiteFooter() {
+export default function SiteFooter({ phone, email }: { phone: string; email: string }) {
   return (
     <footer className="bg-charcoal border-t border-offwhite/[0.08]">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
@@ -62,20 +63,20 @@ export default function SiteFooter() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+12066691109"
+                  href={phoneHref(phone)}
                   className="flex items-center gap-3 font-sans text-sm text-offwhite/70 hover:text-offwhite transition-colors"
                 >
                   <Phone size={14} strokeWidth={1.5} className="text-gold shrink-0" />
-                  (206) 669-1109
+                  {phone}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@seattleluxurydrive.com"
+                  href={`mailto:${email}`}
                   className="flex items-center gap-3 font-sans text-sm text-offwhite/70 hover:text-offwhite transition-colors"
                 >
                   <Mail size={14} strokeWidth={1.5} className="text-gold shrink-0" />
-                  info@seattleluxurydrive.com
+                  {email}
                 </a>
               </li>
               <li>

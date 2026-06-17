@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getSettings } from "@/lib/settings";
 import BookingAdminEmail from "@/emails/BookingAdminEmail";
 import BookingCustomerEmail from "@/emails/BookingCustomerEmail";
 
@@ -157,6 +158,7 @@ export async function submitBookingRequest(
   // Send emails non-blocking (fire and forget, errors are non-fatal)
   const fromEmail = process.env.RESEND_FROM_EMAIL ?? "notifications@seattleluxurydrive.com";
   const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL ?? "info@seattleluxurydrive.com";
+  const settings = await getSettings();
 
   const emailProps = {
     firstName: raw.firstName,
@@ -199,6 +201,9 @@ export async function submitBookingRequest(
         pickupLocation: raw.pickupLocation,
         dropoffLocation: raw.dropoffLocation || undefined,
         occasion: raw.occasion || undefined,
+        phone: settings.contact_phone,
+        email: settings.contact_email,
+        responseHours: settings.response_hours,
       }),
     }),
   ]).catch(() => {

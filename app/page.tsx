@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
-import { createClient } from "@/lib/supabase/server";
+import { getSettings, phoneHref } from "@/lib/settings";
 import {
   Briefcase,
   Plane,
@@ -46,7 +46,7 @@ const SERVICE_AREA_CITIES = [
 
 // ─── SECTIONS ────────────────────────────────────────────────────────────────
 
-function HeroSection() {
+function HeroSection({ startingRate }: { startingRate: string }) {
   return (
     <section
       aria-label="Hero"
@@ -93,7 +93,7 @@ function HeroSection() {
             "Chauffeur Service Available",
             "Serving Greater Seattle",
             "Corporate & VIP Transportation",
-            "Starting at $350/hour",
+            `Starting at $${startingRate}/hour`,
           ].map((item) => (
             <span
               key={item}
@@ -183,7 +183,7 @@ function ServicesSection() {
   );
 }
 
-function FeaturedVehicleSection() {
+function FeaturedVehicleSection({ startingRate }: { startingRate: string }) {
   return (
     <section className="bg-black px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
@@ -208,7 +208,7 @@ function FeaturedVehicleSection() {
               2021 Rolls-Royce
             </h2>
             <p className="font-sans text-lg text-gold mb-6">
-              Starting at $350/hour
+              Starting at ${startingRate}/hour
             </p>
             <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
               Experience the pinnacle of luxury with our flagship Rolls-Royce.
@@ -476,15 +476,7 @@ function FinalCTASection() {
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default async function HomePage() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("site_settings")
-    .select("key, value")
-    .in("key", ["hours_days", "hours_open", "hours_close"]);
-
-  const s = Object.fromEntries(
-    (data ?? []).map((r: { key: string; value: string }) => [r.key, r.value])
-  );
+  const s = await getSettings();
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -493,8 +485,8 @@ export default async function HomePage() {
     description:
       "Premier luxury transportation and concierge service in the Greater Seattle Area. Chauffeur-driven and self-drive luxury vehicles for executive transfers, airport pickups, corporate events, weddings, and special occasions.",
     url: "https://seattleluxurydrive.com",
-    telephone: "+12066691109",
-    email: "info@seattleluxurydrive.com",
+    telephone: phoneHref(s.contact_phone).replace("tel:", ""),
+    email: s.contact_email,
     address: {
       "@type": "PostalAddress",
       streetAddress: "14723 Aurora Ave N",
@@ -523,16 +515,16 @@ export default async function HomePage() {
       "Renton, WA",
     ],
     priceRange: "$$$",
-    openingHours: `${s.hours_days ?? "Mo-Su"} ${s.hours_open ?? "07:00"}-${s.hours_close ?? "22:00"}`,
+    openingHours: `${s.hours_days} ${s.hours_open}-${s.hours_close}`,
     sameAs: ["https://seattleluxurydrive.com"],
   };
 
   return (
     <>
       <JsonLd data={localBusinessSchema} />
-      <HeroSection />
+      <HeroSection startingRate={s.starting_rate} />
       <ServicesSection />
-      <FeaturedVehicleSection />
+      <FeaturedVehicleSection startingRate={s.starting_rate} />
       <WhyChooseSection />
       {/* TestimonialsSection hidden — enable once minimum 3 real reviews collected */}
       <ServiceAreaSection />

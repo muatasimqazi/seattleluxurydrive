@@ -61,7 +61,7 @@ function InputField({
   );
 }
 
-export default function ContactForm() {
+export default function ContactForm({ responseHours = "4" }: { responseHours?: string }) {
   const [state, action, isPending] = useActionState(
     submitContactForm,
     INITIAL_STATE
@@ -158,7 +158,7 @@ export default function ContactForm() {
       </button>
 
       <p className="font-sans text-xs text-offwhite/35 text-center">
-        We respond to all inquiries within 4 business hours.
+        We respond to all inquiries within {responseHours} business hours.
       </p>
     </form>
   );

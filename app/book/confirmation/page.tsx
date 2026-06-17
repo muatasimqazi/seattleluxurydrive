@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle, Phone } from "lucide-react";
+import { getSettings, phoneHref } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Reservation Request Received",
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export default async function BookConfirmationPage({ searchParams }: Props) {
-  const params = await searchParams;
+  const [params, s] = await Promise.all([searchParams, getSettings()]);
   const name = params.name ? decodeURIComponent(params.name) : null;
   const service = params.service ? decodeURIComponent(params.service) : null;
   const date = params.date ? decodeURIComponent(params.date) : null;
@@ -47,7 +48,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
 
         <p className="font-sans text-sm leading-relaxed text-offwhite/65 max-w-lg mx-auto mb-10">
           Your reservation request has been received. Our concierge team will
-          review your details and reach out within 4 business hours to confirm
+          review your details and reach out within {s.response_hours} business hours to confirm
           availability and finalize your booking.
         </p>
 
@@ -90,10 +91,10 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
           <p className="font-sans text-sm text-offwhite/65">
             Need to reach us sooner?{" "}
             <a
-              href="tel:+12066691109"
+              href={phoneHref(s.contact_phone)}
               className="text-gold hover:text-gold-lt transition-colors font-medium"
             >
-              (206) 669-1109
+              {s.contact_phone}
             </a>
           </p>
         </div>

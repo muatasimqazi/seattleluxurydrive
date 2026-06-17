@@ -5,6 +5,7 @@ import SiteNav from "@/components/layout/SiteNav";
 import SiteFooter from "@/components/layout/SiteFooter";
 import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
 import PostHogProvider from "@/components/providers/PostHogProvider";
+import { getSettings } from "@/lib/settings";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -58,11 +59,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const s = await getSettings();
+
   return (
     <html lang="en">
       <body className={`${cormorant.variable} ${inter.variable} font-sans antialiased`}>
@@ -74,9 +77,9 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
-          <SiteNav />
+          <SiteNav phone={s.contact_phone} />
           <main id="main-content">{children}</main>
-          <SiteFooter />
+          <SiteFooter phone={s.contact_phone} email={s.contact_email} />
         </PostHogProvider>
       </body>
     </html>

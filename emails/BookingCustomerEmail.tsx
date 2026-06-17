@@ -22,6 +22,9 @@ interface Props {
   pickupLocation: string;
   dropoffLocation?: string;
   occasion?: string;
+  phone?: string;
+  email?: string;
+  responseHours?: string;
 }
 
 const brand = { gold: "#B89B5E", black: "#090909", offwhite: "#F5F2EA" };
@@ -37,7 +40,12 @@ export default function BookingCustomerEmail({
   pickupLocation,
   dropoffLocation,
   occasion,
+  phone = "(206) 669-1109",
+  email = "info@seattleluxurydrive.com",
+  responseHours = "4",
 }: Props) {
+  const phoneHref = `tel:+1${phone.replace(/\D/g, "")}`;
+
   return (
     <Html>
       <Head />
@@ -67,7 +75,7 @@ export default function BookingCustomerEmail({
             </Text>
             <Text style={{ fontSize: "15px", color: "#333", lineHeight: "1.6" }}>
               Thank you for your reservation request. Our concierge team will review your details and
-              reach out within 4 business hours to confirm availability and finalize your booking.
+              reach out within {responseHours} business hours to confirm availability and finalize your booking.
             </Text>
             <Text style={{ fontSize: "15px", color: "#555", lineHeight: "1.6" }}>
               In the meantime, here is a summary of your request:
@@ -101,14 +109,14 @@ export default function BookingCustomerEmail({
               Need to reach us sooner?
             </Text>
             <Text style={{ fontSize: "15px", color: "#333", margin: "0 0 4px" }}>
-              <Link href="tel:+12066691109" style={{ color: brand.gold, textDecoration: "none", fontWeight: "bold" }}>
-                (206) 669-1109
+              <Link href={phoneHref} style={{ color: brand.gold, textDecoration: "none", fontWeight: "bold" }}>
+                {phone}
               </Link>{" "}
               · Call or text anytime
             </Text>
             <Text style={{ fontSize: "14px", color: "#555", margin: "4px 0 0" }}>
-              <Link href="mailto:info@seattleluxurydrive.com" style={{ color: brand.gold, textDecoration: "none" }}>
-                info@seattleluxurydrive.com
+              <Link href={`mailto:${email}`} style={{ color: brand.gold, textDecoration: "none" }}>
+                {email}
               </Link>
             </Text>
           </Section>

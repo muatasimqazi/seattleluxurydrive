@@ -12,11 +12,21 @@ import {
 
 interface Props {
   firstName: string;
+  phone?: string;
+  email?: string;
+  responseHours?: string;
 }
 
 const brand = { gold: "#B89B5E", black: "#090909", offwhite: "#F5F2EA" };
 
-export default function ContactCustomerEmail({ firstName }: Props) {
+export default function ContactCustomerEmail({
+  firstName,
+  phone = "(206) 669-1109",
+  email = "info@seattleluxurydrive.com",
+  responseHours = "4",
+}: Props) {
+  const phoneHref = `tel:+1${phone.replace(/\D/g, "")}`;
+
   return (
     <Html>
       <Head />
@@ -43,14 +53,14 @@ export default function ContactCustomerEmail({ firstName }: Props) {
             </Text>
             <Text style={{ fontSize: "15px", color: "#333", lineHeight: "1.6" }}>
               Thank you for reaching out to Seattle Luxury Drive. We&apos;ve received your message
-              and a member of our concierge team will respond within 4 business hours.
+              and a member of our concierge team will respond within {responseHours} business hours.
             </Text>
             <Text style={{ fontSize: "14px", color: "#555", lineHeight: "1.6" }}>
               If you need immediate assistance, please don&apos;t hesitate to call or text us:
             </Text>
             <Text style={{ fontSize: "16px", color: "#333", margin: "4px 0 24px" }}>
-              <Link href="tel:+12066691109" style={{ color: brand.gold, textDecoration: "none", fontWeight: "bold" }}>
-                (206) 669-1109
+              <Link href={phoneHref} style={{ color: brand.gold, textDecoration: "none", fontWeight: "bold" }}>
+                {phone}
               </Link>
             </Text>
             <Text style={{ fontSize: "14px", color: "#555", lineHeight: "1.6" }}>
@@ -64,8 +74,8 @@ export default function ContactCustomerEmail({ firstName }: Props) {
             </Text>
             <Text style={{ fontSize: "11px", color: "#555", margin: 0 }}>
               14723 Aurora Ave N · Shoreline, WA 98133 ·{" "}
-              <Link href="mailto:info@seattleluxurydrive.com" style={{ color: "#777" }}>
-                info@seattleluxurydrive.com
+              <Link href={`mailto:${email}`} style={{ color: "#777" }}>
+                {email}
               </Link>
             </Text>
           </Section>

@@ -3,6 +3,7 @@
 import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getSettings } from "@/lib/settings";
 import ContactAdminEmail from "@/emails/ContactAdminEmail";
 import ContactCustomerEmail from "@/emails/ContactCustomerEmail";
 
@@ -89,6 +90,7 @@ export async function submitContactForm(
 
   const fromEmail = process.env.RESEND_FROM_EMAIL ?? "notifications@seattleluxurydrive.com";
   const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL ?? "info@seattleluxurydrive.com";
+  const settings = await getSettings();
 
   Promise.all([
     resend.emails.send({
@@ -101,7 +103,12 @@ export async function submitContactForm(
       from: fromEmail,
       to: email,
       subject: "We Received Your Message — Seattle Luxury Drive",
-      react: ContactCustomerEmail({ firstName }),
+      react: ContactCustomerEmail({
+        firstName,
+        phone: settings.contact_phone,
+        email: settings.contact_email,
+        responseHours: settings.response_hours,
+      }),
     }),
   ]).catch(() => {
     // Email errors are non-fatal

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CheckCircle } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { getSettings } from "@/lib/settings";
 import { updateSettings } from "@/app/actions/admin-settings";
 
 export const metadata: Metadata = { title: "Settings" };
@@ -11,32 +11,33 @@ const DAYS_OPTIONS = [
   { value: "Mo-Sa", label: "Monday to Saturday (Mo–Sa)" },
 ];
 
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2">
+        {label}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+const inputCls =
+  "w-full bg-black/40 border border-offwhite/15 px-4 py-3 font-sans text-sm text-offwhite focus:outline-none focus:border-gold transition-colors";
+
 export default async function SettingsPage({
   searchParams,
 }: {
   searchParams: Promise<{ saved?: string }>;
 }) {
   const { saved } = await searchParams;
-
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("site_settings")
-    .select("key, value")
-    .in("key", ["hours_days", "hours_open", "hours_close"]);
-
-  const s = Object.fromEntries(
-    (data ?? []).map((r: { key: string; value: string }) => [r.key, r.value])
-  );
-
-  const hoursDays  = s.hours_days  ?? "Mo-Su";
-  const hoursOpen  = s.hours_open  ?? "07:00";
-  const hoursClose = s.hours_close ?? "22:00";
+  const s = await getSettings();
 
   return (
     <div className="p-8 max-w-xl">
       <h1 className="font-heading text-2xl font-light text-offwhite mb-1">Settings</h1>
       <p className="font-sans text-xs text-offwhite/40 mb-8">
-        Site configuration managed by admin.
+        Site-wide configuration. Changes take effect immediately.
       </p>
 
       {saved && (
@@ -47,30 +48,23 @@ export default async function SettingsPage({
       )}
 
       <form action={updateSettings} className="space-y-6">
-        {/* Business Hours */}
-        <div className="border border-offwhite/[0.08] p-6 space-y-5">
+
+        {/* ── Business Hours ── */}
+        <section className="border border-offwhite/8 p-6 space-y-5">
           <div>
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-4">
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
               Business Hours
             </p>
-            <p className="font-sans text-xs text-offwhite/40">
+            <p className="font-sans text-xs text-offwhite/35">
               Shown in Google search results via the LocalBusiness schema.
             </p>
           </div>
 
-          {/* Days */}
-          <div>
-            <label
-              htmlFor="hours_days"
-              className="block font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2"
-            >
-              Operating Days
-            </label>
+          <Field label="Operating Days">
             <select
-              id="hours_days"
               name="hours_days"
-              defaultValue={hoursDays}
-              className="w-full bg-black/40 border border-offwhite/15 px-4 py-3 font-sans text-sm text-offwhite focus:outline-none focus:border-gold transition-colors"
+              defaultValue={s.hours_days}
+              className={inputCls}
             >
               {DAYS_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value} className="bg-charcoal">
@@ -78,47 +72,124 @@ export default async function SettingsPage({
                 </option>
               ))}
             </select>
-          </div>
+          </Field>
 
-          {/* Open / Close */}
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="hours_open"
-                className="block font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2"
-              >
-                Opens
-              </label>
-              <input
-                id="hours_open"
-                name="hours_open"
-                type="time"
-                defaultValue={hoursOpen}
-                className="w-full bg-black/40 border border-offwhite/15 px-4 py-3 font-sans text-sm text-offwhite focus:outline-none focus:border-gold transition-colors"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="hours_close"
-                className="block font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2"
-              >
-                Closes
-              </label>
-              <input
-                id="hours_close"
-                name="hours_close"
-                type="time"
-                defaultValue={hoursClose}
-                className="w-full bg-black/40 border border-offwhite/15 px-4 py-3 font-sans text-sm text-offwhite focus:outline-none focus:border-gold transition-colors"
-              />
-            </div>
+            <Field label="Opens">
+              <input name="hours_open" type="time" defaultValue={s.hours_open} className={inputCls} />
+            </Field>
+            <Field label="Closes">
+              <input name="hours_close" type="time" defaultValue={s.hours_close} className={inputCls} />
+            </Field>
           </div>
 
-          {/* Preview */}
-          <p className="font-sans text-[11px] text-offwhite/35">
-            Schema value: <span className="text-offwhite/60 font-mono">{hoursDays} {hoursOpen}–{hoursClose}</span>
+          <p className="font-sans text-[11px] text-offwhite/30">
+            Schema value:{" "}
+            <span className="font-mono text-offwhite/50">
+              {s.hours_days} {s.hours_open}–{s.hours_close}
+            </span>
           </p>
-        </div>
+        </section>
+
+        {/* ── Contact Information ── */}
+        <section className="border border-offwhite/8 p-6 space-y-5">
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
+              Contact Information
+            </p>
+            <p className="font-sans text-xs text-offwhite/35">
+              Appears in navigation, footer, and all customer-facing emails.
+            </p>
+          </div>
+
+          <Field label="Phone Number">
+            <input
+              name="contact_phone"
+              type="tel"
+              defaultValue={s.contact_phone}
+              placeholder="(206) 669-1109"
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label="Email Address">
+            <input
+              name="contact_email"
+              type="email"
+              defaultValue={s.contact_email}
+              placeholder="info@seattleluxurydrive.com"
+              className={inputCls}
+            />
+          </Field>
+        </section>
+
+        {/* ── Pricing ── */}
+        <section className="border border-offwhite/8 p-6 space-y-5">
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
+              Pricing
+            </p>
+            <p className="font-sans text-xs text-offwhite/35">
+              Display rate shown in hero, services section, and FAQ. Enter the number only.
+            </p>
+          </div>
+
+          <Field label="Starting Hourly Rate (USD)">
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-offwhite/40">
+                $
+              </span>
+              <input
+                name="starting_rate"
+                type="number"
+                min="1"
+                step="1"
+                defaultValue={s.starting_rate}
+                placeholder="350"
+                className={`${inputCls} pl-8`}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/40">
+                /hr
+              </span>
+            </div>
+          </Field>
+        </section>
+
+        {/* ── Response Time ── */}
+        <section className="border border-offwhite/8 p-6 space-y-5">
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
+              Response Time Commitment
+            </p>
+            <p className="font-sans text-xs text-offwhite/35">
+              The "within X business hours" promise shown on booking, contact, and in emails.
+            </p>
+          </div>
+
+          <Field label="Response Time (hours)">
+            <div className="relative">
+              <input
+                name="response_hours"
+                type="number"
+                min="1"
+                step="1"
+                defaultValue={s.response_hours}
+                placeholder="4"
+                className={`${inputCls} pr-24`}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-sans text-xs text-offwhite/40">
+                business hrs
+              </span>
+            </div>
+          </Field>
+
+          <p className="font-sans text-[11px] text-offwhite/30">
+            Displays as:{" "}
+            <span className="font-mono text-offwhite/50">
+              within {s.response_hours} business hours
+            </span>
+          </p>
+        </section>
 
         <button
           type="submit"

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BookingForm from "@/components/booking/BookingForm";
+import { getSettings, phoneHref } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Request a Reservation",
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BookPage() {
+export default async function BookPage() {
+  const s = await getSettings();
   return (
     <>
       {/* Hero */}
@@ -28,12 +30,12 @@ export default function BookPage() {
           </h1>
           <p className="font-sans text-sm leading-relaxed text-offwhite/65">
             Complete the form below and our concierge team will confirm availability
-            and reach out within 4 business hours. For immediate assistance, call{" "}
+            and reach out within {s.response_hours} business hours. For immediate assistance, call{" "}
             <a
-              href="tel:+12066691109"
+              href={phoneHref(s.contact_phone)}
               className="text-gold hover:text-gold-lt transition-colors"
             >
-              (206) 669-1109
+              {s.contact_phone}
             </a>
             .
           </p>

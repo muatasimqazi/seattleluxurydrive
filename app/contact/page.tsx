@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
+import { getSettings, phoneHref } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -16,7 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const s = await getSettings();
   return (
     <>
       {/* Hero */}
@@ -65,10 +67,10 @@ export default function ContactPage() {
                         Phone
                       </p>
                       <a
-                        href="tel:+12066691109"
+                        href={phoneHref(s.contact_phone)}
                         className="font-sans text-base text-offwhite hover:text-gold transition-colors"
                       >
-                        (206) 669-1109
+                        {s.contact_phone}
                       </a>
                       <p className="font-sans text-xs text-offwhite/40 mt-1">
                         Call or text anytime
@@ -86,10 +88,10 @@ export default function ContactPage() {
                         Email
                       </p>
                       <a
-                        href="mailto:info@seattleluxurydrive.com"
+                        href={`mailto:${s.contact_email}`}
                         className="font-sans text-base text-offwhite hover:text-gold transition-colors break-all"
                       >
-                        info@seattleluxurydrive.com
+                        {s.contact_email}
                       </a>
                     </div>
                   </div>
@@ -119,9 +121,8 @@ export default function ContactPage() {
                       <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/40 mb-1">
                         Hours
                       </p>
-                      {/* TODO: Replace with confirmed business hours */}
                       <p className="font-sans text-base text-offwhite">
-                        Mon–Sun · 7am–10pm
+                        {s.hours_days} · {s.hours_open}–{s.hours_close}
                       </p>
                     </div>
                   </div>
@@ -146,7 +147,7 @@ export default function ContactPage() {
               <h2 className="font-heading text-3xl font-light text-offwhite mb-8">
                 How Can We Help?
               </h2>
-              <ContactForm />
+              <ContactForm responseHours={s.response_hours} />
             </div>
           </div>
         </div>
