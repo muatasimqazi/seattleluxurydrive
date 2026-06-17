@@ -4,6 +4,8 @@ import { createServiceClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Bookings" };
 
+const PAGE_SIZE = 25;
+
 const STATUS_COLORS: Record<string, string> = {
   new: "bg-gold/20 text-gold",
   contacted: "bg-blue-400/20 text-blue-300",
@@ -38,35 +40,65 @@ interface BookingRow {
 }
 
 interface Props {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; q?: string; page?: string }>;
 }
 
 const ALL_STATUSES = ["new", "contacted", "confirmed", "cancelled"];
 
+function buildHref(base: Record<string, string>, overrides: Record<string, string>) {
+  const p = new URLSearchParams({ ...base, ...overrides });
+  // Remove empty values
+  for (const [k, v] of [...p.entries()]) {
+    if (!v) p.delete(k);
+  }
+  const qs = p.toString();
+  return `/admin/bookings${qs ? `?${qs}` : ""}`;
+}
+
 export default async function AdminBookingsPage({ searchParams }: Props) {
   const params = await searchParams;
   const filterStatus = params.status ?? "";
+  const search = params.q?.trim() ?? "";
+  const page = Math.max(1, parseInt(params.page ?? "1", 10));
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
 
   let bookings: BookingRow[] = [];
+  let total = 0;
 
   try {
     const supabase = createServiceClient();
     let query = supabase
       .from("booking_requests")
       .select(
-        "id, first_name, last_name, email, phone, service_type, rental_type, start_date, pickup_location, status, created_at"
+        "id, first_name, last_name, email, phone, service_type, rental_type, start_date, pickup_location, status, created_at",
+        { count: "exact" }
       )
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .range(from, to);
 
     if (filterStatus) {
       query = query.eq("status", filterStatus);
     }
 
-    const { data } = await query;
+    if (search) {
+      query = query.or(
+        `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%`
+      );
+    }
+
+    const { data, count } = await query;
     bookings = (data as BookingRow[]) ?? [];
+    total = count ?? 0;
   } catch {
     // Supabase not connected
   }
+
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const baseParams = {
+    ...(filterStatus ? { status: filterStatus } : {}),
+    ...(search ? { q: search } : {}),
+  };
 
   return (
     <div className="p-8">
@@ -74,10 +106,47 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
         Booking Requests
       </h1>
 
+      {/* Search + filters row */}
+      <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
+        {/* Search */}
+        <form method="GET" action="/admin/bookings" className="flex gap-2">
+          {filterStatus && (
+            <input type="hidden" name="status" value={filterStatus} />
+          )}
+          <input
+            type="search"
+            name="q"
+            defaultValue={search}
+            placeholder="Search by name or email…"
+            className="w-64 bg-offwhite/4 border border-offwhite/10 px-3 py-2 font-sans text-sm text-offwhite/80 placeholder:text-offwhite/20 focus:outline-none focus:border-gold/50 transition-colors"
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-gold font-sans text-[10px] uppercase tracking-[0.15em] text-black hover:bg-gold-lt transition-colors"
+          >
+            Search
+          </button>
+          {search && (
+            <Link
+              href={buildHref({ status: filterStatus }, {})}
+              className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 transition-colors"
+            >
+              Clear
+            </Link>
+          )}
+        </form>
+
+        {/* Result count */}
+        <p className="font-sans text-xs text-offwhite/30">
+          {total} result{total !== 1 ? "s" : ""}
+          {search ? ` for "${search}"` : ""}
+        </p>
+      </div>
+
       {/* Status filter */}
       <div className="flex flex-wrap gap-2 mb-6">
         <Link
-          href="/admin/bookings"
+          href={buildHref({ q: search }, {})}
           className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors ${
             !filterStatus
               ? "border-gold text-gold bg-gold/10"
@@ -89,7 +158,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
         {ALL_STATUSES.map((s) => (
           <Link
             key={s}
-            href={`/admin/bookings?status=${s}`}
+            href={buildHref({ q: search }, { status: s })}
             className={`px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.15em] border transition-colors ${
               filterStatus === s
                 ? "border-gold text-gold bg-gold/10"
@@ -101,9 +170,12 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
         ))}
       </div>
 
+      {/* Table */}
       {bookings.length === 0 ? (
         <p className="font-sans text-sm text-offwhite/30 py-12">
-          No booking requests{filterStatus ? ` with status "${filterStatus}"` : ""}.
+          No booking requests
+          {filterStatus ? ` with status "${filterStatus}"` : ""}
+          {search ? ` matching "${search}"` : ""}.
         </p>
       ) : (
         <div className="border border-offwhite/[0.06] overflow-x-auto">
@@ -124,10 +196,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             </thead>
             <tbody className="divide-y divide-offwhite/[0.04]">
               {bookings.map((b) => (
-                <tr
-                  key={b.id}
-                  className="hover:bg-offwhite/[0.02] transition-colors"
-                >
+                <tr key={b.id} className="hover:bg-offwhite/2 transition-colors">
                   <td className="px-4 py-3 whitespace-nowrap">
                     <Link
                       href={`/admin/bookings/${b.id}`}
@@ -162,6 +231,33 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between mt-6">
+          <p className="font-sans text-xs text-offwhite/30">
+            Page {page} of {totalPages}
+          </p>
+          <div className="flex gap-2">
+            {page > 1 && (
+              <Link
+                href={buildHref(baseParams, { page: String(page - 1) })}
+                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite transition-colors"
+              >
+                ← Previous
+              </Link>
+            )}
+            {page < totalPages && (
+              <Link
+                href={buildHref(baseParams, { page: String(page + 1) })}
+                className="px-4 py-2 border border-offwhite/20 font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite transition-colors"
+              >
+                Next →
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </div>
