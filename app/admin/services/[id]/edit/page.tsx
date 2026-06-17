@@ -229,7 +229,7 @@ export default async function EditServicePage({
 
         {service.image_url ? (
           <div className="flex items-start gap-4">
-            <div className="relative w-40 aspect-4/3 overflow-hidden bg-charcoal shrink-0">
+            <div className="relative w-40 h-30 overflow-hidden bg-charcoal shrink-0">
               <Image
                 src={service.image_url}
                 alt={service.name}

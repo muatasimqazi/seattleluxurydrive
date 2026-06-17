@@ -44,7 +44,7 @@ function ServiceSection({
       <div className="mx-auto max-w-7xl">
         <div className={`flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-20 ${isEven ? "" : "lg:flex-row-reverse"}`}>
           {/* Image */}
-          <div className="relative aspect-4/3 w-full shrink-0 bg-charcoal lg:w-120 overflow-hidden">
+          <div className="relative aspect-4/3 w-full shrink-0 bg-charcoal lg:w-120 lg:aspect-auto lg:self-stretch overflow-hidden">
             {service.image_url ? (
               <Image
                 src={service.image_url}
