@@ -2,6 +2,13 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  // Server Actions post to the page URL with a Next-Action header.
+  // They call createClient() directly and handle their own session refresh,
+  // so running the Supabase middleware here can corrupt the action's response.
+  if (request.headers.has("next-action")) {
+    return NextResponse.next();
+  }
+
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(

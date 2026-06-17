@@ -5,9 +5,9 @@ import { revalidatePath } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/server";
 import { getCurrentUserRole } from "@/lib/auth";
 
-async function assertAdmin() {
+async function assertTeamMember() {
   const role = await getCurrentUserRole();
-  if (role !== "admin") throw new Error("Forbidden");
+  if (role !== "admin" && role !== "staff") throw new Error("Forbidden");
 }
 
 function slugify(text: string) {
@@ -37,7 +37,7 @@ export async function createVehicle(
   _prevState: { error?: string },
   formData: FormData
 ): Promise<{ error?: string }> {
-  await assertAdmin();
+  await assertTeamMember();
   const supabase = createServiceClient();
   const fields = parseVehicleForm(formData);
 
@@ -56,7 +56,7 @@ export async function createVehicle(
 }
 
 export async function updateVehicle(id: string, formData: FormData) {
-  await assertAdmin();
+  await assertTeamMember();
   const supabase = createServiceClient();
   const { slug: _, ...fields } = parseVehicleForm(formData);
 
@@ -73,7 +73,7 @@ export async function updateVehicle(id: string, formData: FormData) {
 }
 
 export async function uploadVehicleImage(vehicleId: string, formData: FormData) {
-  await assertAdmin();
+  await assertTeamMember();
   const supabase = createServiceClient();
   const file = formData.get("image") as File;
   const altText = (formData.get("alt_text") as string)?.trim() || null;
@@ -113,7 +113,7 @@ export async function uploadVehicleImage(vehicleId: string, formData: FormData) 
 }
 
 export async function deleteVehicleImage(imageId: string, vehicleId: string, imageUrl: string) {
-  await assertAdmin();
+  await assertTeamMember();
   const supabase = createServiceClient();
 
   try {
@@ -135,7 +135,7 @@ export async function deleteVehicleImage(imageId: string, vehicleId: string, ima
 }
 
 export async function setVehicleStatus(id: string, status: "active" | "archived") {
-  await assertAdmin();
+  await assertTeamMember();
   const supabase = createServiceClient();
   await supabase.from("vehicles").update({ status }).eq("id", id);
   revalidatePath("/admin/vehicles");
@@ -143,7 +143,7 @@ export async function setVehicleStatus(id: string, status: "active" | "archived"
 }
 
 export async function setVehicleFeatured(id: string, featured: boolean) {
-  await assertAdmin();
+  await assertTeamMember();
   const supabase = createServiceClient();
   await supabase.from("vehicles").update({ featured }).eq("id", id);
   revalidatePath("/admin/vehicles");
