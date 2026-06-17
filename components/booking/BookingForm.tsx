@@ -63,9 +63,13 @@ const EMPTY: BookingData = {
   privacyConsent: false,
 };
 
-function FieldError({ msg }: { msg?: string }) {
+function FieldError({ id, msg }: { id: string; msg?: string }) {
   if (!msg) return null;
-  return <p className="mt-1.5 font-sans text-[11px] text-red-400">{msg}</p>;
+  return (
+    <p id={id} role="alert" className="mt-1.5 font-sans text-[11px] text-red-400">
+      {msg}
+    </p>
+  );
 }
 
 function ChipButton({
@@ -81,7 +85,8 @@ function ChipButton({
     <button
       type="button"
       onClick={onClick}
-      className={`px-5 py-2.5 font-sans text-[11px] uppercase tracking-[0.15em] border transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${
+      aria-pressed={selected}
+      className={`px-5 py-2.5 font-sans text-[11px] uppercase tracking-[0.15em] border transition-colors focus-visible:outline-2 focus-visible:outline-gold ${
         selected
           ? "border-gold bg-gold/10 text-gold"
           : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite/70"
@@ -94,6 +99,7 @@ function ChipButton({
 
 function InputField({
   label,
+  id,
   name,
   type = "text",
   value,
@@ -104,6 +110,7 @@ function InputField({
   min,
 }: {
   label: string;
+  id: string;
   name?: string;
   type?: string;
   value: string;
@@ -113,24 +120,32 @@ function InputField({
   placeholder?: string;
   min?: string;
 }) {
+  const errorId = `${id}-error`;
   return (
     <div>
-      <label className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2">
+      <label
+        htmlFor={id}
+        className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+      >
         {label}
-        {required && <span className="text-gold ml-1">*</span>}
+        {required && <span className="text-gold ml-1" aria-hidden="true">*</span>}
+        {required && <span className="sr-only">(required)</span>}
       </label>
       <input
+        id={id}
         type={type}
-        name={name}
+        name={name ?? id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         min={min}
+        aria-describedby={error ? errorId : undefined}
+        aria-invalid={error ? true : undefined}
         className={`w-full bg-transparent border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/25 focus:outline-none focus:border-gold transition-colors ${
           error ? "border-red-400/60" : "border-offwhite/20"
         }`}
       />
-      <FieldError msg={error} />
+      <FieldError id={errorId} msg={error} />
     </div>
   );
 }
@@ -271,11 +286,12 @@ export default function BookingForm() {
         <StepIndicator step={1} />
         <div className="space-y-8">
           {/* Service type */}
-          <div>
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
-              Service Type <span className="text-gold">*</span>
-            </p>
-            <div className="flex flex-wrap gap-3">
+          <fieldset>
+            <legend className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+              Service Type <span className="text-gold" aria-hidden="true">*</span>
+              <span className="sr-only">(required)</span>
+            </legend>
+            <div className="flex flex-wrap gap-3" role="group" aria-labelledby="service-type-legend">
               {SERVICE_TYPES.map((s) => (
                 <ChipButton
                   key={s}
@@ -285,14 +301,15 @@ export default function BookingForm() {
                 />
               ))}
             </div>
-            <FieldError msg={errors.serviceType} />
-          </div>
+            <FieldError id="serviceType-error" msg={errors.serviceType} />
+          </fieldset>
 
           {/* Rental type */}
-          <div>
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
-              Rental Type <span className="text-gold">*</span>
-            </p>
+          <fieldset>
+            <legend className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+              Rental Type <span className="text-gold" aria-hidden="true">*</span>
+              <span className="sr-only">(required)</span>
+            </legend>
             <div className="flex flex-wrap gap-3">
               {RENTAL_TYPES.map((r) => (
                 <ChipButton
@@ -303,11 +320,12 @@ export default function BookingForm() {
                 />
               ))}
             </div>
-            <FieldError msg={errors.rentalType} />
-          </div>
+            <FieldError id="rentalType-error" msg={errors.rentalType} />
+          </fieldset>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <InputField
+              id="startDate"
               label="Start Date"
               type="date"
               value={data.startDate}
@@ -317,6 +335,7 @@ export default function BookingForm() {
               min={today}
             />
             <InputField
+              id="startTime"
               label="Start Time"
               type="time"
               value={data.startTime}
@@ -328,6 +347,7 @@ export default function BookingForm() {
 
           {(data.rentalType === "Full Day" || data.rentalType === "Multi-Day") && (
             <InputField
+              id="endDate"
               label="End Date"
               type="date"
               value={data.endDate}
@@ -340,6 +360,7 @@ export default function BookingForm() {
 
           {data.rentalType === "Hourly" && (
             <InputField
+              id="estimatedHours"
               label="Estimated Hours"
               type="number"
               value={data.estimatedHours}
@@ -352,6 +373,7 @@ export default function BookingForm() {
           )}
 
           <InputField
+            id="pickupLocation"
             label="Pickup Location"
             value={data.pickupLocation}
             onChange={(v) => set("pickupLocation", v)}
@@ -360,6 +382,7 @@ export default function BookingForm() {
             placeholder="Address, hotel, airport, etc."
           />
           <InputField
+            id="dropoffLocation"
             label="Dropoff Location (optional)"
             value={data.dropoffLocation}
             onChange={(v) => set("dropoffLocation", v)}
@@ -389,6 +412,7 @@ export default function BookingForm() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <InputField
+              id="firstName"
               label="First Name"
               value={data.firstName}
               onChange={(v) => set("firstName", v)}
@@ -396,6 +420,7 @@ export default function BookingForm() {
               error={errors.firstName}
             />
             <InputField
+              id="lastName"
               label="Last Name"
               value={data.lastName}
               onChange={(v) => set("lastName", v)}
@@ -404,6 +429,7 @@ export default function BookingForm() {
             />
           </div>
           <InputField
+            id="email"
             label="Email Address"
             type="email"
             value={data.email}
@@ -413,6 +439,7 @@ export default function BookingForm() {
             placeholder="you@example.com"
           />
           <InputField
+            id="phone"
             label="Phone Number"
             type="tel"
             value={data.phone}
@@ -422,10 +449,11 @@ export default function BookingForm() {
             placeholder="(206) 555-0000"
           />
 
-          <div>
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
-              Preferred Contact Method <span className="text-gold">*</span>
-            </p>
+          <fieldset>
+            <legend className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+              Preferred Contact Method <span className="text-gold" aria-hidden="true">*</span>
+              <span className="sr-only">(required)</span>
+            </legend>
             <div className="flex flex-wrap gap-3">
               {CONTACT_METHODS.map((m) => (
                 <ChipButton
@@ -436,8 +464,8 @@ export default function BookingForm() {
                 />
               ))}
             </div>
-            <FieldError msg={errors.preferredContactMethod} />
-          </div>
+            <FieldError id="preferredContactMethod-error" msg={errors.preferredContactMethod} />
+          </fieldset>
 
           <div className="flex items-center justify-between pt-4">
             <button
@@ -529,8 +557,8 @@ export default function BookingForm() {
             }`}
           />
           <div className="flex justify-between mt-1">
-            <FieldError msg={errors.specialRequests} />
-            <span className="font-sans text-[10px] text-offwhite/30 ml-auto">
+            <FieldError id="specialRequests-error" msg={errors.specialRequests} />
+            <span className="font-sans text-[10px] text-offwhite/30 ml-auto" aria-live="polite">
               {data.specialRequests.length}/500
             </span>
           </div>
@@ -581,30 +609,38 @@ export default function BookingForm() {
 
         {/* Privacy consent */}
         <div>
-          {/* Hidden field carries the actual boolean value */}
           <input
             type="hidden"
             name="privacyConsent"
             value={data.privacyConsent ? "true" : "false"}
           />
-          <label className="flex items-start gap-3 cursor-pointer" onClick={() => set("privacyConsent", !data.privacyConsent)}>
-            <div className="relative mt-0.5 shrink-0 w-4 h-4 border flex items-center justify-center transition-colors border-offwhite/30">
-              {data.privacyConsent && <div className="w-2 h-2 bg-gold" />}
-            </div>
-            <span className="font-sans text-xs text-offwhite/55 leading-relaxed select-none">
+          <div className="flex items-start gap-3">
+            <button
+              type="button"
+              id="privacyConsent"
+              role="checkbox"
+              aria-checked={data.privacyConsent}
+              aria-describedby={errors.privacyConsent ? "privacyConsent-error" : undefined}
+              onClick={() => set("privacyConsent", !data.privacyConsent)}
+              className={`mt-0.5 shrink-0 w-4 h-4 border flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-gold ${
+                data.privacyConsent ? "border-gold bg-gold/20" : "border-offwhite/30"
+              }`}
+            >
+              {data.privacyConsent && <div className="w-2 h-2 bg-gold" aria-hidden="true" />}
+            </button>
+            <label htmlFor="privacyConsent" className="font-sans text-xs text-offwhite/55 leading-relaxed cursor-pointer">
               I agree to the{" "}
               <a
                 href="/privacy-policy"
                 target="_blank"
-                onClick={(e) => e.stopPropagation()}
                 className="text-gold hover:text-gold-lt transition-colors underline"
               >
                 Privacy Policy
               </a>{" "}
               and consent to Seattle Luxury Drive contacting me regarding my reservation request.
-            </span>
-          </label>
-          <FieldError msg={errors.privacyConsent} />
+            </label>
+          </div>
+          <FieldError id="privacyConsent-error" msg={errors.privacyConsent} />
         </div>
 
         {/* General error */}

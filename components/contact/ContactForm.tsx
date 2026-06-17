@@ -6,10 +6,12 @@ import { CheckCircle, AlertCircle } from "lucide-react";
 
 const INITIAL_STATE: ContactFormState = { status: "idle" };
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p className="mt-1.5 font-sans text-xs text-red-400">{message}</p>
+    <p id={id} role="alert" className="mt-1.5 font-sans text-xs text-red-400">
+      {message}
+    </p>
   );
 }
 
@@ -30,6 +32,7 @@ function InputField({
   error?: string;
   autoComplete?: string;
 }) {
+  const errorId = `${id}-error`;
   return (
     <div>
       <label
@@ -37,7 +40,8 @@ function InputField({
         className="block font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2"
       >
         {label}
-        {required && <span className="text-gold ml-1">*</span>}
+        {required && <span className="text-gold ml-1" aria-hidden="true">*</span>}
+        {required && <span className="sr-only">(required)</span>}
       </label>
       <input
         id={id}
@@ -46,11 +50,13 @@ function InputField({
         placeholder={placeholder}
         autoComplete={autoComplete}
         required={required}
-        className="w-full bg-black/40 border border-offwhite/15 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors"
-        aria-describedby={error ? `${id}-error` : undefined}
-        aria-invalid={!!error}
+        className={`w-full bg-black/40 border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors ${
+          error ? "border-red-400/60" : "border-offwhite/15"
+        }`}
+        aria-describedby={error ? errorId : undefined}
+        aria-invalid={error ? true : undefined}
       />
-      {error && <FieldError message={error} />}
+      <FieldError id={errorId} message={error} />
     </div>
   );
 }
@@ -85,8 +91,8 @@ export default function ContactForm() {
       <input type="text" name="_hp" className="hidden" tabIndex={-1} aria-hidden="true" />
 
       {state.status === "error" && (
-        <div className="flex items-start gap-3 border border-red-500/30 bg-red-500/10 px-4 py-3">
-          <AlertCircle size={16} strokeWidth={1.5} className="text-red-400 shrink-0 mt-0.5" />
+        <div role="alert" className="flex items-start gap-3 border border-red-500/30 bg-red-500/10 px-4 py-3">
+          <AlertCircle size={16} strokeWidth={1.5} className="text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
           <p className="font-sans text-sm text-red-400">{state.message}</p>
         </div>
       )}
@@ -134,11 +140,13 @@ export default function ContactForm() {
           rows={5}
           placeholder="Tell us about your transportation needs…"
           required
-          className="w-full bg-black/40 border border-offwhite/15 px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors resize-none"
+          className={`w-full bg-black/40 border px-4 py-3 font-sans text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors resize-none ${
+            errors.message ? "border-red-400/60" : "border-offwhite/15"
+          }`}
           aria-describedby={errors.message ? "message-error" : undefined}
-          aria-invalid={!!errors.message}
+          aria-invalid={errors.message ? true : undefined}
         />
-        {errors.message && <FieldError message={errors.message} />}
+        <FieldError id="message-error" message={errors.message} />
       </div>
 
       <button

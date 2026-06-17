@@ -22,6 +22,8 @@ export default function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -34,18 +36,49 @@ export default function SiteNav() {
     setDrawerOpen(false);
   }, [pathname]);
 
-  // Trap focus / close on Escape
+  // Focus management + Escape + focus trap
+  useEffect(() => {
+    if (drawerOpen) {
+      // Move focus into drawer on open
+      closeButtonRef.current?.focus();
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      // Return focus to hamburger on close
+      hamburgerRef.current?.focus();
+    }
+  }, [drawerOpen]);
+
   useEffect(() => {
     if (!drawerOpen) return;
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
+      if (e.key === "Escape") {
+        setDrawerOpen(false);
+        return;
+      }
+      // Trap Tab within the drawer
+      if (e.key !== "Tab" || !drawerRef.current) return;
+      const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
     };
+
     document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, [drawerOpen]);
 
   const isActive = (href: string) =>
@@ -113,6 +146,7 @@ export default function SiteNav() {
               <Phone size={18} strokeWidth={1.5} />
             </a>
             <button
+              ref={hamburgerRef}
               onClick={() => setDrawerOpen(true)}
               aria-label="Open menu"
               aria-expanded={drawerOpen}
@@ -156,6 +190,7 @@ export default function SiteNav() {
             </span>
           </div>
           <button
+            ref={closeButtonRef}
             onClick={() => setDrawerOpen(false)}
             aria-label="Close menu"
             className="text-offwhite/70 hover:text-offwhite transition-colors"
