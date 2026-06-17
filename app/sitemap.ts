@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { data } = await supabase
       .from("vehicles")
       .select("slug, updated_at")
-      .eq("is_active", true);
+      .eq("status", "active");
 
     vehicleRoutes = (data ?? []).map((v: { slug: string; updated_at: string }) => ({
       url: `${BASE}/fleet/${v.slug}`,
