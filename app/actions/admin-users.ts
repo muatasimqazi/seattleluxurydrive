@@ -1,8 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { Resend } from "resend";
 import { createServiceClient } from "@/lib/supabase/server";
 import { getCurrentUserRole } from "@/lib/auth";
+import InviteEmail from "@/emails/InviteEmail";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function assertAdmin() {
   const role = await getCurrentUserRole();
@@ -22,15 +26,38 @@ export async function inviteUser(
   if (!["admin", "staff"].includes(role)) return { error: "Invalid role." };
 
   const supabase = createServiceClient();
-  const { data, error } = await supabase.auth.admin.inviteUserByEmail(email);
+
+  // Generate the invite link without Supabase auto-sending its default email
+  const { data, error } = await supabase.auth.admin.generateLink({
+    type: "invite",
+    email,
+    options: { redirectTo: "https://seattleluxurydrive.com/admin" },
+  });
 
   if (error) return { error: error.message };
 
-  if (data.user) {
+  const user = data.user;
+  const inviteLink = data.properties?.action_link;
+
+  if (!inviteLink) return { error: "Failed to generate invite link." };
+
+  // Persist the role before the invite is accepted
+  if (user) {
     await supabase
       .from("profiles")
-      .upsert({ id: data.user.id, role }, { onConflict: "id" });
+      .upsert({ id: user.id, role }, { onConflict: "id" });
   }
+
+  // Send branded invite email via Resend
+  const fromEmail =
+    process.env.RESEND_FROM_EMAIL ?? "notifications@seattleluxurydrive.com";
+
+  await resend.emails.send({
+    from: fromEmail,
+    to: email,
+    subject: "You've been invited to join Seattle Luxury Drive",
+    react: InviteEmail({ email, role: role as "admin" | "staff", inviteLink }),
+  });
 
   revalidatePath("/admin/users");
   return { success: true };
