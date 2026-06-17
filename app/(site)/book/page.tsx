@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import BookingForm from "@/components/booking/BookingForm";
 import { getSettings, phoneHref } from "@/lib/settings";
 import JsonLd from "@/components/seo/JsonLd";
@@ -54,7 +55,9 @@ export default async function BookPage() {
       {/* Form section */}
       <section className="bg-black px-6 pb-32">
         <div className="mx-auto max-w-2xl">
-          <BookingForm />
+          <Suspense fallback={null}>
+            <BookingForm />
+          </Suspense>
         </div>
       </section>
     </>

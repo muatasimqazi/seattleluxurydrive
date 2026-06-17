@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { ChevronRight, ChevronLeft, AlertCircle } from "lucide-react";
 import {
   submitBookingRequest,
@@ -198,6 +199,17 @@ export default function BookingForm() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<BookingData>(EMPTY);
   const [localErrors, setLocalErrors] = useState<Record<string, string>>({});
+  const [utmParams, setUtmParams] = useState({ source: "", medium: "", campaign: "" });
+
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    setUtmParams({
+      source: searchParams.get("utm_source") ?? "",
+      medium: searchParams.get("utm_medium") ?? "",
+      campaign: searchParams.get("utm_campaign") ?? "",
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [state, formAction, isPending] = useActionState(
     submitBookingRequest,
@@ -510,6 +522,9 @@ export default function BookingForm() {
         <input type="hidden" name="email" value={data.email} />
         <input type="hidden" name="phone" value={data.phone} />
         <input type="hidden" name="preferredContactMethod" value={data.preferredContactMethod} />
+        <input type="hidden" name="utm_source" value={utmParams.source} />
+        <input type="hidden" name="utm_medium" value={utmParams.medium} />
+        <input type="hidden" name="utm_campaign" value={utmParams.campaign} />
         {/* privacyConsent controlled below */}
 
         {/* Occasion */}

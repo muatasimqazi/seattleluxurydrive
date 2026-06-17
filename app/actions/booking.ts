@@ -59,6 +59,9 @@ export async function submitBookingRequest(
     occasion: (formData.get("occasion") as string | null)?.trim() ?? "",
     specialRequests: (formData.get("specialRequests") as string | null)?.trim() ?? "",
     privacyConsent: formData.get("privacyConsent") === "true",
+    utmSource: (formData.get("utm_source") as string | null)?.trim() ?? "",
+    utmMedium: (formData.get("utm_medium") as string | null)?.trim() ?? "",
+    utmCampaign: (formData.get("utm_campaign") as string | null)?.trim() ?? "",
   };
 
   // Validation
@@ -143,6 +146,9 @@ export async function submitBookingRequest(
         preferred_contact_method: raw.preferredContactMethod,
         occasion: raw.occasion || null,
         special_requests: raw.specialRequests || null,
+        utm_source: raw.utmSource || null,
+        utm_medium: raw.utmMedium || null,
+        utm_campaign: raw.utmCampaign || null,
         status: "new",
       })
       .select("id")
