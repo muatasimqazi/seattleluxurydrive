@@ -60,6 +60,66 @@ export async function updateVehicle(id: string, formData: FormData) {
   redirect(`/admin/vehicles/${id}/edit?saved=1`);
 }
 
+export async function uploadVehicleImage(vehicleId: string, formData: FormData) {
+  const supabase = await createServiceClient();
+  const file = formData.get("image") as File;
+  const altText = (formData.get("alt_text") as string)?.trim() || null;
+
+  if (!file || file.size === 0) throw new Error("No file provided");
+
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = `${vehicleId}/${Date.now()}.${ext}`;
+  const bytes = await file.arrayBuffer();
+
+  const { error: uploadError } = await supabase.storage
+    .from("vehicle")
+    .upload(path, bytes, { contentType: file.type, upsert: false });
+
+  if (uploadError) throw new Error(uploadError.message);
+
+  const { data: { publicUrl } } = supabase.storage.from("vehicle").getPublicUrl(path);
+
+  const { data: last } = await supabase
+    .from("vehicle_images")
+    .select("sort_order")
+    .eq("vehicle_id", vehicleId)
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  await supabase.from("vehicle_images").insert({
+    vehicle_id: vehicleId,
+    image_url: publicUrl,
+    alt_text: altText,
+    sort_order: last ? last.sort_order + 1 : 0,
+  });
+
+  revalidatePath(`/admin/vehicles/${vehicleId}/edit`);
+  revalidatePath("/fleet", "layout");
+  redirect(`/admin/vehicles/${vehicleId}/edit?uploaded=1`);
+}
+
+export async function deleteVehicleImage(imageId: string, vehicleId: string, imageUrl: string) {
+  const supabase = await createServiceClient();
+
+  try {
+    const storagePath = decodeURIComponent(
+      new URL(imageUrl).pathname.split("/public/vehicle/")[1] ?? ""
+    );
+    if (storagePath) {
+      await supabase.storage.from("vehicle").remove([storagePath]);
+    }
+  } catch {
+    // If path extraction fails, still remove the DB record
+  }
+
+  await supabase.from("vehicle_images").delete().eq("id", imageId);
+
+  revalidatePath(`/admin/vehicles/${vehicleId}/edit`);
+  revalidatePath("/fleet", "layout");
+  redirect(`/admin/vehicles/${vehicleId}/edit`);
+}
+
 export async function setVehicleStatus(id: string, status: "active" | "archived") {
   const supabase = await createServiceClient();
   await supabase.from("vehicles").update({ status }).eq("id", id);

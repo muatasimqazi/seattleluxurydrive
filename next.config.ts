@@ -12,6 +12,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  serverActions: {
+    bodySizeLimit: "10mb",
+  },
   turbopack: {
     root: __dirname,
   },
