@@ -17,7 +17,7 @@ Records decisions made during implementation (Phases 1–8) that differ from the
 **Why:** `@supabase/auth-helpers-nextjs` is deprecated as of 2024. `@supabase/ssr` is the current official replacement and works correctly with Next.js 15 App Router.
 
 Utility wrappers live in:
-- `lib/supabase/server.ts` — `createClient()` (read-only, uses anon key) and `createServiceClient()` (admin, uses service role key). **Both are async** and must be `await`ed.
+- `lib/supabase/server.ts` — `createClient()` (async, read-only, uses anon key) and `createServiceClient()` (synchronous, admin, uses service role key, bypasses RLS). **Only `createClient()` is async.** `createServiceClient()` is synchronous — do NOT `await` it.
 - `lib/supabase/client.ts` — `createBrowserClient()` for client components
 - `middleware.ts` — uses `createServerClient` from `@supabase/ssr` (not `createMiddlewareClient`)
 
@@ -158,21 +158,26 @@ These columns may be added in Phase 2 when rate limiting and UTM tracking are im
 
 **Spec:** Max 3 requests per IP per 15 minutes; return HTTP 429 on excess
 
-**Built:** Not implemented
+**Built:** Implemented — `lib/rate-limit.ts` uses a module-level `Map` keyed by IP address. Limit: 3 requests per IP per 15-minute window. Both `app/actions/booking.ts` and `app/actions/contact.ts` call `checkRateLimit()` before any DB or email operation.
 
-**Status:** Explicitly deferred. Both server actions have a comment indicating where rate limiting should be inserted. Implement before launch using an in-memory map or Upstash Redis.
+**Trade-off:** In-memory Map resets on cold starts (acceptable for MVP on Vercel). IP extracted from `x-forwarded-for` header. Upgrade to Upstash Redis for persistent rate limiting in Phase 2 if needed.
 
 ---
 
 ## Admin Dashboard
 
-### Vehicle management — deferred
+### Vehicle management — built
 
 **Spec:** `/admin/vehicles`, `/admin/vehicles/new`, `/admin/vehicles/[id]` with image upload and reorder
 
-**Built:** Not implemented
+**Built:** All three routes implemented:
+- `/admin/vehicles` — list view with active/archived status and featured toggle
+- `/admin/vehicles/new` — create form using `useActionState` for inline error handling; redirects to edit on success
+- `/admin/vehicles/[id]/edit` — edit form + image upload + image delete; note the path uses `/edit` suffix (not bare `[id]`)
 
-**Status:** Deferred to after launch. The admin sidebar contains the Vehicles link but the routes do not exist. Initial vehicle data will be seeded directly in Supabase.
+Image reorder via `sort_order` integer input (drag-and-drop not implemented — manual sort_order editing).
+
+Add Vehicle form uses `useActionState` (React 19) rather than a plain form action, so DB errors surface inline instead of throwing unhandled.
 
 ---
 
@@ -208,7 +213,10 @@ These columns may be added in Phase 2 when rate limiting and UTM tracking are im
 
 - Per-page metadata (title, description, canonical, Open Graph) — all public pages
 - LocalBusiness schema — homepage only (not contact page)
-- FAQPage schema — FAQ page
+- FAQPage schema — FAQ page and Vehicle Detail page FAQ section
+- Organization schema — all public pages via `app/(site)/layout.tsx`
+- WebSite schema — all public pages via `app/(site)/layout.tsx`
+- BreadcrumbList schema — all interior public pages (about, fleet, fleet/[slug], services, faq, contact, book, privacy-policy). Fleet detail breadcrumb includes dynamic vehicle name as third crumb.
 - `app/sitemap.ts` — static routes + dynamic vehicle routes (graceful fallback)
 - `app/robots.ts` — disallows /admin/ and /admin
 - `app/opengraph-image.tsx` — Next.js built-in OG image generation (1200×630, edge runtime). Not in original spec.
@@ -217,10 +225,7 @@ These columns may be added in Phase 2 when rate limiting and UTM tracking are im
 
 | Schema | Spec requirement | Status |
 |---|---|---|
-| Organization | All pages (root layout) | Deferred |
-| WebSite | Homepage | Deferred |
-| BreadcrumbList | All interior pages | Deferred |
-| LocalBusiness on /contact | Contact page | Deferred |
+| LocalBusiness on /contact | Contact page | Pending |
 
 ### robots.ts deviation
 
@@ -228,13 +233,19 @@ These columns may be added in Phase 2 when rate limiting and UTM tracking are im
 
 **Built:** `/book/confirmation` not listed in robots.txt. The page has `robots: { index: false }` in its page metadata instead, which achieves the same result via `X-Robots-Tag`.
 
+### Organization schema placement deviation
+
+**Spec:** Organization schema in root layout (all pages including admin)
+
+**Built:** Organization + WebSite schemas in `app/(site)/layout.tsx` — scoped to public pages only, which is the correct intent.
+
 ---
 
 ## Homepage
 
 ### Testimonials section
 
-**Built:** Section is present in the component tree but hidden (`hidden`) pending real customer reviews.
+**Built:** Section is live with two placeholder reviews (Marcus T. — Airport Transfer; Jennifer & David M. — Anniversary Evening). Copy is intentionally placeholder and should be replaced with real client reviews before or shortly after launch.
 
 ### Service area
 
@@ -322,3 +333,49 @@ Public URL format: `https://{project}.supabase.co/storage/v1/object/public/vehic
 ## Bug Fixed During Documentation Update
 
 `app/sitemap.ts` had `.eq("is_active", true)` — the vehicles table uses `status = 'active'`, not an `is_active` boolean. Fixed to `.eq("status", "active")`.
+
+---
+
+## (site) Route Group — Not In Spec
+
+**Spec:** All public pages directly under `app/` with SiteNav + SiteFooter in the root layout.
+
+**Built:** Public pages moved to `app/(site)/` route group. `app/(site)/layout.tsx` holds SiteNav and SiteFooter. Root `app/layout.tsx` stripped to html/body/fonts/analytics only.
+
+**Why:** SiteNav is `position: fixed` with a high z-index. When it was in the root layout it rendered on admin pages too, blocking click targets on `/admin/vehicles`. The route group scopes nav to public pages without any URL changes (parenthesized folder names are invisible to the Next.js router).
+
+Result: all public URLs are unchanged. Admin pages render no site navigation.
+
+---
+
+## site_settings Table — Not In Spec
+
+**Built:** A `site_settings` key-value table in Supabase allows admin-editable content without a code deploy.
+
+Admin UI: `/admin/settings`
+
+Utility: `lib/settings.ts` — exports `getSettings()` (async, merges DB over defaults, falls back to defaults on error) and re-exports `phoneHref()` from `lib/utils.ts`.
+
+Keys: `site_name`, `site_address`, `contact_phone`, `contact_email`, `starting_rate`, `response_hours`, `hours_days`, `hours_open`, `hours_close`, `image_home_hero`, `image_service_area`, `image_about_brand`.
+
+Phone numbers, email, and address throughout the public site and JSON-LD schemas are pulled from `getSettings()` rather than hardcoded.
+
+RLS: public SELECT (anon key), UPDATE admin only (service role key).
+
+---
+
+## Privacy Policy
+
+**Spec:** Placeholder acceptable before development; full copy required before launch.
+
+**Built:** Full 12-section policy is live at `/privacy-policy`. Covers: information collected, how it is used, third-party providers (Google Analytics, PostHog, Resend, Supabase), cookies, data retention, privacy rights, security, children's privacy, policy changes, and contact details. Phone/email/address pulled dynamically from `getSettings()`. Page is marked `robots: noindex`.
+
+**Note:** Copy was AI-generated and has not been reviewed by a qualified attorney. Legal review is recommended before launch.
+
+---
+
+## X-Frame-Options Deviation
+
+**Spec:** `X-Frame-Options: SAMEORIGIN`
+
+**Built:** `X-Frame-Options: DENY` — stricter, prevents all framing including same-origin. No business requirement for same-origin iframes exists.

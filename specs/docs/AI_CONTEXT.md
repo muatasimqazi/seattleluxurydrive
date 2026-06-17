@@ -34,23 +34,36 @@ The goal is qualified lead generation through a concierge-style reservation requ
 - Server actions use `useActionState` — form state is managed with this hook, not useState
 - Admin routes (/admin/*) protected by middleware.ts using @supabase/ssr
 - Public form inserts use the anon key with RLS policies
-- Admin dashboard operations use service role key via `createServiceClient()` — **this function is async, always `await` it**
+- Admin dashboard operations use service role key via `createServiceClient()` — **this function is synchronous (not async), do NOT await it**
 - **"use server" files may only export async functions** — no exported objects or constants
 - `INITIAL_BOOKING_STATE` is defined in BookingForm.tsx (client component), not in the server action file
 - Use next/image for all images — no raw img tags
 - Use next/font for Cormorant Garamond and Inter
 - Brand is always dark — no light mode
+- Public pages live under `app/(site)/` route group with their own layout (SiteNav + SiteFooter). Admin pages are under `app/admin/` and do NOT inherit SiteNav.
 
 ---
 
 ## Supabase Client Utilities
 
 `lib/supabase/server.ts`:
-- `createClient()` — async, uses anon key, for public reads in Server Components
-- `createServiceClient()` — async, uses service role key, bypasses RLS, for admin operations
+- `createClient()` — **async**, uses anon key, for public reads in Server Components
+- `createServiceClient()` — **synchronous** (not async), uses service role key, bypasses RLS, for admin operations. Do NOT `await` it.
 
 `lib/supabase/client.ts`:
 - `createBrowserClient()` — for Client Components
+
+---
+
+## Route Group Structure
+
+Public pages live under `app/(site)/` — the `(site)` folder is invisible to the URL router but scopes the SiteNav and SiteFooter to public pages only.
+
+`app/(site)/layout.tsx` contains: SiteNav, SiteFooter, Organization JSON-LD, WebSite JSON-LD, skip-to-content link.
+
+`app/layout.tsx` (root) contains: html/body, fonts, PostHogProvider, GoogleAnalytics only — no nav or footer.
+
+Admin pages (`app/admin/`) are NOT inside `(site)/` and render no site navigation.
 
 ---
 
@@ -74,9 +87,10 @@ The goal is qualified lead generation through a concierge-style reservation requ
 /admin/bookings — Booking list
 /admin/bookings/[id] — Booking detail
 /admin/contacts — Contact requests
-/admin/vehicles — NOT BUILT (deferred)
-/admin/vehicles/new — NOT BUILT (deferred)
-/admin/vehicles/[id] — NOT BUILT (deferred)
+/admin/vehicles — Vehicle list (built)
+/admin/vehicles/new — Add vehicle form (built)
+/admin/vehicles/[id]/edit — Edit vehicle + image management (built)
+/admin/settings — Site settings editor (built — not in original spec)
 
 ---
 
@@ -89,6 +103,8 @@ Query active vehicles: `.eq("status", "active")` — NOT `.eq("is_active", true)
 
 ### vehicle_images
 id, vehicle_id (FK), image_url, alt_text, sort_order, created_at
+
+Storage bucket: `vehicle` (not `vehicle-images`). Path: `vehicle/{vehicle_id}/{filename}`.
 
 ### booking_requests
 id, first_name, last_name, email, phone, pickup_location, dropoff_location, service_type, rental_type, start_date, start_time, end_date, estimated_hours (NUMERIC), occasion, special_requests, preferred_contact_method, status, created_at, updated_at
@@ -103,6 +119,25 @@ id, **first_name**, **last_name**, email, phone, message, status, created_at, up
 **Note:** Uses `first_name` + `last_name` (not `name`). Server action splits the form's `name` input on first space.
 
 **Status values: `new` | `contacted` | `resolved`** (all lowercase)
+
+### site_settings
+key-value store for admin-editable site content. Accessed via `getSettings()` in `lib/settings.ts`.
+
+Keys and defaults:
+- `site_name` — "Seattle Luxury Drive"
+- `site_address` — "14723 Aurora Ave N, Shoreline, WA 98133"
+- `contact_phone` — "(206) 669-1109"
+- `contact_email` — "info@seattleluxurydrive.com"
+- `starting_rate` — "350"
+- `response_hours` — "4"
+- `hours_days` — "Mo-Su"
+- `hours_open` — "07:00"
+- `hours_close` — "22:00"
+- `image_home_hero`, `image_service_area`, `image_about_brand` — image URLs (empty by default)
+
+`getSettings()` merges DB values over defaults; always returns a complete Record. Falls back to defaults if DB is unavailable.
+
+`phoneHref(phone)` — utility in `lib/utils.ts`, re-exported from `lib/settings.ts`. Converts display phone to `tel:` href.
 
 ---
 
@@ -125,7 +160,7 @@ On success: redirect to /book/confirmation with name/service/date/pickup as sear
 
 Both forms (booking + contact) have:
 1. Honeypot field named `_hp` (not `website`) — if filled, silently return success without DB insert or email
-2. Rate limiting — **NOT IMPLEMENTED** (deferred before launch)
+2. Rate limiting — **IMPLEMENTED** (`lib/rate-limit.ts`): 3 requests per IP per 15-minute window, in-memory Map. Both booking and contact server actions call `checkRateLimit()` before processing.
 
 ---
 
@@ -150,6 +185,7 @@ booking_requests: INSERT public (anon), SELECT/UPDATE admin only (service role)
 contact_requests: INSERT public (anon), SELECT/UPDATE admin only (service role)
 vehicles: SELECT public (status = 'active' only), all mutations admin only
 vehicle_images: SELECT public, all mutations admin only
+site_settings: SELECT public (anon), UPDATE admin only (service role)
 
 ---
 
@@ -172,9 +208,19 @@ Public (NEXT_PUBLIC_):
 
 ## SEO
 
-**Implemented:** Per-page metadata, LocalBusiness schema (homepage), FAQPage schema, sitemap.ts, robots.ts, OG image via app/opengraph-image.tsx (edge runtime, 1200×630)
+**Implemented:**
+- Per-page metadata (title, description, canonical, Open Graph) — all public pages
+- LocalBusiness schema — homepage only (not yet on /contact)
+- FAQPage schema — FAQ page and Vehicle Detail page FAQ section
+- Organization schema — all public pages via `(site)/layout.tsx`
+- WebSite schema — all public pages via `(site)/layout.tsx`
+- BreadcrumbList schema — all interior public pages (not home)
+- sitemap.ts — static routes + dynamic vehicle routes
+- robots.ts — disallows /admin/ and /admin
+- OG image via `app/opengraph-image.tsx` (edge runtime, 1200×630)
 
-**Not implemented:** Organization schema, WebSite schema, BreadcrumbList schema
+**Not yet implemented:**
+- LocalBusiness schema on /contact page (spec requires it; only on home currently)
 
 ---
 
@@ -192,7 +238,7 @@ Business model: Concierge-first, manual reservations, offline payments, 4-busine
 
 ---
 
-## What Is Explicitly Out of Scope (MVP)
+## What Is Still Out of Scope (MVP)
 
 - Online payments
 - Customer accounts or dashboard
@@ -200,7 +246,7 @@ Business model: Concierge-first, manual reservations, offline payments, 4-busine
 - Availability calendars
 - SMS notifications
 - City-specific landing pages (Phase 2)
-- Vehicle management admin pages (deferred post-launch)
-- Rate limiting (TODO before launch)
 - Admin notes on bookings (deferred)
 - UTM parameter capture (deferred)
+- responded_at tracking on bookings (deferred)
+- Booking list pagination, search, and date range filter (acceptable at current volume)

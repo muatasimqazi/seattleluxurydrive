@@ -631,21 +631,21 @@ Requirements:
 
 The following must be finalized and handed off before development begins:
 
-- [ ] Business phone number
-- [ ] Business email address
-- [ ] Business hours
-- [ ] Admin notification email address
+- [x] Business phone number — (206) 669-1109 (configured in site_settings)
+- [x] Business email address — info@seattleluxurydrive.com (configured in site_settings)
+- [x] Business hours — Mo–Su 07:00–22:00 (configured in site_settings)
+- [x] Admin notification email address — configured via ADMIN_NOTIFICATION_EMAIL env var
 - [ ] Vehicle photography (minimum 8 high-resolution, cinematic images of the 2021 Rolls-Royce)
 - [ ] Services page copy for all 6 services (description + benefits per service)
 - [ ] About page copy (company story, mission, values, service commitment)
 - [ ] FAQ content (minimum 15 questions and answers across 5 categories)
-- [ ] Testimonials (minimum 3 client quotes with first name and last initial)
+- [ ] Testimonials (minimum 3 real client quotes with first name and last initial — placeholders currently in place)
 - [ ] Homepage hero copy (approved headline and subheadline)
 - [ ] Reservation process copy (step labels and descriptions)
 
 The following must be finalized before launch (not required before development):
 
-- [ ] Privacy policy copy
+- [x] Privacy policy copy — full 12-section policy live at /privacy-policy (AI-generated; attorney review recommended before launch)
 
 ---
 
