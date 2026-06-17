@@ -30,6 +30,34 @@ export default async function ContactPage() {
           { "@type": "ListItem", position: 2, name: "Contact", item: "https://seattleluxurydrive.com/contact" },
         ],
       }} />
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: s.site_name,
+        description:
+          "Premier luxury transportation and concierge service in the Greater Seattle Area. Chauffeur-driven and self-drive luxury vehicles for executive transfers, airport pickups, corporate events, weddings, and special occasions.",
+        url: "https://seattleluxurydrive.com",
+        telephone: phoneHref(s.contact_phone).replace("tel:", ""),
+        email: s.contact_email,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: s.site_address,
+          addressCountry: "US",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 47.7577,
+          longitude: -122.3443,
+        },
+        areaServed: [
+          "Seattle, WA", "Shoreline, WA", "Bellevue, WA", "Redmond, WA",
+          "Kirkland, WA", "Mercer Island, WA", "Lynnwood, WA", "Edmonds, WA",
+          "Bothell, WA", "Tacoma, WA", "Everett, WA", "Renton, WA",
+        ],
+        priceRange: "$$$",
+        openingHours: `${s.hours_days} ${s.hours_open}-${s.hours_close}`,
+        sameAs: ["https://seattleluxurydrive.com"],
+      }} />
       {/* Hero */}
       <section className="bg-black pt-40 pb-20 px-6 text-center">
         <div className="mx-auto max-w-3xl">
