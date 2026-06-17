@@ -10,6 +10,7 @@ import {
   uploadServiceImage,
   removeServiceImage,
 } from "@/app/actions/admin-services";
+import { ImageUploadForm } from "@/components/admin/ImageUploadForm";
 
 export const metadata: Metadata = { title: "Edit Service" };
 
@@ -238,7 +239,7 @@ export default async function EditServicePage({
               />
             </div>
             <div className="flex flex-col gap-2">
-              <form action={uploadAction} className="flex items-center gap-2">
+              <ImageUploadForm action={uploadAction} className="flex items-center gap-2">
                 <input
                   name="image"
                   type="file"
@@ -252,7 +253,7 @@ export default async function EditServicePage({
                 >
                   Replace
                 </button>
-              </form>
+              </ImageUploadForm>
               <form action={removeAction}>
                 <button
                   type="submit"
@@ -265,7 +266,7 @@ export default async function EditServicePage({
             </div>
           </div>
         ) : (
-          <form action={uploadAction} className="flex items-center gap-3">
+          <ImageUploadForm action={uploadAction} className="flex items-center gap-3">
             <div className="flex items-center justify-center w-16 h-12 bg-offwhite/4 border border-dashed border-offwhite/15 shrink-0">
               <ImageIcon size={16} strokeWidth={1} className="text-offwhite/35" />
             </div>
@@ -282,7 +283,7 @@ export default async function EditServicePage({
             >
               Upload
             </button>
-          </form>
+          </ImageUploadForm>
         )}
       </div>
     </div>

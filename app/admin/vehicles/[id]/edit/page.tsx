@@ -7,6 +7,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { updateVehicle, uploadVehicleImage, deleteVehicleImage } from "@/app/actions/admin-vehicles";
 import type { VehicleImage } from "@/types/database";
 import { requireTeamMember } from "@/lib/auth";
+import { ImageUploadForm } from "@/components/admin/ImageUploadForm";
 
 export const metadata: Metadata = { title: "Edit Vehicle" };
 
@@ -229,7 +230,7 @@ export default async function EditVehiclePage({
           )}
 
           {/* Upload form */}
-          <form action={uploadWithId} className="border border-offwhite/8 p-5 space-y-4">
+          <ImageUploadForm action={uploadWithId} className="border border-offwhite/8 p-5 space-y-4">
             <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/65">Add Image</p>
 
             <div>
@@ -262,7 +263,7 @@ export default async function EditVehiclePage({
             >
               Upload Image
             </button>
-          </form>
+          </ImageUploadForm>
         </div>
       </div>
     </div>
