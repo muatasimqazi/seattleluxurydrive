@@ -12,6 +12,7 @@ const NAV = [
   { href: "/admin", label: "Dashboard", exact: true },
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/contacts", label: "Contact Requests" },
+  { href: "/admin/settings", label: "Settings" },
 ];
 
 export default async function AdminLayout({
@@ -27,9 +28,9 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <aside className="w-56 shrink-0 bg-charcoal border-r border-offwhite/[0.06] flex flex-col">
+      <aside className="w-56 shrink-0 bg-charcoal border-r border-offwhite/6 flex flex-col">
         {/* Logo */}
-        <div className="px-6 py-7 border-b border-offwhite/[0.06]">
+        <div className="px-6 py-7 border-b border-offwhite/6">
           <p className="font-sans text-[9px] uppercase tracking-[0.3em] text-gold">
             SLD Admin
           </p>
@@ -41,7 +42,7 @@ export default async function AdminLayout({
             <Link
               key={href}
               href={href}
-              className="block px-3 py-2.5 font-sans text-xs text-offwhite/60 hover:text-offwhite hover:bg-offwhite/[0.04] transition-colors rounded-sm"
+              className="block px-3 py-2.5 font-sans text-xs text-offwhite/60 hover:text-offwhite hover:bg-offwhite/4 transition-colors rounded-sm"
             >
               {label}
             </Link>
@@ -49,7 +50,7 @@ export default async function AdminLayout({
         </nav>
 
         {/* User + sign out */}
-        <div className="px-6 py-5 border-t border-offwhite/[0.06]">
+        <div className="px-6 py-5 border-t border-offwhite/6">
           {user && (
             <p className="font-sans text-[10px] text-offwhite/35 truncate mb-3">
               {user.email}

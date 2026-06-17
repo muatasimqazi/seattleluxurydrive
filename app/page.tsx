@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
+import { createClient } from "@/lib/supabase/server";
 import {
   Briefcase,
   Plane,
@@ -474,51 +475,61 @@ function FinalCTASection() {
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
-const LOCAL_BUSINESS_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Seattle Luxury Drive",
-  description:
-    "Premier luxury transportation and concierge service in the Greater Seattle Area. Chauffeur-driven and self-drive luxury vehicles for executive transfers, airport pickups, corporate events, weddings, and special occasions.",
-  url: "https://seattleluxurydrive.com",
-  telephone: "+12066691109",
-  email: "info@seattleluxurydrive.com",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "14723 Aurora Ave N",
-    addressLocality: "Shoreline",
-    addressRegion: "WA",
-    postalCode: "98133",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 47.7577,
-    longitude: -122.3443,
-  },
-  areaServed: [
-    "Seattle, WA",
-    "Shoreline, WA",
-    "Bellevue, WA",
-    "Redmond, WA",
-    "Kirkland, WA",
-    "Mercer Island, WA",
-    "Lynnwood, WA",
-    "Edmonds, WA",
-    "Bothell, WA",
-    "Tacoma, WA",
-    "Everett, WA",
-    "Renton, WA",
-  ],
-  priceRange: "$$$",
-  openingHours: "Mo-Su 07:00-22:00",
-  sameAs: ["https://seattleluxurydrive.com"],
-};
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("site_settings")
+    .select("key, value")
+    .in("key", ["hours_days", "hours_open", "hours_close"]);
 
-export default function HomePage() {
+  const s = Object.fromEntries(
+    (data ?? []).map((r: { key: string; value: string }) => [r.key, r.value])
+  );
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Seattle Luxury Drive",
+    description:
+      "Premier luxury transportation and concierge service in the Greater Seattle Area. Chauffeur-driven and self-drive luxury vehicles for executive transfers, airport pickups, corporate events, weddings, and special occasions.",
+    url: "https://seattleluxurydrive.com",
+    telephone: "+12066691109",
+    email: "info@seattleluxurydrive.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "14723 Aurora Ave N",
+      addressLocality: "Shoreline",
+      addressRegion: "WA",
+      postalCode: "98133",
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 47.7577,
+      longitude: -122.3443,
+    },
+    areaServed: [
+      "Seattle, WA",
+      "Shoreline, WA",
+      "Bellevue, WA",
+      "Redmond, WA",
+      "Kirkland, WA",
+      "Mercer Island, WA",
+      "Lynnwood, WA",
+      "Edmonds, WA",
+      "Bothell, WA",
+      "Tacoma, WA",
+      "Everett, WA",
+      "Renton, WA",
+    ],
+    priceRange: "$$$",
+    openingHours: `${s.hours_days ?? "Mo-Su"} ${s.hours_open ?? "07:00"}-${s.hours_close ?? "22:00"}`,
+    sameAs: ["https://seattleluxurydrive.com"],
+  };
+
   return (
     <>
-      <JsonLd data={LOCAL_BUSINESS_SCHEMA} />
+      <JsonLd data={localBusinessSchema} />
       <HeroSection />
       <ServicesSection />
       <FeaturedVehicleSection />
