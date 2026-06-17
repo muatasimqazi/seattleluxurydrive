@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentUserRole } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: { default: "Admin", template: "%s | SLD Admin" },
+  title: { default: "Admin", template: "%s | SJD Admin" },
   robots: { index: false, follow: false },
 };
 
@@ -42,7 +42,7 @@ export default async function AdminLayout({
         {/* Logo */}
         <div className="px-6 py-7 border-b border-offwhite/6">
           <p className="font-sans text-[9px] uppercase tracking-[0.3em] text-gold">
-            SLD Admin
+            SJD Admin
           </p>
         </div>
 

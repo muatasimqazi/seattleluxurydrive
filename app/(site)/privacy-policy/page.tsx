@@ -16,7 +16,7 @@ export default async function PrivacyPolicyPage() {
   return (
     <section className="bg-black pt-40 pb-24 px-6">
       <div className="mx-auto max-w-3xl">
-        <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+        <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
           Legal
         </p>
         <h1 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-4">
@@ -29,7 +29,7 @@ export default async function PrivacyPolicyPage() {
         <div className="space-y-12 font-sans text-sm leading-relaxed text-offwhite/70">
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               1. Introduction
             </h2>
             <p>
@@ -47,7 +47,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               2. Information We Collect
             </h2>
             <p className="font-medium text-offwhite/85 mb-2">
@@ -82,7 +82,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               3. How We Use Your Information
             </h2>
             <p className="mb-4">We use the information we collect to:</p>
@@ -105,7 +105,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               4. Information We Do Not Share
             </h2>
             <p>
@@ -119,7 +119,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               5. Third-Party Service Providers
             </h2>
             <div className="space-y-6">
@@ -192,7 +192,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               6. Cookies and Tracking Technologies
             </h2>
             <p className="mb-4">
@@ -214,7 +214,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               7. Data Retention
             </h2>
             <p>
@@ -227,7 +227,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               8. Your Privacy Rights
             </h2>
             <p className="mb-4">
@@ -253,7 +253,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               9. Data Security
             </h2>
             <p>
@@ -267,7 +267,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               10. Children&apos;s Privacy
             </h2>
             <p>
@@ -279,7 +279,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               11. Changes to This Policy
             </h2>
             <p>
@@ -293,7 +293,7 @@ export default async function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="font-heading text-xl font-light text-offwhite mb-4">
+            <h2 className="font-heading text-xl font-medium text-offwhite mb-4">
               12. Contact Us
             </h2>
             <p className="mb-4">
@@ -328,7 +328,7 @@ export default async function PrivacyPolicyPage() {
         <div className="mt-16 pt-8 border-t border-offwhite/10">
           <Link
             href="/"
-            className="font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
+            className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
           >
             ← Return Home
           </Link>

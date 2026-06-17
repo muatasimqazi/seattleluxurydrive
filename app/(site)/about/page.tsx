@@ -57,7 +57,7 @@ export default async function AboutPage() {
       {/* Hero */}
       <section className="bg-black pt-40 pb-24 px-6 text-center">
         <div className="mx-auto max-w-3xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             About Us
           </p>
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
@@ -80,7 +80,7 @@ export default async function AboutPage() {
                 <Image src={s.image_about_brand} alt="Seattle Luxury Drive brand" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                  <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
                     Brand Photography
                   </span>
                 </div>
@@ -89,7 +89,7 @@ export default async function AboutPage() {
             </div>
 
             <div>
-              <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+              <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
                 Our Story
               </p>
               <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-8">
@@ -121,7 +121,7 @@ export default async function AboutPage() {
       {/* Mission */}
       <section className="bg-black px-6 py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Our Mission
           </p>
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-8">
@@ -141,7 +141,7 @@ export default async function AboutPage() {
       <section className="bg-charcoal px-6 py-24 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 text-center">
-            <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+            <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
               Our Values
             </p>
             <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl">
@@ -153,7 +153,7 @@ export default async function AboutPage() {
             {VALUES.map((v) => (
               <div key={v.title} className="bg-charcoal p-10 lg:p-14">
                 <div className="h-px w-8 bg-gold mb-8" />
-                <h3 className="font-heading text-2xl font-light text-offwhite mb-3">
+                <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                   {v.title}
                 </h3>
                 <p className="font-sans text-sm leading-relaxed text-offwhite/65">
@@ -170,7 +170,7 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
             <div>
-              <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+              <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
                 Service Area
               </p>
               <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-6">
@@ -197,7 +197,7 @@ export default async function AboutPage() {
                 <Image src={s.image_service_area} alt="Greater Seattle area" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                  <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
                     Seattle Photography
                   </span>
                 </div>
@@ -223,13 +223,13 @@ export default async function AboutPage() {
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/book"
-              className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+              className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               Request Reservation
             </Link>
             <Link
               href="/contact"
-              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
             >
               Contact Us
             </Link>

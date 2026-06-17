@@ -63,7 +63,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${cormorant.variable} ${inter.variable} font-sans antialiased`}>
+      <body className={`${cormorant.variable} ${inter.variable} font-sans subpixel-antialiased`}>
         <PostHogProvider>
           <GoogleAnalytics />
           {children}

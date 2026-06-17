@@ -84,11 +84,11 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
       )}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black"
+        className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black"
       />
 
       <div className="relative z-10 max-w-4xl pt-20">
-        <p className="font-sans text-[11px] uppercase tracking-[0.3em] text-gold-lt mb-6">
+        <p className="font-sans text-sm font-medium uppercase tracking-[0.3em] text-gold-lt mb-6">
           Seattle Luxury Drive
         </p>
         <h1 className="font-heading text-5xl font-light leading-tight text-offwhite lg:text-7xl">
@@ -104,20 +104,22 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/book"
-            className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+            className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
           >
             Request Reservation
           </Link>
           <Link
             href="/fleet"
-            className="w-full sm:w-auto border border-offwhite/40 px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite hover:border-offwhite/80 transition-colors"
+            className="w-full sm:w-auto border border-offwhite/40 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite hover:border-offwhite/80 transition-colors"
           >
             Explore Fleet
           </Link>
         </div>
+      </div>
 
-        {/* Trust bar */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-t border-offwhite/[0.08] pt-10">
+      {/* Trust bar — pinned to bottom of hero */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-offwhite/8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
           {[
             "Chauffeur Service Available",
             "Serving Greater Seattle",
@@ -126,7 +128,7 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
           ].map((item) => (
             <span
               key={item}
-              className="font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/55"
+              className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-offwhite/50"
             >
               {item}
             </span>
@@ -166,7 +168,7 @@ function ServicesSection() {
     <section className="bg-charcoal px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Our Services
           </p>
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl">
@@ -183,7 +185,7 @@ function ServicesSection() {
           {services.map((s) => (
             <div key={s.name} className="bg-charcoal p-10 lg:p-12">
               <div className="mb-6 text-gold">{s.icon}</div>
-              <h3 className="font-heading text-2xl font-light text-offwhite mb-3">
+              <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 {s.name}
               </h3>
               <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
@@ -191,7 +193,7 @@ function ServicesSection() {
               </p>
               <Link
                 href={s.href}
-                className="font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
+                className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
               >
                 Learn More →
               </Link>
@@ -202,7 +204,7 @@ function ServicesSection() {
         <div className="mt-12 text-center">
           <Link
             href="/services"
-            className="font-sans text-[11px] uppercase tracking-[0.18em] text-offwhite/60 hover:text-offwhite transition-colors border-b border-offwhite/20 pb-0.5"
+            className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-offwhite/60 hover:text-offwhite transition-colors border-b border-offwhite/20 pb-0.5"
           >
             View All 8 Services
           </Link>
@@ -245,7 +247,7 @@ function FeaturedVehicleSection({
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
                   Vehicle Photography
                 </span>
               </div>
@@ -255,7 +257,7 @@ function FeaturedVehicleSection({
 
           {/* Content */}
           <div className="lg:pl-20">
-            <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+            <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
               Featured Vehicle
             </p>
             <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-2">
@@ -274,26 +276,26 @@ function FeaturedVehicleSection({
               {vehicle.chauffeur_available && (
                 <>
                   <div className="font-sans text-xs text-offwhite/55">
-                    <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-[10px] mb-1">Chauffeur</span>
+                    <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-xs mb-1">Chauffeur</span>
                     Available
                   </div>
                   <div className="w-px bg-offwhite/10" />
                 </>
               )}
               <div className="font-sans text-xs text-offwhite/55">
-                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-[10px] mb-1">Self-Drive</span>
+                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-xs mb-1">Self-Drive</span>
                 Available
               </div>
               <div className="w-px bg-offwhite/10" />
               <div className="font-sans text-xs text-offwhite/55">
-                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-[10px] mb-1">Pricing</span>
+                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-xs mb-1">Pricing</span>
                 Custom available
               </div>
             </div>
 
             <Link
               href={`/fleet/${vehicle.slug}`}
-              className="inline-block bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+              className="inline-block bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               View Vehicle Details
             </Link>
@@ -336,7 +338,7 @@ function WhyChooseSection() {
     <section className="bg-charcoal px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Why Seattle Luxury Drive
           </p>
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl">
@@ -348,7 +350,7 @@ function WhyChooseSection() {
           {pillars.map((p) => (
             <div key={p.title} className="bg-charcoal p-10 lg:p-14">
               <div className="mb-5 text-gold">{p.icon}</div>
-              <h3 className="font-heading text-2xl font-light text-offwhite mb-3">
+              <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 {p.title}
               </h3>
               <p className="font-sans text-sm leading-relaxed text-offwhite/65">
@@ -382,7 +384,7 @@ function TestimonialsSection() {
     <section className="bg-black px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Client Experiences
           </p>
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl">
@@ -394,12 +396,12 @@ function TestimonialsSection() {
           {TESTIMONIALS.map((t) => (
             <div key={t.name} className="bg-black p-10 lg:p-12 flex flex-col">
               <p className="text-gold tracking-widest text-sm mb-6">★★★★★</p>
-              <blockquote className="font-heading text-xl font-light text-offwhite/85 leading-relaxed flex-1 mb-8">
+              <blockquote className="font-heading text-xl italic font-light text-offwhite/85 leading-relaxed flex-1 mb-8">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <div>
                 <p className="font-sans text-sm text-offwhite">{t.name}</p>
-                <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-gold-lt mt-1">
+                <p className="font-sans text-sm font-medium uppercase tracking-[0.15em] text-gold-lt mt-1">
                   {t.service}
                 </p>
               </div>
@@ -417,7 +419,7 @@ function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+            <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
               Service Area
             </p>
             <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-8">
@@ -445,7 +447,7 @@ function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
 
             <Link
               href="/contact"
-              className="inline-block mt-10 border border-gold/50 px-8 py-3 font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
+              className="inline-block mt-10 border border-gold/50 px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
             >
               Contact Us
             </Link>
@@ -456,7 +458,7 @@ function ServiceAreaSection({ seattleImage }: { seattleImage: string }) {
               <Image src={seattleImage} alt="Seattle area" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
                   Seattle Photography
                 </span>
               </div>
@@ -501,7 +503,7 @@ function ReservationProcessSection() {
     <section className="bg-charcoal px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             How It Works
           </p>
           <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl">
@@ -518,7 +520,7 @@ function ReservationProcessSection() {
                 </span>
                 <div className="text-gold">{step.icon}</div>
               </div>
-              <h3 className="font-heading text-xl font-light text-offwhite mb-3">
+              <h3 className="font-heading text-xl font-medium text-offwhite mb-3">
                 {step.title}
               </h3>
               <p className="font-sans text-sm leading-relaxed text-offwhite/60">
@@ -531,7 +533,7 @@ function ReservationProcessSection() {
         <div className="mt-12 text-center">
           <Link
             href="/book"
-            className="inline-block bg-gold px-12 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+            className="inline-block bg-gold px-12 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
           >
             Request Reservation
           </Link>
@@ -546,7 +548,7 @@ function FinalCTASection() {
     <section className="bg-black px-6 py-24 lg:py-32 text-center">
       <div className="mx-auto max-w-3xl">
         <div className="h-px w-16 bg-gold mx-auto mb-12" />
-        <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-6">
+        <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-6">
           Begin Your Journey
         </p>
         <h2 className="font-heading text-4xl font-light text-offwhite lg:text-6xl mb-8">
@@ -560,13 +562,13 @@ function FinalCTASection() {
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/book"
-            className="w-full sm:w-auto bg-gold px-12 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+            className="w-full sm:w-auto bg-gold px-12 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
           >
             Request Reservation
           </Link>
           <Link
             href="/contact"
-            className="w-full sm:w-auto border border-offwhite/30 px-12 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+            className="w-full sm:w-auto border border-offwhite/30 px-12 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
           >
             Contact Us
           </Link>

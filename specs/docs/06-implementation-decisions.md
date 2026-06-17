@@ -459,3 +459,45 @@ Features:
 - **Remove** — `supabase.auth.admin.deleteUser(id)` (cascades to profiles). Cannot remove self.
 
 Nav item "Team" added to `NAV_ADMIN_ONLY` in admin layout (hidden from staff).
+
+---
+
+## Figma Design Reconciliation (Typography & Visual Polish)
+
+Audit conducted against Figma file `jZygZG4CqGO86BPn8O87fK` (Foundations page — design tokens only, no page screens). All changes align the site to the Figma type scale and color palette.
+
+### Typography Scale (Figma → Code)
+
+| Level | Figma | Implementation |
+|---|---|---|
+| Display/Hero | 72px Light CG | `text-5xl lg:text-7xl font-light` (H1 hero) |
+| H1 | 56px Light CG | `text-5xl font-light` |
+| H2 | 44px Light CG | `text-4xl lg:text-5xl font-light` |
+| H3 | 36px Regular CG | `text-3xl font-normal` |
+| H4 | 28px Medium CG | `text-xl font-medium` (dt, sub-headings) |
+| H5 | 22px Medium CG | `text-lg lg:text-xl font-medium` (FAQ questions) |
+| Body/Small | 14px Regular Inter | `text-sm` |
+| Label/CTA | 14px Medium Inter ↑ | `text-sm font-medium uppercase tracking-[0.2em]` |
+| Label/Eyebrow | 12px Regular Inter ↑↑ | `text-xs uppercase tracking-[0.25em]` |
+| Body/Quote | 20px Italic CG | `text-xl italic` |
+
+**What changed:** Previously the site used `text-[10px]` (eyebrow) and `text-[11px]` (CTA) custom sizes. All replaced with standard Tailwind classes. H3 was `font-light` — changed to `font-normal`. H4/H5 level items were `font-light` — changed to `font-medium`. Blockquote was missing `italic`.
+
+### Color Tokens
+
+All Figma color tokens confirmed matching. One new token added:
+
+- `--color-gold-dark: #9A7E47` — Gold Dark, confirmed in Figma palette, added to `@theme inline` in `app/globals.css`.
+
+### Font Rendering
+
+Changed `body` class from `antialiased` to `subpixel-antialiased` in `app/layout.tsx`. `-webkit-font-smoothing: antialiased` thins strokes significantly on Mac, making fonts appear lighter than Figma's rendering. Subpixel antialiasing matches Figma's weight more closely.
+
+### Hero Section
+
+- **Overlay darkened:** `from-black/40 via-black/60` → `from-black/80 via-black/70`. Previous values left the nav area (top of hero) at only 40% opacity, making gold/white text unreadable against the hero image.
+- **Trust bar repositioned:** Moved out of the vertically-centered content block and absolutely positioned to `bottom-0`. Previously it floated in the middle of the viewport as part of the centered flex container.
+
+### Logo Mark
+
+The SJD monogram in SiteNav and SiteFooter changed from `text-offwhite` to `text-gold` to use the brand accent color for the mark, consistent with the admin sidebar.

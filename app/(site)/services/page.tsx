@@ -155,7 +155,7 @@ function ServiceSection({
           {/* Image placeholder */}
           <div className="relative aspect-4/3 w-full shrink-0 bg-charcoal lg:w-120">
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+              <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
                 Service Photography
               </span>
             </div>
@@ -164,7 +164,7 @@ function ServiceSection({
 
           {/* Content */}
           <div className="flex-1">
-            <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold-lt mb-2">
+            <p className="font-sans text-xs uppercase tracking-[0.3em] text-gold-lt mb-2">
               {service.eyebrow}
             </p>
             <h2 className="font-heading text-3xl font-light text-offwhite lg:text-4xl mb-4">
@@ -188,7 +188,7 @@ function ServiceSection({
 
             <Link
               href="/book"
-              className="inline-block border border-gold px-8 py-3 font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
+              className="inline-block border border-gold px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
             >
               {service.cta}
             </Link>
@@ -213,7 +213,7 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="bg-black pt-40 pb-20 px-6 text-center">
         <div className="mx-auto max-w-3xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Our Services
           </p>
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
@@ -246,13 +246,13 @@ export default function ServicesPage() {
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/book"
-              className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+              className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               Request Reservation
             </Link>
             <Link
               href="/contact"
-              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
             >
               Contact Us
             </Link>

@@ -120,7 +120,7 @@ export default async function VehicleDetailPage({
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                    <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
                       Vehicle Photography
                     </span>
                   </div>
@@ -147,7 +147,7 @@ export default async function VehicleDetailPage({
 
             {/* Vehicle info */}
             <div className="lg:sticky lg:top-28">
-              <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-3">
+              <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-3">
                 {vehicle.year} {vehicle.make}
               </p>
               <h1 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-3">
@@ -169,12 +169,12 @@ export default async function VehicleDetailPage({
               <div className="flex gap-6 mb-10 pb-10 border-b border-offwhite/[0.08]">
                 {vehicle.chauffeur_available && (
                   <div className="font-sans text-xs text-offwhite/55">
-                    <span className="block text-offwhite/35 uppercase tracking-[0.12em] text-[10px] mb-1">Chauffeur</span>
+                    <span className="block text-offwhite/35 uppercase tracking-[0.12em] text-xs mb-1">Chauffeur</span>
                     Available
                   </div>
                 )}
                 <div className="font-sans text-xs text-offwhite/55">
-                  <span className="block text-offwhite/35 uppercase tracking-[0.12em] text-[10px] mb-1">Self-Drive</span>
+                  <span className="block text-offwhite/35 uppercase tracking-[0.12em] text-xs mb-1">Self-Drive</span>
                   Available
                 </div>
               </div>
@@ -182,13 +182,13 @@ export default async function VehicleDetailPage({
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/book"
-                  className="flex-1 bg-gold text-center px-8 py-4 font-sans text-[11px] uppercase tracking-[0.18em] text-black hover:bg-gold-lt transition-colors"
+                  className="flex-1 bg-gold text-center px-8 py-4 font-sans text-sm font-medium uppercase tracking-[0.18em] text-black hover:bg-gold-lt transition-colors"
                 >
                   Request Reservation
                 </Link>
                 <a
                   href={phoneHref(s.contact_phone)}
-                  className="flex items-center justify-center gap-2 border border-offwhite/30 px-8 py-4 font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+                  className="flex items-center justify-center gap-2 border border-offwhite/30 px-8 py-4 font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
                 >
                   <Phone size={13} strokeWidth={1.5} />
                   Call Now
@@ -202,12 +202,12 @@ export default async function VehicleDetailPage({
       {/* Rental options */}
       <section className="bg-charcoal px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-8">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-8">
             Rental Options
           </p>
           <div className="grid grid-cols-1 gap-px bg-offwhite/[0.06] lg:grid-cols-2">
             <div className="bg-charcoal p-10">
-              <h3 className="font-heading text-2xl font-light text-offwhite mb-3">
+              <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 Self-Drive
               </h3>
               <p className="font-sans text-sm leading-relaxed text-offwhite/65">
@@ -217,7 +217,7 @@ export default async function VehicleDetailPage({
               </p>
             </div>
             <div className="bg-charcoal p-10">
-              <h3 className="font-heading text-2xl font-light text-offwhite mb-3">
+              <h3 className="font-heading text-3xl font-normal text-offwhite mb-3">
                 With Chauffeur
               </h3>
               <p className="font-sans text-sm leading-relaxed text-offwhite/65">
@@ -233,7 +233,7 @@ export default async function VehicleDetailPage({
       {/* FAQ */}
       <section className="bg-black px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-8">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-8">
             Vehicle FAQ
           </p>
           <h2 className="font-heading text-3xl font-light text-offwhite mb-12">
@@ -245,7 +245,7 @@ export default async function VehicleDetailPage({
                 key={i}
                 className="border-b border-gold/20 py-8"
               >
-                <dt className="font-heading text-xl font-light text-offwhite mb-3">
+                <dt className="font-heading text-xl font-medium text-offwhite mb-3">
                   {item.q}
                 </dt>
                 <dd className="font-sans text-sm leading-relaxed text-offwhite/65">
@@ -257,7 +257,7 @@ export default async function VehicleDetailPage({
           <div className="mt-10">
             <Link
               href="/faq"
-              className="font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
+              className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
             >
               View All FAQs →
             </Link>
@@ -277,7 +277,7 @@ export default async function VehicleDetailPage({
           </p>
           <Link
             href="/book"
-            className="inline-block bg-gold px-12 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+            className="inline-block bg-gold px-12 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
           >
             Request Reservation
           </Link>

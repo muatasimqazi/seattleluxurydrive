@@ -67,7 +67,7 @@ const EMPTY: BookingData = {
 function FieldError({ id, msg }: { id: string; msg?: string }) {
   if (!msg) return null;
   return (
-    <p id={id} role="alert" className="mt-1.5 font-sans text-[11px] text-red-400">
+    <p id={id} role="alert" className="mt-1.5 font-sans text-sm text-red-400">
       {msg}
     </p>
   );
@@ -87,7 +87,7 @@ function ChipButton({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`px-5 py-2.5 font-sans text-[11px] uppercase tracking-[0.15em] border transition-colors focus-visible:outline-2 focus-visible:outline-gold ${
+      className={`px-5 py-2.5 font-sans text-sm font-medium uppercase tracking-[0.15em] border transition-colors focus-visible:outline-2 focus-visible:outline-gold ${
         selected
           ? "border-gold bg-gold/10 text-gold"
           : "border-offwhite/20 text-offwhite/50 hover:border-offwhite/40 hover:text-offwhite/70"
@@ -126,7 +126,7 @@ function InputField({
     <div>
       <label
         htmlFor={id}
-        className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+        className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-2"
       >
         {label}
         {required && <span className="text-gold ml-1" aria-hidden="true">*</span>}
@@ -177,7 +177,7 @@ function StepIndicator({ step }: { step: number }) {
           )}
         </div>
       ))}
-      <span className="ml-2 font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/40">
+      <span className="ml-2 font-sans text-xs uppercase tracking-[0.2em] text-offwhite/40">
         {labels[step - 1]}
       </span>
     </div>
@@ -187,7 +187,7 @@ function StepIndicator({ step }: { step: number }) {
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-4">
-      <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35 shrink-0">
+      <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35 shrink-0">
         {label}
       </span>
       <span className="font-sans text-sm text-offwhite/80 text-right">{value}</span>
@@ -299,7 +299,7 @@ export default function BookingForm() {
         <div className="space-y-8">
           {/* Service type */}
           <fieldset>
-            <legend className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-3">
               Service Type <span className="text-gold" aria-hidden="true">*</span>
               <span className="sr-only">(required)</span>
             </legend>
@@ -318,7 +318,7 @@ export default function BookingForm() {
 
           {/* Rental type */}
           <fieldset>
-            <legend className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-3">
               Rental Type <span className="text-gold" aria-hidden="true">*</span>
               <span className="sr-only">(required)</span>
             </legend>
@@ -406,7 +406,7 @@ export default function BookingForm() {
             <button
               type="button"
               onClick={goTo2}
-              className="inline-flex items-center gap-2 bg-gold px-8 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+              className="inline-flex items-center gap-2 bg-gold px-8 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               Continue <ChevronRight size={14} />
             </button>
@@ -462,7 +462,7 @@ export default function BookingForm() {
           />
 
           <fieldset>
-            <legend className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-3">
+            <legend className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-3">
               Preferred Contact Method <span className="text-gold" aria-hidden="true">*</span>
               <span className="sr-only">(required)</span>
             </legend>
@@ -483,14 +483,14 @@ export default function BookingForm() {
             <button
               type="button"
               onClick={goBack}
-              className="inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite/50 hover:text-offwhite transition-colors"
+              className="inline-flex items-center gap-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/50 hover:text-offwhite transition-colors"
             >
               <ChevronLeft size={14} /> Back
             </button>
             <button
               type="button"
               onClick={goTo3}
-              className="inline-flex items-center gap-2 bg-gold px-8 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+              className="inline-flex items-center gap-2 bg-gold px-8 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               Continue <ChevronRight size={14} />
             </button>
@@ -531,7 +531,7 @@ export default function BookingForm() {
         <div>
           <label
             htmlFor="occasion"
-            className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+            className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-2"
           >
             Occasion (optional)
           </label>
@@ -555,7 +555,7 @@ export default function BookingForm() {
         <div>
           <label
             htmlFor="specialRequests"
-            className="block font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/50 mb-2"
+            className="block font-sans text-xs uppercase tracking-[0.2em] text-offwhite/50 mb-2"
           >
             Special Requests (optional)
           </label>
@@ -573,7 +573,7 @@ export default function BookingForm() {
           />
           <div className="flex justify-between mt-1">
             <FieldError id="specialRequests-error" msg={errors.specialRequests} />
-            <span className="font-sans text-[10px] text-offwhite/30 ml-auto" aria-live="polite">
+            <span className="font-sans text-xs text-offwhite/30 ml-auto" aria-live="polite">
               {data.specialRequests.length}/500
             </span>
           </div>
@@ -582,13 +582,13 @@ export default function BookingForm() {
         {/* Review summary */}
         <div className="border border-offwhite/10 bg-charcoal p-6 space-y-3">
           <div className="flex items-center justify-between mb-2">
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt">
+            <p className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt">
               Reservation Summary
             </p>
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
+              className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
             >
               Edit Trip
             </button>
@@ -607,11 +607,11 @@ export default function BookingForm() {
           )}
 
           <div className="border-t border-offwhite/10 pt-4 flex items-center justify-between">
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt">Contact</p>
+            <p className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt">Contact</p>
             <button
               type="button"
               onClick={() => setStep(2)}
-              className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
+              className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/40 hover:text-gold transition-colors"
             >
               Edit Contact
             </button>
@@ -670,14 +670,14 @@ export default function BookingForm() {
           <button
             type="button"
             onClick={goBack}
-            className="inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite/50 hover:text-offwhite transition-colors"
+            className="inline-flex items-center gap-2 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/50 hover:text-offwhite transition-colors"
           >
             <ChevronLeft size={14} /> Back
           </button>
           <button
             type="submit"
             disabled={isPending}
-            className="bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? "Sending…" : "Send Request"}
           </button>

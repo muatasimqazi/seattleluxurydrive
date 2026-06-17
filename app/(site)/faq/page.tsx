@@ -146,7 +146,7 @@ export default function FaqPage() {
       {/* Hero */}
       <section className="bg-black pt-40 pb-20 px-6 text-center">
         <div className="mx-auto max-w-3xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             FAQ
           </p>
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
@@ -180,13 +180,13 @@ export default function FaqPage() {
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
               href="tel:+12066691109"
-              className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+              className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               Call (206) 669-1109
             </a>
             <Link
               href="/contact"
-              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
+              className="w-full sm:w-auto border border-offwhite/30 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite/70 hover:border-offwhite/60 hover:text-offwhite transition-colors"
             >
               Contact Us
             </Link>

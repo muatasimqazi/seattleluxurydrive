@@ -29,7 +29,7 @@ export default function SiteFooter({
           <div>
             <Link href="/" aria-label="Seattle Luxury Drive — Home">
               <div className="flex flex-col leading-none mb-4">
-                <span className="font-heading text-3xl font-light tracking-[0.12em] text-offwhite">
+                <span className="font-heading text-3xl font-light tracking-[0.12em] text-gold">
                   SJD
                 </span>
                 <span className="font-sans text-[9px] uppercase tracking-[0.22em] text-offwhite/60">
@@ -46,7 +46,7 @@ export default function SiteFooter({
 
           {/* Navigation column */}
           <div>
-            <h3 className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-6">
+            <h3 className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt mb-6">
               Navigation
             </h3>
             <ul className="space-y-3">
@@ -65,7 +65,7 @@ export default function SiteFooter({
 
           {/* Contact column */}
           <div>
-            <h3 className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-6">
+            <h3 className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt mb-6">
               Contact
             </h3>
             <ul className="space-y-4">
@@ -97,7 +97,7 @@ export default function SiteFooter({
 
             <Link
               href="/book"
-              className="inline-block mt-8 border border-gold px-6 py-3 font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
+              className="inline-block mt-8 border border-gold px-6 py-3 font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
             >
               Request Reservation
             </Link>

@@ -37,7 +37,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
         </div>
 
         {/* Eyebrow */}
-        <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+        <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
           Request Received
         </p>
 
@@ -55,12 +55,12 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
         {/* Trip summary (if params present) */}
         {(service || date || pickup) && (
           <div className="border border-offwhite/10 bg-charcoal p-6 mb-10 text-left space-y-3 max-w-sm mx-auto">
-            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-4">
+            <p className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt mb-4">
               Your Request
             </p>
             {service && (
               <div className="flex justify-between gap-4">
-                <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35">
+                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35">
                   Service
                 </span>
                 <span className="font-sans text-sm text-offwhite/80">{service}</span>
@@ -68,7 +68,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
             )}
             {date && (
               <div className="flex justify-between gap-4">
-                <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35">
+                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35">
                   Date
                 </span>
                 <span className="font-sans text-sm text-offwhite/80">{date}</span>
@@ -76,7 +76,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
             )}
             {pickup && (
               <div className="flex justify-between gap-4">
-                <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-offwhite/35">
+                <span className="font-sans text-xs uppercase tracking-[0.15em] text-offwhite/35">
                   Pickup
                 </span>
                 <span className="font-sans text-sm text-offwhite/80 text-right">{pickup}</span>
@@ -102,7 +102,7 @@ export default async function BookConfirmationPage({ searchParams }: Props) {
         {/* CTA */}
         <Link
           href="/"
-          className="inline-block bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+          className="inline-block bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
         >
           Return Home
         </Link>

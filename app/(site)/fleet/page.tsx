@@ -52,7 +52,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+            <span className="font-sans text-xs uppercase tracking-[0.2em] text-offwhite/20">
               Vehicle Photography
             </span>
           </div>
@@ -60,7 +60,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
         {vehicle.chauffeur_available && (
           <div className="absolute bottom-4 left-4 bg-black/70 px-3 py-1 backdrop-blur-sm">
-            <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-gold">
+            <span className="font-sans text-xs uppercase tracking-[0.15em] text-gold">
               Chauffeur Available
             </span>
           </div>
@@ -69,7 +69,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
       {/* Content */}
       <div className="p-8">
-        <h2 className="font-heading text-2xl font-light text-offwhite mb-1">
+        <h2 className="font-heading text-3xl font-normal text-offwhite mb-1">
           {vehicle.name}
         </h2>
         {vehicle.starting_hourly_rate && (
@@ -84,7 +84,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         )}
         <Link
           href={`/fleet/${vehicle.slug}`}
-          className="font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
+          className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:text-gold-lt transition-colors"
         >
           View Details →
         </Link>
@@ -96,7 +96,7 @@ function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 function EmptyFleet() {
   return (
     <div className="py-32 text-center">
-      <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-4">
+      <p className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt mb-4">
         Fleet
       </p>
       <h2 className="font-heading text-3xl font-light text-offwhite mb-6">
@@ -108,7 +108,7 @@ function EmptyFleet() {
       </p>
       <Link
         href="/contact"
-        className="border border-gold px-8 py-3 font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
+        className="border border-gold px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
       >
         Contact Us
       </Link>
@@ -132,7 +132,7 @@ export default async function FleetPage() {
       {/* Hero */}
       <section className="bg-black pt-40 pb-20 px-6 text-center">
         <div className="mx-auto max-w-3xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Our Fleet
           </p>
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
@@ -172,7 +172,7 @@ export default async function FleetPage() {
           </p>
           <Link
             href="/book"
-            className="inline-block bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
+            className="inline-block bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
           >
             Request Reservation
           </Link>

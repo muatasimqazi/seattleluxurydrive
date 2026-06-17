@@ -95,7 +95,7 @@ export default function SiteNav({ phone }: { phone: string }) {
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-none" aria-label="Seattle Luxury Drive — Home">
-            <span className="font-heading text-2xl font-light tracking-[0.12em] text-offwhite">
+            <span className="font-heading text-2xl font-light tracking-[0.12em] text-gold">
               SJD
             </span>
             <span className="font-sans text-[9px] font-normal tracking-[0.22em] text-offwhite/70 uppercase">
@@ -131,7 +131,7 @@ export default function SiteNav({ phone }: { phone: string }) {
             </a>
             <Link
               href="/book"
-              className="border border-gold px-5 py-2 font-sans text-[11px] uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
+              className="border border-gold px-5 py-2 font-sans text-sm font-medium uppercase tracking-[0.18em] text-gold hover:bg-gold hover:text-black transition-colors"
             >
               Request Reservation
             </Link>
@@ -183,7 +183,7 @@ export default function SiteNav({ phone }: { phone: string }) {
         {/* Drawer top bar */}
         <div className="flex items-center justify-between px-6 h-20 border-b border-offwhite/8">
           <div className="flex flex-col leading-none">
-            <span className="font-heading text-xl font-light tracking-[0.12em] text-offwhite">
+            <span className="font-heading text-xl font-light tracking-[0.12em] text-gold">
               SJD
             </span>
             <span className="font-sans text-[8px] uppercase tracking-[0.22em] text-offwhite/60">
@@ -220,7 +220,7 @@ export default function SiteNav({ phone }: { phone: string }) {
 
         {/* Drawer phone section */}
         <div className="px-6 py-8 border-t border-offwhite/8">
-          <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-2">
+          <p className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt mb-2">
             Call Us Directly
           </p>
           <a
@@ -238,7 +238,7 @@ export default function SiteNav({ phone }: { phone: string }) {
         <div className="px-6 pb-8">
           <Link
             href="/book"
-            className="block w-full bg-gold text-black text-center font-sans text-[11px] uppercase tracking-[0.18em] py-4 hover:bg-gold-lt transition-colors"
+            className="block w-full bg-gold text-black text-center font-sans text-sm font-medium uppercase tracking-[0.18em] py-4 hover:bg-gold-lt transition-colors"
           >
             Request Reservation
           </Link>

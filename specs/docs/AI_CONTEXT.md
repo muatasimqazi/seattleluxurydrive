@@ -18,7 +18,9 @@ The goal is qualified lead generation through a concierge-style reservation requ
 
 - Next.js 15 App Router (Server Components by default, `'use client'` only where needed)
 - TypeScript
-- Tailwind CSS v4 (CSS-based `@theme inline` config in globals.css — no tailwind.config.ts)
+- Tailwind CSS v4 (CSS-based `@theme inline` config in `app/globals.css` — no tailwind.config.ts)
+  - Brand tokens: `--color-black: #090909`, `--color-charcoal: #151515`, `--color-gold: #B89B5E`, `--color-gold-lt: #C9AF7E`, `--color-gold-dark: #9A7E47`, `--color-offwhite: #F5F2EA`
+  - Font rendering: `body` uses `subpixel-antialiased` (not `antialiased`) to match Figma weight
 - Shadcn UI
 - Supabase (PostgreSQL + Auth + Storage + RLS) via **`@supabase/ssr`** (NOT the deprecated @supabase/auth-helpers-nextjs)
 - Vercel (hosting)

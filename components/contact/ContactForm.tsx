@@ -37,7 +37,7 @@ function InputField({
     <div>
       <label
         htmlFor={id}
-        className="block font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2"
+        className="block font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/60 mb-2"
       >
         {label}
         {required && <span className="text-gold ml-1" aria-hidden="true">*</span>}
@@ -74,7 +74,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
         <CheckCircle size={40} strokeWidth={1} className="text-gold" />
-        <h3 className="font-heading text-3xl font-light text-offwhite">
+        <h3 className="font-heading text-3xl font-normal text-offwhite">
           Message Received
         </h3>
         <p className="font-sans text-sm text-offwhite/60 max-w-sm">
@@ -130,7 +130,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
       <div>
         <label
           htmlFor="message"
-          className="block font-sans text-[11px] uppercase tracking-[0.15em] text-offwhite/60 mb-2"
+          className="block font-sans text-sm font-medium uppercase tracking-[0.15em] text-offwhite/60 mb-2"
         >
           Message <span className="text-gold">*</span>
         </label>
@@ -152,7 +152,7 @@ export default function ContactForm({ responseHours = "4" }: { responseHours?: s
       <button
         type="submit"
         disabled={isPending}
-        className="w-full bg-gold py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-gold py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isPending ? "Sending…" : "Send Request"}
       </button>

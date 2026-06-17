@@ -37,7 +37,7 @@ export function FaqAccordion({ items, categorySlug }: { items: FaqItem[]; catego
                 aria-controls={panelId}
                 className="w-full flex items-center justify-between gap-6 py-6 text-left group"
               >
-                <span className="font-heading text-lg font-light text-offwhite group-hover:text-gold transition-colors lg:text-xl">
+                <span className="font-heading text-lg font-medium text-offwhite group-hover:text-gold transition-colors lg:text-xl">
                   {item.q}
                 </span>
                 <span className="shrink-0 text-gold" aria-hidden="true">
@@ -106,7 +106,7 @@ export function FaqPanel({ categories }: { categories: FaqCategory[] }) {
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[260px_1fr]">
       {/* Sidebar */}
       <div className="lg:sticky lg:top-28 lg:self-start">
-        <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-4 px-4" aria-hidden="true">
+        <p className="font-sans text-xs uppercase tracking-[0.2em] text-gold-lt mb-4 px-4" aria-hidden="true">
           Categories
         </p>
         <FaqCategoryNav

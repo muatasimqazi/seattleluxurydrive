@@ -32,7 +32,7 @@ export default async function BookPage() {
       {/* Hero */}
       <section className="bg-black pt-40 pb-20 px-6 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-lt mb-4">
+          <p className="font-sans text-xs uppercase tracking-[0.25em] text-gold-lt mb-4">
             Reserve Your Experience
           </p>
           <h1 className="font-heading text-5xl font-light text-offwhite lg:text-6xl mb-6">
