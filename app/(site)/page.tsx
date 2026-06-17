@@ -70,7 +70,7 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
   return (
     <section
       aria-label="Hero"
-      className="relative flex min-h-screen flex-col items-center justify-center bg-black px-6 text-center"
+      className="relative flex min-h-screen flex-col bg-black"
     >
       {heroImage && (
         <Image
@@ -87,44 +87,64 @@ function HeroSection({ startingRate, heroImage }: { startingRate: string; heroIm
         className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black"
       />
 
-      <div className="relative z-10 max-w-4xl pt-20">
-        <p className="font-sans text-sm font-medium uppercase tracking-[0.3em] text-gold-lt mb-6">
-          Seattle Luxury Drive
-        </p>
-        <h1 className="font-heading text-5xl font-light leading-tight text-offwhite lg:text-7xl">
-          Seattle&apos;s Premier Luxury<br />Transportation Experience.
-        </h1>
-        <p className="mx-auto mt-8 max-w-2xl font-sans text-base leading-relaxed text-offwhite/70 lg:text-lg">
-          Luxury chauffeur services, executive transportation, airport transfers,
-          and exclusive vehicle rentals throughout the Greater Seattle Area. From
-          corporate travel to special occasions, Seattle Luxury Drive delivers a
-          personalized, white-glove experience from start to finish.
-        </p>
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 lg:px-8 pt-20 pb-8">
+        <div className="w-full max-w-4xl">
+          {/* Eyebrow — condensed on mobile, full on desktop */}
+          <p className="lg:hidden font-sans text-sm font-medium uppercase tracking-[0.3em] text-gold-lt mb-6">
+            Luxury Transportation · Greater Seattle
+          </p>
+          <p className="hidden lg:block font-sans text-sm font-medium uppercase tracking-[0.3em] text-gold-lt mb-6">
+            — Chauffeur Service · Executive Transportation · Greater Seattle —
+          </p>
 
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/book"
-            className="w-full sm:w-auto bg-gold px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
-          >
-            Request Reservation
-          </Link>
-          <Link
-            href="/fleet"
-            className="w-full sm:w-auto border border-offwhite/40 px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite hover:border-offwhite/80 transition-colors"
-          >
-            Explore Fleet
-          </Link>
+          <h1 className="font-heading text-5xl font-light leading-tight text-offwhite lg:text-7xl">
+            Seattle&apos;s Premier Luxury<br className="hidden sm:block" />Transportation Experience.
+          </h1>
+          <p className="mt-8 max-w-xl font-sans text-base leading-relaxed text-offwhite/70 lg:text-lg">
+            Luxury chauffeur services, executive transportation, airport transfers,
+            and exclusive vehicle rentals throughout the Greater Seattle Area.
+          </p>
+
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4">
+            <Link
+              href="/book"
+              className="bg-gold px-4 sm:px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors text-center"
+            >
+              Request Reservation
+            </Link>
+            <Link
+              href="/fleet"
+              className="border border-offwhite/40 px-4 sm:px-10 py-4 font-sans text-sm font-medium uppercase tracking-[0.2em] text-offwhite hover:border-offwhite/80 transition-colors text-center"
+            >
+              Explore Fleet
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Trust bar — pinned to bottom of hero */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-offwhite/8">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+      {/* Trust bar — 2×2 grid on mobile, 4-item spread on desktop */}
+      <div className="relative z-10 border-t border-offwhite/8">
+        <div className="grid grid-cols-2 divide-x divide-y divide-offwhite/8 lg:hidden">
+          {[
+            "24/7 Availability",
+            `$${startingRate}/hr Starting`,
+            "4hr Response Time",
+            "Greater Seattle",
+          ].map((item) => (
+            <div
+              key={item}
+              className="px-6 py-5 font-sans text-xs font-medium uppercase tracking-[0.2em] text-offwhite/50"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+        <div className="hidden lg:flex max-w-7xl mx-auto px-8 py-5 items-center justify-between">
           {[
             "Chauffeur Service Available",
             "Serving Greater Seattle",
             "Corporate & VIP Transportation",
-            `Starting at $${startingRate}/hour`,
+            `Starting at $${startingRate} / Hour`,
           ].map((item) => (
             <span
               key={item}
