@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import JsonLd from "@/components/seo/JsonLd";
 import { getSettings, phoneHref } from "@/lib/settings";
+import { createClient } from "@/lib/supabase/server";
+import type { Vehicle } from "@/types/database";
 import {
   Briefcase,
   Plane,
@@ -43,6 +46,23 @@ const SERVICE_AREA_CITIES = [
   "Tacoma",
   "SeaTac Airport",
 ];
+
+async function getFeaturedVehicle(): Promise<Vehicle | null> {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("vehicles")
+      .select("*, vehicle_images(*)")
+      .eq("status", "active")
+      .eq("featured", true)
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    return (data as Vehicle) ?? null;
+  } catch {
+    return null;
+  }
+}
 
 // ─── SECTIONS ────────────────────────────────────────────────────────────────
 
@@ -183,19 +203,44 @@ function ServicesSection() {
   );
 }
 
-function FeaturedVehicleSection({ startingRate }: { startingRate: string }) {
+function FeaturedVehicleSection({
+  vehicle,
+  fallbackRate,
+}: {
+  vehicle: Vehicle | null;
+  fallbackRate: string;
+}) {
+  if (!vehicle) return null;
+
+  const primaryImage = vehicle.vehicle_images
+    ?.sort((a, b) => a.sort_order - b.sort_order)
+    .at(0);
+
+  const rate = vehicle.starting_hourly_rate
+    ? vehicle.starting_hourly_rate.toLocaleString()
+    : fallbackRate;
+
   return (
     <section className="bg-black px-6 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-0 lg:items-center">
-          {/* Image placeholder */}
+          {/* Image */}
           <div className="relative aspect-[4/3] bg-charcoal lg:aspect-auto lg:h-[560px]">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
-                Vehicle Photography
-              </span>
-            </div>
-            {/* Gold accent line */}
+            {primaryImage ? (
+              <Image
+                src={primaryImage.image_url}
+                alt={primaryImage.alt_text ?? vehicle.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-offwhite/20">
+                  Vehicle Photography
+                </span>
+              </div>
+            )}
             <div className="absolute bottom-0 left-0 h-[2px] w-16 bg-gold" />
           </div>
 
@@ -205,24 +250,27 @@ function FeaturedVehicleSection({ startingRate }: { startingRate: string }) {
               Featured Vehicle
             </p>
             <h2 className="font-heading text-4xl font-light text-offwhite lg:text-5xl mb-2">
-              2021 Rolls-Royce
+              {vehicle.name}
             </h2>
             <p className="font-sans text-lg text-gold mb-6">
-              Starting at ${startingRate}/hour
+              Starting at ${rate}/hour
             </p>
-            <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
-              Experience the pinnacle of luxury with our flagship Rolls-Royce.
-              Combining timeless craftsmanship, exceptional comfort, and
-              unmistakable presence, it is the ideal choice for executive travel,
-              special events, airport transfers, and unforgettable arrivals.
-            </p>
+            {vehicle.description && (
+              <p className="font-sans text-sm leading-relaxed text-offwhite/65 mb-8">
+                {vehicle.description}
+              </p>
+            )}
 
             <div className="flex gap-6 mb-10">
-              <div className="font-sans text-xs text-offwhite/55">
-                <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-[10px] mb-1">Chauffeur</span>
-                Available
-              </div>
-              <div className="w-px bg-offwhite/10" />
+              {vehicle.chauffeur_available && (
+                <>
+                  <div className="font-sans text-xs text-offwhite/55">
+                    <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-[10px] mb-1">Chauffeur</span>
+                    Available
+                  </div>
+                  <div className="w-px bg-offwhite/10" />
+                </>
+              )}
               <div className="font-sans text-xs text-offwhite/55">
                 <span className="block text-offwhite/35 uppercase tracking-[0.15em] text-[10px] mb-1">Self-Drive</span>
                 Available
@@ -235,7 +283,7 @@ function FeaturedVehicleSection({ startingRate }: { startingRate: string }) {
             </div>
 
             <Link
-              href="/fleet"
+              href={`/fleet/${vehicle.slug}`}
               className="inline-block bg-gold px-10 py-4 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
             >
               View Vehicle Details
@@ -476,7 +524,7 @@ function FinalCTASection() {
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default async function HomePage() {
-  const s = await getSettings();
+  const [s, featuredVehicle] = await Promise.all([getSettings(), getFeaturedVehicle()]);
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -521,7 +569,7 @@ export default async function HomePage() {
       <JsonLd data={localBusinessSchema} />
       <HeroSection startingRate={s.starting_rate} />
       <ServicesSection />
-      <FeaturedVehicleSection startingRate={s.starting_rate} />
+      <FeaturedVehicleSection vehicle={featuredVehicle} fallbackRate={s.starting_rate} />
       <WhyChooseSection />
       {/* TestimonialsSection hidden — enable once minimum 3 real reviews collected */}
       <ServiceAreaSection />

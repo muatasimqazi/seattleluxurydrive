@@ -12,6 +12,7 @@ const NAV = [
   { href: "/admin", label: "Dashboard", exact: true },
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/contacts", label: "Contact Requests" },
+  { href: "/admin/vehicles", label: "Vehicles" },
   { href: "/admin/settings", label: "Settings" },
 ];
 
