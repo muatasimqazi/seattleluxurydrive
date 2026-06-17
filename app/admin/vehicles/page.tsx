@@ -14,7 +14,7 @@ export default async function VehiclesPage() {
     .order("created_at", { ascending: false });
 
   const role = await getCurrentUserRole();
-  const isAdmin = role === "admin";
+  const canManage = role === "admin" || role === "staff";
 
   const active = vehicles?.filter((v) => v.status === "active") ?? [];
   const archived = vehicles?.filter((v) => v.status === "archived") ?? [];
@@ -28,7 +28,7 @@ export default async function VehiclesPage() {
             {active.length} active · {archived.length} archived
           </p>
         </div>
-        {isAdmin && (
+        {canManage && (
           <Link
             href="/admin/vehicles/new"
             className="bg-gold px-5 py-2.5 font-sans text-[11px] uppercase tracking-[0.18em] text-black hover:bg-gold-lt transition-colors"
@@ -38,9 +38,9 @@ export default async function VehiclesPage() {
         )}
       </div>
 
-      <VehicleTable vehicles={active} title="Active" isAdmin={isAdmin} />
+      <VehicleTable vehicles={active} title="Active" canManage={canManage} />
       {archived.length > 0 && (
-        <VehicleTable vehicles={archived} title="Archived" isAdmin={isAdmin} className="mt-10" />
+        <VehicleTable vehicles={archived} title="Archived" canManage={canManage} className="mt-10" />
       )}
     </div>
   );
@@ -62,12 +62,12 @@ type Vehicle = {
 function VehicleTable({
   vehicles,
   title,
-  isAdmin,
+  canManage,
   className = "",
 }: {
   vehicles: Vehicle[];
   title: string;
-  isAdmin: boolean;
+  canManage: boolean;
   className?: string;
 }) {
   if (vehicles.length === 0) return null;
@@ -108,7 +108,7 @@ function VehicleTable({
                     {v.chauffeur_available ? "Yes" : "No"}
                   </td>
                   <td className="px-4 py-4">
-                    {isAdmin ? (
+                    {canManage ? (
                       <form action={featuredAction}>
                         <button
                           type="submit"
@@ -142,7 +142,7 @@ function VehicleTable({
                     </span>
                   </td>
                   <td className="px-4 py-4">
-                    {isAdmin && (
+                    {canManage && (
                       <div className="flex items-center gap-4 justify-end">
                         <form action={archiveAction}>
                           <button

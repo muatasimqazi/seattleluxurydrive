@@ -31,3 +31,10 @@ export async function requireAdmin(): Promise<void> {
     redirect("/admin?blocked=1");
   }
 }
+
+export async function requireTeamMember(): Promise<void> {
+  const role = await getCurrentUserRole();
+  if (role !== "admin" && role !== "staff") {
+    redirect("/admin/login");
+  }
+}

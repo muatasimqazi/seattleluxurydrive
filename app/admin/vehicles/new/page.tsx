@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { NewVehicleForm } from "./form";
-import { requireAdmin } from "@/lib/auth";
+import { requireTeamMember } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "New Vehicle" };
 
 export default async function NewVehiclePage() {
-  await requireAdmin();
+  await requireTeamMember();
 
   return (
     <div className="p-8 max-w-2xl">
