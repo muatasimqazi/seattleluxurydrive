@@ -196,7 +196,7 @@ export default async function SettingsPage({
               Response Time Commitment
             </p>
             <p className="font-sans text-xs text-offwhite/35">
-              The "within X business hours" promise shown on booking, contact, and in emails.
+              The &ldquo;within X business hours&rdquo; promise shown on booking, contact, and in emails.
             </p>
           </div>
 

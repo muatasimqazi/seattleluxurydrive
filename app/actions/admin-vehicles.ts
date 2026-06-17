@@ -50,7 +50,7 @@ export async function createVehicle(
 
 export async function updateVehicle(id: string, formData: FormData) {
   const supabase = createServiceClient();
-  const { slug: _slug, ...fields } = parseVehicleForm(formData);
+  const { slug: _, ...fields } = parseVehicleForm(formData);
 
   const { error } = await supabase
     .from("vehicles")
