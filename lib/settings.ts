@@ -14,6 +14,11 @@ export const SETTING_DEFAULTS: Record<string, string> = {
   contact_email: "info@seattleluxurydrive.com",
   starting_rate: "350",
   response_hours: "4",
+  social_instagram: "",
+  social_facebook: "",
+  social_x: "",
+  social_linkedin: "",
+  social_youtube: "",
 };
 
 export async function getSettings(): Promise<Record<string, string>> {

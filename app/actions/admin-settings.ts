@@ -22,8 +22,13 @@ export async function updateSettings(formData: FormData) {
       { key: "hours_close",    value: get("hours_close")    || "22:00" },
       { key: "contact_phone",  value: get("contact_phone")  },
       { key: "contact_email",  value: get("contact_email")  },
-      { key: "starting_rate",  value: get("starting_rate")  },
-      { key: "response_hours", value: get("response_hours") },
+      { key: "starting_rate",      value: get("starting_rate")      },
+      { key: "response_hours",     value: get("response_hours")     },
+      { key: "social_instagram",   value: get("social_instagram")   },
+      { key: "social_facebook",    value: get("social_facebook")    },
+      { key: "social_x",           value: get("social_x")           },
+      { key: "social_linkedin",    value: get("social_linkedin")    },
+      { key: "social_youtube",     value: get("social_youtube")     },
     ],
     { onConflict: "key" }
   );

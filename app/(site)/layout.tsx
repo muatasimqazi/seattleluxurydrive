@@ -10,6 +10,8 @@ export default async function SiteLayout({
 }) {
   const s = await getSettings();
 
+  const sameAs = [s.social_instagram, s.social_facebook, s.social_x, s.social_linkedin, s.social_youtube].filter(Boolean);
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -22,6 +24,7 @@ export default async function SiteLayout({
       streetAddress: s.site_address,
       addressCountry: "US",
     },
+    ...(sameAs.length > 0 && { sameAs }),
   };
 
   const webSiteSchema = {
@@ -47,6 +50,13 @@ export default async function SiteLayout({
         phone={s.contact_phone}
         email={s.contact_email}
         address={s.site_address}
+        social={{
+          instagram: s.social_instagram,
+          facebook: s.social_facebook,
+          x: s.social_x,
+          linkedin: s.social_linkedin,
+          youtube: s.social_youtube,
+        }}
       />
     </>
   );

@@ -228,6 +228,68 @@ export default async function SettingsPage({
           </p>
         </section>
 
+        {/* ── Social Media ── */}
+        <section className="border border-offwhite/8 p-6 space-y-5">
+          <div>
+            <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-lt mb-1">
+              Social Media
+            </p>
+            <p className="font-sans text-xs text-offwhite/55">
+              Leave blank to hide. Full URL including https://.
+            </p>
+          </div>
+
+          <Field label="Instagram">
+            <input
+              name="social_instagram"
+              type="url"
+              defaultValue={s.social_instagram}
+              placeholder="https://instagram.com/seattleluxurydrive"
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label="Facebook">
+            <input
+              name="social_facebook"
+              type="url"
+              defaultValue={s.social_facebook}
+              placeholder="https://facebook.com/seattleluxurydrive"
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label="X (Twitter)">
+            <input
+              name="social_x"
+              type="url"
+              defaultValue={s.social_x}
+              placeholder="https://x.com/seattleluxurydrive"
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label="LinkedIn">
+            <input
+              name="social_linkedin"
+              type="url"
+              defaultValue={s.social_linkedin}
+              placeholder="https://linkedin.com/company/seattleluxurydrive"
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label="YouTube">
+            <input
+              name="social_youtube"
+              type="url"
+              defaultValue={s.social_youtube}
+              placeholder="https://youtube.com/@seattleluxurydrive"
+              className={inputCls}
+            />
+          </Field>
+        </section>
+
         <button
           type="submit"
           className="bg-gold px-8 py-3 font-sans text-[11px] uppercase tracking-[0.2em] text-black hover:bg-gold-lt transition-colors"
