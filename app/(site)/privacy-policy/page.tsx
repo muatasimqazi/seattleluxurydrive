@@ -155,7 +155,10 @@ export default async function PrivacyPolicyPage() {
                 <p className="text-offwhite/80">
                   We use PostHog for product analytics to understand how users
                   navigate and interact with our Site. PostHog collects page view
-                  and interaction data. Data is processed in accordance with
+                  and interaction data, and may record anonymized session
+                  replays (e.g. mouse movement, clicks, and scrolling) to help
+                  us improve the Site; form field values are masked and not
+                  captured. Data is processed in accordance with
                   PostHog&apos;s privacy practices. You can learn more at{" "}
                   <a
                     href="https://posthog.com/privacy"
